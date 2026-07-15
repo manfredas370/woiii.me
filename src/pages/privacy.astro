@@ -1,0 +1,110 @@
+---
+import Base from "../layouts/Base.astro";
+import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
+---
+
+<Base
+  title="Privacy policy — WOIII.me"
+  description="The privacy policy for DIG for Discogs and the WOIII.me site: per-user OAuth, no analytics, no data collection, no sale or sharing of data."
+>
+  <section class="section">
+    <div class="wrap policy">
+      <h1>Privacy <span class="accent">policy</span></h1>
+      <p class="lede">
+        The short version: DIG reads Discogs data on your behalf, keeps as
+        little as technically necessary, and collects nothing about you. This
+        site has no analytics, no cookies, and no trackers.
+      </p>
+      <p class="updated">Last updated: 15 July 2026 · Applies to DIG for Discogs (the MCP server and REST API at <code>discogs-mcp.woiii.workers.dev</code>, and the Chrome side panel extension) and to this website.</p>
+
+      <h2>What DIG stores</h2>
+      <ul>
+        <li>
+          <strong>Your OAuth grant.</strong> When you sign in, Discogs issues
+          DIG a per-user access token. It is encrypted server-side inside the
+          OAuth grant and used only to make read requests to the Discogs API as
+          you. DIG never sees or stores your Discogs password.
+        </li>
+        <li>
+          <strong>Cached Discogs responses.</strong> To stay inside Discogs'
+          rate limits and keep answers fast, API responses are cached
+          server-side with short lifetimes: releases and masters for {CACHE_TTLS.releasesAndMasters},
+          version lists for {CACHE_TTLS.versions}, searches for {CACHE_TTLS.search},
+          and collections and wantlists for {CACHE_TTLS.collectionsAndWantlists}.
+          Cached entries expire on their own.
+        </li>
+      </ul>
+      <p>That's the whole list. There are no user profiles, no behavioral logs tied to you, and no data warehouse.</p>
+
+      <h2>What DIG doesn't do</h2>
+      <ul>
+        <li><strong>No analytics or tracking</strong> — not in the server, not in the extension, not on this site.</li>
+        <li><strong>No selling or sharing of data.</strong> Your data goes between you, DIG, and Discogs — nowhere else.</li>
+        <li><strong>No writes.</strong> DIG is read-only. It cannot change your collection, wantlist, or anything else on your Discogs account.</li>
+        <li><strong>No ads, no monetization.</strong> DIG is free and open source (<a href={DIG.repoUrl}>source code</a>).</li>
+      </ul>
+
+      <h2>The Chrome extension</h2>
+      <p>
+        The side panel runs locally in your browser and talks only to the DIG
+        server described above. It stores your sign-in session in your
+        browser's extension storage, on your machine. It does not read your
+        browsing history and has no access to pages outside discogs.com.
+      </p>
+
+      <h2>This website</h2>
+      <p>
+        Static pages, self-hosted fonts, no cookies, no analytics, no consent
+        banner needed — there is nothing to consent to.
+      </p>
+
+      <h2>Your AI assistant</h2>
+      <p>
+        When you use DIG through Claude, ChatGPT, or another assistant, your
+        conversation is handled by that assistant's provider under its own
+        privacy policy. DIG only receives the specific tool requests the
+        assistant makes (for example, "search for this album") and returns
+        Discogs data in response.
+      </p>
+
+      <h2>Revoking access</h2>
+      <ul>
+        <li>
+          Revoke DIG's access to your Discogs account at any time from your
+          Discogs settings, under <em>Applications</em>. This immediately
+          invalidates DIG's token.
+        </li>
+        <li>Sign out from the extension to end its session on your machine.</li>
+        <li>Remove the connector from your AI client to stop it from calling DIG.</li>
+      </ul>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about privacy: <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>
+        or <a href={DIG.issuesUrl}>GitHub Issues</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .policy h2 {
+    font-size: 1.4rem;
+    margin-top: calc(var(--space) * 6);
+    margin-bottom: calc(var(--space) * 2);
+  }
+  .policy ul {
+    padding-left: 1.2em;
+    display: grid;
+    gap: calc(var(--space) * 1.5);
+    max-width: var(--text-width);
+  }
+  .policy p {
+    margin-bottom: calc(var(--space) * 2);
+  }
+  .updated {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin-top: calc(var(--space) * 3);
+  }
+</style>

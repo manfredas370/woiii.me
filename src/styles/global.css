@@ -1,0 +1,280 @@
+/* ------------------------------------------------------------------ */
+/* Fonts — Geist (variable, shared with the extension) + Instrument   */
+/* Serif italic for accent words. Both self-hosted, ~92 KB total.     */
+/* ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/InstrumentSerif-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tokens — same graphite-MD3 family as the extension's sidepanel.css */
+/* ------------------------------------------------------------------ */
+:root {
+  --ink: #2a2b30;
+  --ink-muted: #5e5f66;
+  --canvas: #fdfdfd;
+  --surface: #f4f4f6;
+  --surface-high: #ececef;
+  --outline: #e3e3e8;
+  --outline-strong: #c2c3c9;
+  --link: #1a56b0;
+
+  /* Accent tints — pastel container + readable-on-container pairs */
+  --blue-tint: #e3ecf8;
+  --blue-ink: #1a56b0;
+  --green-tint: #e2efe1;
+  --green-ink: #1e5a2e;
+  --gold-tint: #f4eccf;
+  --gold-ink: #6b5410;
+  --red-tint: #f8e4e4;
+  --red-ink: #a03030;
+
+  --radius-card: 20px;
+  --radius-shot: 16px;
+  --space: 8px;
+  --content-width: 1080px;
+  --text-width: 46rem;
+
+  accent-color: var(--blue-ink);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f2f2f4;
+    --ink-muted: #bfc0c6;
+    --canvas: #202126;
+    --surface: #2a2b30;
+    --surface-high: #303137;
+    --outline: #3a3b42;
+    --outline-strong: #6c6d74;
+    --link: #8ab4f0;
+
+    --blue-tint: #24344d;
+    --blue-ink: #a7c6f2;
+    --green-tint: #243524;
+    --green-ink: #b0d4b0;
+    --gold-tint: #453d20;
+    --gold-ink: #ead9a0;
+    --red-tint: #4a2424;
+    --red-ink: #f0bcbc;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-family: "Geist", system-ui, -apple-system, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--canvas);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  font-weight: 650;
+}
+h2 {
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+}
+h3 {
+  font-size: 1.25rem;
+}
+
+p {
+  max-width: var(--text-width);
+}
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Accent words — the Bending Spoons steal: italic display serif,
+   tinted, inside an otherwise neutral Geist headline. */
+.accent {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--blue-ink);
+}
+
+code,
+pre {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.875em;
+}
+code {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+  padding: 0.1em 0.4em;
+}
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout primitives                                                   */
+/* ------------------------------------------------------------------ */
+.wrap {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: calc(var(--space) * 3);
+}
+
+.section {
+  padding-block: calc(var(--space) * 12);
+}
+@media (max-width: 640px) {
+  .section {
+    padding-block: calc(var(--space) * 8);
+  }
+}
+
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: calc(var(--space) * 2);
+}
+
+.lede {
+  font-size: 1.25rem;
+  color: var(--ink-muted);
+  margin-top: calc(var(--space) * 3);
+}
+
+/* Pill buttons — MD3 shapes: one filled, one outlined */
+.btn {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-weight: 550;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.btn.filled {
+  background: var(--ink);
+  color: var(--canvas);
+}
+.btn.filled:hover {
+  opacity: 0.88;
+}
+.btn.outlined {
+  border-color: var(--outline-strong);
+  color: var(--ink);
+}
+.btn.outlined:hover {
+  background: var(--surface);
+}
+
+/* Soft-rounded screenshot/product card on a tinted background */
+.shot-card {
+  border-radius: var(--radius-card);
+  padding: clamp(16px, 4vw, 40px);
+  overflow: hidden;
+}
+.shot-card.blue {
+  background: var(--blue-tint);
+}
+.shot-card.green {
+  background: var(--green-tint);
+}
+.shot-card.gold {
+  background: var(--gold-tint);
+}
+
+/* Code block with copy button */
+.codeblock {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  padding: 14px 52px 14px 16px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+.codeblock pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 1px solid var(--outline-strong);
+  background: var(--canvas);
+  color: var(--ink-muted);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.copy-btn:hover {
+  background: var(--surface-high);
+  color: var(--ink);
+}
+
+/* Focus visibility */
+:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  background: var(--canvas);
+  padding: 8px 16px;
+  z-index: 10;
+}
+.skip-link:focus {
+  left: 8px;
+}

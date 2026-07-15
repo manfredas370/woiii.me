@@ -1,0 +1,318 @@
+---
+import Base from "../layouts/Base.astro";
+import ProductCard from "../components/ProductCard.astro";
+import CodeBlock from "../components/CodeBlock.astro";
+import { DIG, MIX, RIG } from "../config/brand";
+---
+
+<Base
+  title="WOIII.me — AI-powered tools for music lovers"
+  description="Home of DIG for Discogs: pressing intelligence for your AI assistant and your browser. Which copy of this album should I buy? Answered with evidence, not folklore."
+>
+  <!-- Hero — one idea, lots of air -->
+  <section class="section hero">
+    <div class="wrap">
+      <h1>
+        Which <span class="accent">pressing</span> is actually worth&nbsp;buying?
+      </h1>
+      <p class="lede hero-lede">
+        DIG for Discogs answers with evidence, not folklore — surveying every
+        version of an album on Discogs and scoring each on community ratings,
+        collector demand, and audiophile markers.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn filled" href="/connect">Connect DIG</a>
+        <a class="btn outlined" href={DIG.repoUrl}>View on GitHub</a>
+      </div>
+      <p class="hero-fineprint">
+        DIG is free and open source, read-only, and runs on your own Discogs
+        account. No ads, no data collection.
+      </p>
+    </div>
+  </section>
+
+  <!-- Spotlight 1 — the assistant connector -->
+  <section class="section">
+    <div class="wrap spotlight">
+      <div class="spotlight-copy">
+        <p class="eyebrow">In your AI assistant</p>
+        <h2 class="shiver">Ask, and get a <span class="accent">verdict</span></h2>
+        <p>
+          Connect DIG to Claude, ChatGPT, or Codex and ask about any album.
+          It ranks the pressings with score breakdowns — original vs. reissue,
+          MFSL and half-speed masters, renowned mastering engineers, Japanese
+          pressings — and every verdict shows its evidence coverage.
+        </p>
+        <p class="honest-note">
+          Honest caveat: the first analysis of an album takes about 10 seconds.
+          Good answers are worth the wait.
+        </p>
+      </div>
+      <div class="shot-card blue">
+        <div class="chat-mock" role="img" aria-label="Example conversation: user asks which pressing of OK Computer to buy; the assistant ranks three pressings with scores and evidence">
+          <p class="chat-q">What's the best-sounding pressing of OK Computer?</p>
+          <div class="chat-a">
+            <p><strong>1. 2016 XL 2×LP reissue</strong> — 92/100 · cut from the original masters, widely rated 4.6★ by 3k+ owners</p>
+            <p><strong>2. 1997 UK first pressing</strong> — 88/100 · collector favourite, prices climbing</p>
+            <p><strong>3. 2017 US repress</strong> — 79/100 · solid value pick</p>
+            <p class="chat-meta">Evidence: 41 versions surveyed · community ratings + audiophile markers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spotlight 2 — the side panel -->
+  <section class="section">
+    <div class="wrap spotlight reverse">
+      <div class="spotlight-copy">
+        <p class="eyebrow">In your browser</p>
+        <h2 class="shiver">The same brain, on <span class="accent">discogs.com</span></h2>
+        <p>
+          The DIG side panel for Chrome shows pressing intelligence right next
+          to the listing you're looking at — scores, red flags, and better
+          alternatives while you browse or shop.
+        </p>
+        <p>
+          <a href="/connect#extension">Install the extension →</a>
+        </p>
+      </div>
+      <div class="shot-card green">
+        <div class="panel-mock" role="img" aria-label="Example side panel: a release page with a DIG score of 84, three signals listed, and a suggestion of a better-rated pressing">
+          <p class="panel-title">This pressing <span class="panel-score">84</span></p>
+          <ul>
+            <li>✓ Original mastering, well-rated (4.4★)</li>
+            <li>✓ Sought by 1.2k collectors</li>
+            <li>△ 2019 repress rates higher for playback</li>
+          </ul>
+          <p class="panel-meta">Based on 27 versions of this master</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Honest numbers -->
+  <section class="section numbers">
+    <div class="wrap">
+      <dl class="numbers-row">
+        <div>
+          <dt>MCP tools</dt>
+          <dd><span class="accent">{DIG.toolCount}</span></dd>
+        </div>
+        <div>
+          <dt>Slash-command prompts</dt>
+          <dd><span class="accent">{DIG.promptCount}</span></dd>
+        </div>
+        <div>
+          <dt>REST endpoints</dt>
+          <dd><span class="accent">{DIG.restEndpointCount}</span></dd>
+        </div>
+        <div>
+          <dt>Trackers &amp; ads</dt>
+          <dd><span class="accent">0</span></dd>
+        </div>
+      </dl>
+      <p class="numbers-note">
+        Scores are based on reputation and community data, not measured sound —
+        and every verdict says how much evidence sits behind it.
+      </p>
+    </div>
+  </section>
+
+  <!-- Product family -->
+  <section class="section" id="products">
+    <div class="wrap">
+      <p class="eyebrow">The family</p>
+      <h2 class="shiver">One brand, <span class="accent">three</span> tools</h2>
+      <div class="family-grid">
+        <ProductCard
+          token={DIG.token}
+          tint="blue"
+          description="Pressing intelligence for Discogs — in your AI assistant and your browser. Live now."
+          href="/connect"
+        />
+        <ProductCard
+          token={MIX.token}
+          tint="green"
+          badge={MIX.badge}
+          description={MIX.description}
+        />
+        <ProductCard
+          token={RIG.token}
+          tint="gold"
+          badge={RIG.badge}
+          description={RIG.description}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="section closing">
+    <div class="wrap">
+      <h2 class="shiver">Two minutes to <span class="accent">connect</span></h2>
+      <p class="lede">One URL, any Discogs account, no invite needed.</p>
+      <div class="closing-code">
+        <CodeBlock code={DIG.mcpUrl} label="MCP server URL" />
+      </div>
+      <div class="hero-ctas">
+        <a class="btn filled" href="/connect">Open the connect guide</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: calc(var(--space) * 16) calc(var(--space) * 14);
+    text-align: center;
+  }
+  .hero h1 {
+    max-width: 17ch;
+    margin-inline: auto;
+  }
+  .hero-lede {
+    margin-inline: auto;
+    max-width: 38rem;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: calc(var(--space) * 2);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: calc(var(--space) * 5);
+  }
+  .hero-fineprint {
+    margin: calc(var(--space) * 4) auto 0;
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+  }
+
+  .spotlight {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: calc(var(--space) * 8);
+    align-items: center;
+  }
+  .spotlight.reverse {
+    grid-template-columns: 6fr 5fr;
+  }
+  .spotlight.reverse .spotlight-copy {
+    order: 2;
+  }
+  @media (max-width: 800px) {
+    .spotlight,
+    .spotlight.reverse {
+      grid-template-columns: 1fr;
+    }
+    .spotlight.reverse .spotlight-copy {
+      order: 0;
+    }
+  }
+  .spotlight-copy p {
+    margin-top: calc(var(--space) * 2);
+  }
+  .honest-note {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+  }
+
+  /* Chat + panel mocks — placeholder hero imagery until real
+     screenshots land; swap with <Shot> images later. */
+  .chat-mock,
+  .panel-mock {
+    background: var(--canvas);
+    border-radius: var(--radius-shot);
+    border: 1px solid var(--outline);
+    padding: calc(var(--space) * 3);
+    font-size: 0.95rem;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+  .chat-q {
+    background: var(--surface-high);
+    border-radius: 14px 14px 4px 14px;
+    padding: 10px 14px;
+    font-weight: 550;
+    margin-bottom: calc(var(--space) * 2);
+    margin-left: 15%;
+  }
+  .chat-a p {
+    margin-bottom: calc(var(--space) * 1.5);
+    line-height: 1.45;
+  }
+  .chat-meta,
+  .panel-meta {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+  }
+  .panel-title {
+    font-weight: 650;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-score {
+    background: var(--green-tint);
+    color: var(--green-ink);
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 4px 14px;
+  }
+  .panel-mock ul {
+    list-style: none;
+    padding: 0;
+    margin-block: calc(var(--space) * 2);
+    display: grid;
+    gap: 8px;
+  }
+
+  .numbers {
+    background: var(--surface);
+  }
+  .numbers-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: calc(var(--space) * 4);
+    text-align: center;
+  }
+  .numbers-row dt {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    order: 2;
+  }
+  .numbers-row dd {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .numbers-row > div {
+    display: flex;
+    flex-direction: column;
+  }
+  .numbers-note {
+    text-align: center;
+    margin: calc(var(--space) * 5) auto 0;
+    color: var(--ink-muted);
+  }
+
+  .family-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: calc(var(--space) * 3);
+    margin-top: calc(var(--space) * 5);
+  }
+
+  .closing {
+    text-align: center;
+  }
+  .closing .lede {
+    margin-inline: auto;
+  }
+  .closing-code {
+    max-width: 560px;
+    margin: calc(var(--space) * 4) auto 0;
+    text-align: left;
+  }
+</style>

@@ -1,0 +1,253 @@
+---
+import "../styles/global.css";
+import { BRAND, DIG, SUPPORT, DISCOGS_ATTRIBUTION } from "../config/brand";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/Geist-Variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap header-row">
+        <a class="wordmark" href="/">WOIII<span class="wordmark-dot">.me</span></a>
+        <nav aria-label="Main">
+          <a href="/#products">Products</a>
+          <a href="/connect">Connect</a>
+          <a href="/privacy">Privacy</a>
+          <a href={DIG.repoUrl}>GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-wordmark">WOIII<span class="wordmark-dot">.me</span></p>
+            <p class="footer-tag">AI-powered tools for music lovers.</p>
+          </div>
+          <div id="support">
+            <h2 class="footer-heading">Support</h2>
+            <ul>
+              <li><a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a></li>
+              <li><a href={DIG.issuesUrl}>GitHub Issues</a> — bugs</li>
+              <li><a href={DIG.discussionsUrl}>GitHub Discussions</a> — questions &amp; ideas</li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="footer-heading">{DIG.name}</h2>
+            <ul>
+              <li><a href="/connect">Connect guide</a></li>
+              <li><a href={DIG.repoUrl}>Source code</a> (MIT)</li>
+              <li><a href={DIG.releasesUrl}>Releases</a></li>
+              <li><a href="/privacy">Privacy policy</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="footer-legal">
+          No analytics, no cookies, no trackers — on this site or in the products.
+        </p>
+        <p class="footer-legal">{DISCOGS_ATTRIBUTION}</p>
+        <p class="footer-legal">© {new Date().getFullYear()} {BRAND.publisher}</p>
+      </div>
+    </footer>
+
+    <style>
+      .site-header {
+        border-bottom: 1px solid var(--outline);
+        background: var(--canvas);
+      }
+      .header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: calc(var(--space) * 3);
+        padding-block: calc(var(--space) * 2);
+      }
+      .wordmark,
+      .footer-wordmark {
+        font-weight: 700;
+        font-size: 1.2rem;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .wordmark-dot {
+        color: var(--blue-ink);
+      }
+      .site-header nav {
+        display: flex;
+        gap: calc(var(--space) * 3);
+        flex-wrap: wrap;
+      }
+      .site-header nav a {
+        color: var(--ink-muted);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+      .site-header nav a:hover {
+        color: var(--ink);
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--outline);
+        background: var(--surface);
+        padding-block: calc(var(--space) * 8) calc(var(--space) * 5);
+        margin-top: calc(var(--space) * 12);
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: calc(var(--space) * 5);
+        margin-bottom: calc(var(--space) * 6);
+      }
+      .footer-heading {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink-muted);
+        margin-bottom: calc(var(--space) * 1.5);
+      }
+      .footer-tag {
+        color: var(--ink-muted);
+        margin-top: calc(var(--space) * 1);
+      }
+      .site-footer ul {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        gap: 6px;
+        color: var(--ink-muted);
+        font-size: 0.95rem;
+      }
+      .footer-legal {
+        font-size: 0.8125rem;
+        color: var(--ink-muted);
+        max-width: none;
+        margin-top: calc(var(--space) * 1);
+      }
+    </style>
+
+    <script>
+      // Progressive enhancement only — the site works fully without JS.
+
+      // 1) Copy buttons on code blocks.
+      for (const btn of document.querySelectorAll<HTMLButtonElement>(".copy-btn")) {
+        btn.addEventListener("click", async () => {
+          const code = btn.closest(".codeblock")?.querySelector("code");
+          if (!code) return;
+          try {
+            await navigator.clipboard.writeText(code.textContent ?? "");
+            btn.textContent = "Copied";
+          } catch {
+            // Clipboard unavailable — select the text so ⌘C still works.
+            getSelection()?.selectAllChildren(code);
+            btn.textContent = "Press ⌘C";
+          }
+          setTimeout(() => (btn.textContent = "Copy"), 1500);
+        });
+      }
+
+      // 2) Per-letter "shiver" reveal on section headlines (.shiver),
+      //    once, on scroll-into-view. Static under reduced motion.
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const headlines = document.querySelectorAll<HTMLElement>(".shiver");
+      if (!reduced && headlines.length && "IntersectionObserver" in window) {
+        for (const h of headlines) {
+          const frag = document.createDocumentFragment();
+          for (const node of [...h.childNodes]) {
+            if (node.nodeType === Node.TEXT_NODE) {
+              for (const ch of node.textContent ?? "") {
+                if (ch === " ") {
+                  frag.append(" ");
+                } else {
+                  const s = document.createElement("span");
+                  s.className = "shiver-ch";
+                  s.textContent = ch;
+                  frag.append(s);
+                }
+              }
+            } else {
+              frag.append(node); // keep .accent spans intact
+            }
+          }
+          h.replaceChildren(frag);
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              io.unobserve(e.target);
+              const chars = e.target.querySelectorAll(".shiver-ch");
+              chars.forEach((c, i) => {
+                (c as HTMLElement).style.animationDelay = `${i * 18}ms`;
+                c.classList.add("shiver-run");
+              });
+            }
+          },
+          { threshold: 0.4 }
+        );
+        for (const h of headlines) io.observe(h);
+      }
+    </script>
+
+    <style is:global>
+      .shiver-ch {
+        display: inline-block;
+      }
+      .shiver-run {
+        animation: shiver 0.45s ease both;
+      }
+      @keyframes shiver {
+        0% {
+          opacity: 0;
+          transform: translateY(0.18em) rotate(3deg);
+        }
+        60% {
+          opacity: 1;
+          transform: translateY(-0.04em) rotate(-1.5deg);
+        }
+        100% {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .shiver-run {
+          animation: none;
+        }
+      }
+    </style>
+  </body>
+</html>

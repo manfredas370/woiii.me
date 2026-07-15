@@ -1,0 +1,26 @@
+---
+interface Props {
+  code: string;
+  label?: string;
+}
+const { code, label } = Astro.props;
+---
+
+<div class="codeblock">
+  {label && <span class="codeblock-label">{label}</span>}
+  <pre><code>{code}</code></pre>
+  <button class="copy-btn" type="button" aria-label={`Copy ${label ?? "code"}`}>Copy</button>
+</div>
+
+<style>
+  .codeblock-label {
+    display: block;
+    padding-right: 48px; /* keep clear of the Copy button */
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+</style>

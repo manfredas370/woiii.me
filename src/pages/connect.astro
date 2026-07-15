@@ -1,0 +1,395 @@
+---
+import Base from "../layouts/Base.astro";
+import CodeBlock from "../components/CodeBlock.astro";
+import Shot from "../components/Shot.astro";
+import { DIG } from "../config/brand";
+
+const clients = [
+  { id: "claude-web", label: "claude.ai", note: "Custom connector", tint: "blue" },
+  { id: "claude-desktop", label: "Claude Desktop", note: "Custom connector", tint: "blue" },
+  { id: "claude-code", label: "Claude Code", note: "One command", tint: "gold" },
+  { id: "chatgpt", label: "ChatGPT", note: "Developer mode", tint: "green" },
+  { id: "codex", label: "Codex CLI", note: "config.toml", tint: "gold" },
+  { id: "extension", label: "Chrome extension", note: "Load unpacked", tint: "red" },
+] as const;
+
+const codexToml = `[mcp_servers.discogs]
+url = "${DIG.mcpUrl}"`;
+---
+
+<Base
+  title="Connect DIG for Discogs — WOIII.me"
+  description="Step-by-step guide to connecting DIG for Discogs to claude.ai, Claude Desktop, Claude Code, ChatGPT, Codex CLI, or installing the Chrome side panel."
+>
+  <section class="section intro">
+    <div class="wrap">
+      <h1>Connect <span class="accent">DIG</span></h1>
+      <p class="lede">
+        One server, one browser sign-in with your own Discogs account. Free,
+        read-only, no invite needed. Pick your client below — you'll paste this
+        URL in most of the steps:
+      </p>
+      <div class="intro-code">
+        <CodeBlock code={DIG.mcpUrl} label="MCP server URL" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Client picker rail -->
+  <nav class="wrap rail-wrap" aria-label="Choose your client">
+    <ul class="rail">
+      {
+        clients.map((c) => (
+          <li>
+            <a class={`rail-card ${c.tint}`} href={`#${c.id}`}>
+              <span class="rail-label">{c.label}</span>
+              <span class="rail-note">{c.note}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <!-- claude.ai -->
+  <section class="section guide" id="claude-web">
+    <div class="wrap">
+      <h2>claude.ai <span class="guide-sub">custom connector</span></h2>
+      <p class="guide-req">
+        Requires a Claude plan that allows custom connectors. Works in the web
+        app.
+      </p>
+      <ol class="steps">
+        <li>
+          <p>Open <strong>Settings → Connectors</strong> (your initials, bottom left → Settings).</p>
+          <Shot
+            src="/shots/claude-web-1-settings.png"
+            alt="claude.ai settings page with the Connectors section visible"
+            caption="Settings → Connectors on claude.ai"
+          />
+        </li>
+        <li>
+          <p>Click <strong>Add custom connector</strong>, name it <code>DIG for Discogs</code>, and paste the server URL:</p>
+          <CodeBlock code={DIG.mcpUrl} />
+          <Shot
+            src="/shots/claude-web-2-add-connector.png"
+            alt="Add custom connector dialog with name and URL fields filled in"
+            caption="The add-connector dialog — name and URL are all you need"
+          />
+        </li>
+        <li>
+          <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect — your browser opens Discogs, you sign in, and you're done.</p>
+          <Shot
+            src="/shots/claude-web-3-authorize.png"
+            alt="Discogs authorization page asking to allow the DIG application"
+            caption="One-time Discogs sign-in — DIG only ever gets read access"
+          />
+        </li>
+        <li>
+          <p>Try it: <em>"What's the best pressing of OK Computer?"</em></p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Claude Desktop -->
+  <section class="section guide" id="claude-desktop">
+    <div class="wrap">
+      <h2>Claude Desktop <span class="guide-sub">custom connector</span></h2>
+      <p class="guide-req">
+        Same flow as claude.ai — connectors added on the web are available in
+        the desktop app with the same account, and vice versa.
+      </p>
+      <ol class="steps">
+        <li>
+          <p>Open <strong>Settings → Connectors</strong> in the desktop app.</p>
+          <Shot
+            src="/shots/claude-desktop-1-settings.png"
+            alt="Claude Desktop settings window showing the Connectors tab"
+            caption="Settings → Connectors in Claude Desktop"
+          />
+        </li>
+        <li>
+          <p>Click <strong>Add custom connector</strong> and paste the server URL:</p>
+          <CodeBlock code={DIG.mcpUrl} />
+        </li>
+        <li>
+          <p>Enable it in a chat and complete the one-time Discogs sign-in when prompted.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Claude Code -->
+  <section class="section guide" id="claude-code">
+    <div class="wrap">
+      <h2>Claude Code <span class="guide-sub">one command</span></h2>
+      <ol class="steps">
+        <li>
+          <p>Run this in your terminal:</p>
+          <CodeBlock code={DIG.claudeCodeOneLiner} />
+        </li>
+        <li>
+          <p>Inside a Claude Code session, run <code>/mcp</code> and pick <strong>discogs</strong> to complete the browser sign-in.</p>
+        </li>
+        <li>
+          <p>Slash commands like <code>/find-best-pressing</code> and <code>/rank-my-wantlist</code> are available right away.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ChatGPT -->
+  <section class="section guide" id="chatgpt">
+    <div class="wrap">
+      <h2>ChatGPT <span class="guide-sub">developer mode</span></h2>
+      <p class="guide-req">
+        Web only (chatgpt.com), Plus or Pro plan. Developer-mode apps get read
+        tools — which is all DIG has, so nothing is missing.
+      </p>
+      <ol class="steps">
+        <li>
+          <p>Open <strong>Settings → Apps &amp; Connectors → Advanced settings</strong> and switch on <strong>Developer mode</strong>.</p>
+          <Shot
+            src="/shots/chatgpt-1-devmode.png"
+            alt="ChatGPT advanced settings with the developer mode toggle enabled"
+            caption="Developer mode lives under Apps & Connectors → Advanced settings"
+          />
+        </li>
+        <li>
+          <p>Back in <strong>Apps &amp; Connectors</strong>, choose <strong>Create</strong>, name the app <code>DIG for Discogs</code>, set authentication to <strong>OAuth</strong>, and paste the server URL:</p>
+          <CodeBlock code={DIG.mcpUrl} />
+          <Shot
+            src="/shots/chatgpt-2-create-app.png"
+            alt="ChatGPT create app dialog with the MCP server URL field filled in"
+            caption="The create-app dialog in developer mode"
+          />
+        </li>
+        <li>
+          <p>Complete the Discogs sign-in when prompted, then mention the app in a chat (type <code>/</code> or pick it from the tools menu).</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Codex CLI -->
+  <section class="section guide" id="codex">
+    <div class="wrap">
+      <h2>Codex CLI <span class="guide-sub">config.toml</span></h2>
+      <ol class="steps">
+        <li>
+          <p>Add this block to <code>~/.codex/config.toml</code>:</p>
+          <CodeBlock code={codexToml} />
+        </li>
+        <li>
+          <p>Sign in with your Discogs account:</p>
+          <CodeBlock code="codex mcp login discogs" />
+        </li>
+        <li>
+          <p>That's it — ask Codex about pressings, your collection, or your wantlist.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Chrome extension -->
+  <section class="section guide" id="extension">
+    <div class="wrap">
+      <h2>Chrome side panel <span class="guide-sub">load unpacked</span></h2>
+      <p class="guide-req">
+        Requires Chrome {DIG.chromeMinVersion}+. Until the Chrome Web Store
+        listing is live, the extension installs from source — it takes about
+        two minutes.
+      </p>
+      <ol class="steps">
+        <li>
+          <p>Download the source from <a href={DIG.repoUrl}>GitHub</a> — the green <strong>Code</strong> button → <strong>Download ZIP</strong> — and unzip it.</p>
+          <Shot
+            src="/shots/ext-1-download.png"
+            alt="GitHub repository page with the Code button menu open and Download ZIP highlighted"
+            caption="Grab the ZIP straight from the repository"
+          />
+        </li>
+        <li>
+          <p>Open <code>chrome://extensions</code> and switch on <strong>Developer mode</strong> (top right).</p>
+          <Shot
+            src="/shots/ext-2-devmode.png"
+            alt="Chrome extensions page with the developer mode toggle in the top right corner enabled"
+            caption="Developer mode unlocks the Load unpacked button"
+          />
+        </li>
+        <li>
+          <p>Click <strong>Load unpacked</strong> and select the <code>extension/</code> folder inside the unzipped download.</p>
+          <Shot
+            src="/shots/ext-3-load-unpacked.png"
+            alt="File picker selecting the extension folder from the unzipped repository"
+            caption="Pick the extension/ folder — not the repository root"
+          />
+        </li>
+        <li>
+          <p>Visit any release on <a href="https://www.discogs.com">discogs.com</a>, open the side panel, and sign in with your Discogs account.</p>
+          <Shot
+            src="/shots/ext-4-sidepanel.png"
+            alt="The DIG side panel open next to a Discogs release page showing a pressing score"
+            caption="The side panel scores the pressing you're looking at"
+          />
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- After connecting -->
+  <section class="section guide" id="after">
+    <div class="wrap">
+      <h2>Good to know</h2>
+      <ul class="notes">
+        <li>
+          <strong>First analysis is slow — on purpose.</strong> The first look at
+          an album surveys every version and takes ~10 seconds. Repeat questions
+          are fast (results are cached).
+        </li>
+        <li>
+          <strong>Try the slash commands.</strong> In clients that support MCP
+          prompts: <code>/find-best-pressing</code>, <code>/best-value-pressing</code>,
+          <code>/rank-my-wantlist</code>, <code>/recommend-by-mood</code> and more.
+        </li>
+        <li>
+          <strong>Older client?</strong> If your client only supports SSE
+          transport, use <code>{DIG.sseUrl}</code>.
+        </li>
+        <li>
+          <strong>Changed your mind?</strong> Revoke DIG's access any time in
+          your Discogs account settings under authorized applications. Details in
+          the <a href="/privacy">privacy policy</a>.
+        </li>
+        <li>
+          <strong>Stuck?</strong> Ask in
+          <a href={DIG.discussionsUrl}>GitHub Discussions</a> or open an
+          <a href={DIG.issuesUrl}>issue</a>.
+        </li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro {
+    padding-bottom: calc(var(--space) * 6);
+  }
+  .intro-code {
+    max-width: 640px;
+    margin-top: calc(var(--space) * 4);
+  }
+
+  .rail-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--canvas);
+    padding-block: calc(var(--space) * 2);
+  }
+  .rail {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: calc(var(--space) * 2);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rail-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 150px;
+    border-radius: 16px;
+    padding: 12px 18px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .rail-card.blue {
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+  }
+  .rail-card.green {
+    background: var(--green-tint);
+    color: var(--green-ink);
+  }
+  .rail-card.gold {
+    background: var(--gold-tint);
+    color: var(--gold-ink);
+  }
+  .rail-card.red {
+    background: var(--red-tint);
+    color: var(--red-ink);
+  }
+  .rail-card:hover {
+    filter: brightness(0.97);
+  }
+  .rail-label {
+    font-weight: 650;
+  }
+  .rail-note {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+
+  .guide {
+    border-top: 1px solid var(--outline);
+    scroll-margin-top: 90px;
+  }
+  .guide-sub {
+    font-size: 0.55em;
+    font-weight: 500;
+    color: var(--ink-muted);
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+  .guide-req {
+    color: var(--ink-muted);
+    margin-top: calc(var(--space) * 1.5);
+    font-size: 0.95rem;
+  }
+
+  .steps {
+    margin-top: calc(var(--space) * 4);
+    padding-left: 0;
+    list-style: none;
+    counter-reset: step;
+    display: grid;
+    gap: calc(var(--space) * 4);
+    max-width: 46rem;
+  }
+  .steps > li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 56px;
+  }
+  .steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: var(--surface-high);
+    color: var(--ink);
+    font-weight: 650;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .steps .codeblock {
+    margin-top: calc(var(--space) * 1.5);
+  }
+
+  .notes {
+    list-style: none;
+    padding: 0;
+    margin-top: calc(var(--space) * 4);
+    display: grid;
+    gap: calc(var(--space) * 2.5);
+    max-width: 46rem;
+  }
+</style>
