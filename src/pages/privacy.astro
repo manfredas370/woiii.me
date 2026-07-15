@@ -89,22 +89,28 @@ import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
 
 <style>
   .policy h2 {
-    font-size: 1.4rem;
-    margin-top: calc(var(--space) * 6);
-    margin-bottom: calc(var(--space) * 2);
+    font-size: 1.35rem;
+    margin-top: calc(var(--space) * 7);
+    margin-bottom: calc(var(--space) * 2.5);
+    padding-top: calc(var(--space) * 4);
+    border-top: 1px solid var(--line-soft);
+    max-width: var(--text-width);
   }
   .policy ul {
-    padding-left: 1.2em;
+    padding-left: 1.1em;
     display: grid;
-    gap: calc(var(--space) * 1.5);
+    gap: calc(var(--space) * 1.75);
     max-width: var(--text-width);
+  }
+  .policy li::marker {
+    color: var(--ink-faint);
   }
   .policy p {
     margin-bottom: calc(var(--space) * 2);
   }
   .updated {
     font-size: 0.875rem;
-    color: var(--ink-muted);
+    color: var(--ink-tertiary);
     margin-top: calc(var(--space) * 3);
   }
 </style>
