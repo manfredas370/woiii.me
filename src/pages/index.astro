@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import ProductCard from "../components/ProductCard.astro";
+import ProductRing from "../components/ProductRing.astro";
 import CodeBlock from "../components/CodeBlock.astro";
 import { DIG, MIX, RIG } from "../config/brand";
 ---
@@ -139,9 +140,14 @@ import { DIG, MIX, RIG } from "../config/brand";
 
   <!-- Product family -->
   <section class="section" id="products">
-    <div class="wrap">
+    <div class="wrap products-head">
       <p class="eyebrow">The family</p>
       <h2 class="shiver">One brand, <span class="accent">three</span> tools</h2>
+    </div>
+    <div class="ring-holder">
+      <ProductRing />
+    </div>
+    <div class="wrap">
       <div class="family-grid">
         <ProductCard
           token={DIG.token}
@@ -167,6 +173,7 @@ import { DIG, MIX, RIG } from "../config/brand";
       </div>
     </div>
   </section>
+
 
   <!-- Closing CTA -->
   <section class="section closing">
@@ -488,11 +495,27 @@ import { DIG, MIX, RIG } from "../config/brand";
   /* ------------------------------------------------------------ */
   /* Family grid + closing                                         */
   /* ------------------------------------------------------------ */
+  .products-head {
+    text-align: center;
+  }
+  .ring-holder {
+    display: none;
+    margin-top: calc(var(--space) * 6);
+  }
   .family-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: calc(var(--space) * 3);
     margin-top: calc(var(--space) * 5);
+  }
+  /* wide screens: the wrapped ring replaces the static grid */
+  @media (min-width: 900px) {
+    .ring-holder {
+      display: block;
+    }
+    .family-grid {
+      display: none;
+    }
   }
 
   .closing {
