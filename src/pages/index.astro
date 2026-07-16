@@ -1,22 +1,29 @@
 ---
 import Base from "../layouts/Base.astro";
 import ProductCard from "../components/ProductCard.astro";
-import ProductRing from "../components/ProductRing.astro";
 import CodeBlock from "../components/CodeBlock.astro";
 import { DIG, MIX, RIG } from "../config/brand";
+
+const detects = [
+  "Original vs. reissue",
+  "MFSL & half-speed masters",
+  "Renowned mastering engineers",
+  "Japanese pressings",
+  "Community ratings",
+  "Collector demand",
+];
 ---
 
 <Base
   title="WOIII.me — AI-powered tools for music lovers"
   description="Home of DIG for Discogs: pressing intelligence for your AI assistant and your browser. Which copy of this album should I buy? Answered with evidence, not folklore."
 >
-  <!-- Hero — one idea, lots of air, run-out grooves behind -->
-  <section class="section hero">
-    <div class="hero-grooves" aria-hidden="true"></div>
+  <!-- Hero — calm, centered, big floating product artifact -->
+  <section class="hero">
     <div class="wrap">
       <p class="kicker">
         <span class="kicker-token">woiii.DIG</span>
-        <span class="kicker-live"><span class="kicker-dot"></span>live now</span>
+        <span class="kicker-live"><span class="kicker-dot"></span>Live now</span>
       </p>
       <h1>
         Which <span class="accent">pressing</span> is actually worth&nbsp;buying?
@@ -35,6 +42,26 @@ import { DIG, MIX, RIG } from "../config/brand";
         no data collection
       </p>
     </div>
+
+    <!-- the money shot: a large assistant window floating on the paper -->
+    <div class="hero-artifact">
+      <div class="window" role="img" aria-label="Example conversation: user asks which pressing of OK Computer to buy; the assistant calls the find_best_pressing tool and ranks three pressings with scores and evidence">
+        <div class="window-bar">
+          <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="window-title">Claude</span>
+        </div>
+        <div class="window-body chat">
+          <p class="chat-q">What's the best-sounding pressing of OK Computer?</p>
+          <p class="tool-chip"><span class="tool-glyph">⚙</span> find_best_pressing · axis: sonic</p>
+          <div class="chat-a">
+            <p class="rank"><span class="rank-n">1</span><span><strong>2016 XL 2×LP reissue</strong> — 92/100<br /><span class="rank-why">cut from the original masters · 4.6★ from 3k+ owners</span></span></p>
+            <p class="rank"><span class="rank-n">2</span><span><strong>1997 UK first pressing</strong> — 88/100<br /><span class="rank-why">collector favourite, prices climbing</span></span></p>
+            <p class="rank"><span class="rank-n">3</span><span><strong>2017 US repress</strong> — 79/100<br /><span class="rank-why">solid value pick</span></span></p>
+            <p class="chat-meta">Evidence: 41 versions surveyed · community ratings + audiophile markers</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Spotlight 1 — the assistant connector -->
@@ -42,7 +69,7 @@ import { DIG, MIX, RIG } from "../config/brand";
     <div class="wrap spotlight">
       <div class="spotlight-copy">
         <p class="eyebrow">In your AI assistant</p>
-        <h2 class="shiver">Ask, and get a <span class="accent">verdict</span></h2>
+        <h2>Ask, and get a <span class="accent">verdict</span></h2>
         <p>
           Connect DIG to Claude, ChatGPT, or Codex and ask about any album.
           It ranks the pressings with score breakdowns — original vs. reissue,
@@ -54,23 +81,11 @@ import { DIG, MIX, RIG } from "../config/brand";
           Good answers are worth the wait.
         </p>
       </div>
-      <div class="shot-card blue">
-        <div class="window" role="img" aria-label="Example conversation: user asks which pressing of OK Computer to buy; the assistant calls the find_best_pressing tool and ranks three pressings with scores and evidence">
-          <div class="window-bar">
-            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="window-title">Claude</span>
-          </div>
-          <div class="window-body chat">
-            <p class="chat-q">What's the best-sounding pressing of OK Computer?</p>
-            <p class="tool-chip"><span class="tool-glyph">⚙</span> find_best_pressing · axis: sonic</p>
-            <div class="chat-a">
-              <p class="rank"><span class="rank-n">1</span><span><strong>2016 XL 2×LP reissue</strong> — 92/100<br /><span class="rank-why">cut from the original masters · 4.6★ from 3k+ owners</span></span></p>
-              <p class="rank"><span class="rank-n">2</span><span><strong>1997 UK first pressing</strong> — 88/100<br /><span class="rank-why">collector favourite, prices climbing</span></span></p>
-              <p class="rank"><span class="rank-n">3</span><span><strong>2017 US repress</strong> — 79/100<br /><span class="rank-why">solid value pick</span></span></p>
-              <p class="chat-meta">Evidence: 41 versions surveyed · community ratings + audiophile markers</p>
-            </div>
-          </div>
-        </div>
+      <div class="detects-card">
+        <p class="detects-head">What it weighs</p>
+        <ul class="detects-grid">
+          {detects.map((d) => <li>{d}</li>)}
+        </ul>
       </div>
     </div>
   </section>
@@ -80,7 +95,7 @@ import { DIG, MIX, RIG } from "../config/brand";
     <div class="wrap spotlight reverse">
       <div class="spotlight-copy">
         <p class="eyebrow">In your browser</p>
-        <h2 class="shiver">The same brain, on <span class="accent">discogs.com</span></h2>
+        <h2>The same brain, on <span class="accent">discogs.com</span></h2>
         <p>
           The DIG side panel for Chrome shows pressing intelligence right next
           to the listing you're looking at — scores, red flags, and better
@@ -111,30 +126,32 @@ import { DIG, MIX, RIG } from "../config/brand";
   </section>
 
   <!-- Honest numbers -->
-  <section class="section numbers">
+  <section class="numbers-section">
     <div class="wrap">
-      <dl class="numbers-row">
-        <div>
-          <dt>MCP tools</dt>
-          <dd><span class="accent">{DIG.toolCount}</span></dd>
-        </div>
-        <div>
-          <dt>Slash-command prompts</dt>
-          <dd><span class="accent">{DIG.promptCount}</span></dd>
-        </div>
-        <div>
-          <dt>REST endpoints</dt>
-          <dd><span class="accent">{DIG.restEndpointCount}</span></dd>
-        </div>
-        <div>
-          <dt>Trackers &amp; ads</dt>
-          <dd><span class="accent">0</span></dd>
-        </div>
-      </dl>
-      <p class="numbers-note">
-        Scores are based on reputation and community data, not measured sound —
-        and every verdict says how much evidence sits behind it.
-      </p>
+      <div class="numbers-card">
+        <dl class="numbers-row">
+          <div>
+            <dd><span class="accent">{DIG.toolCount}</span></dd>
+            <dt>MCP tools</dt>
+          </div>
+          <div>
+            <dd><span class="accent">{DIG.promptCount}</span></dd>
+            <dt>Slash-command prompts</dt>
+          </div>
+          <div>
+            <dd><span class="accent">{DIG.restEndpointCount}</span></dd>
+            <dt>REST endpoints</dt>
+          </div>
+          <div>
+            <dd><span class="accent">0</span></dd>
+            <dt>Trackers &amp; ads</dt>
+          </div>
+        </dl>
+        <p class="numbers-note">
+          Scores are based on reputation and community data, not measured sound —
+          and every verdict says how much evidence sits behind it.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -142,31 +159,28 @@ import { DIG, MIX, RIG } from "../config/brand";
   <section class="section" id="products">
     <div class="wrap products-head">
       <p class="eyebrow">The family</p>
-      <h2 class="shiver">One brand, <span class="accent">three</span> tools</h2>
-    </div>
-    <div class="ring-holder">
-      <ProductRing />
+      <h2>One brand, <span class="accent">three</span> tools</h2>
     </div>
     <div class="wrap">
       <div class="family-grid">
         <ProductCard
           token={DIG.token}
           catalog="WOIII·001"
-          tint="blue"
+          tint="green"
           description="Pressing intelligence for Discogs — in your AI assistant and your browser. Live now."
           href="/connect"
         />
         <ProductCard
           token={MIX.token}
           catalog="WOIII·002"
-          tint="green"
+          tint="gold"
           badge={MIX.badge}
           description={MIX.description}
         />
         <ProductCard
           token={RIG.token}
           catalog="WOIII·003"
-          tint="gold"
+          tint="clay"
           badge={RIG.badge}
           description={RIG.description}
         />
@@ -174,17 +188,18 @@ import { DIG, MIX, RIG } from "../config/brand";
     </div>
   </section>
 
-
   <!-- Closing CTA -->
   <section class="section closing">
     <div class="wrap">
-      <h2 class="shiver">Two minutes to <span class="accent">connect</span></h2>
-      <p class="lede">One URL, any Discogs account, no invite needed.</p>
-      <div class="closing-code">
-        <CodeBlock code={DIG.mcpUrl} label="MCP server URL" />
-      </div>
-      <div class="hero-ctas">
-        <a class="btn filled" href="/connect">Open the connect guide</a>
+      <div class="closing-card">
+        <h2>Two minutes to <span class="accent">connect</span></h2>
+        <p class="lede">One URL, any Discogs account, no invite needed.</p>
+        <div class="closing-code">
+          <CodeBlock code={DIG.mcpUrl} label="MCP server URL" />
+        </div>
+        <div class="hero-ctas">
+          <a class="btn filled" href="/connect">Open the connect guide</a>
+        </div>
       </div>
     </div>
   </section>
@@ -195,41 +210,24 @@ import { DIG, MIX, RIG } from "../config/brand";
   /* Hero                                                          */
   /* ------------------------------------------------------------ */
   .hero {
-    position: relative;
-    padding-block: calc(var(--space) * 17) calc(var(--space) * 15);
+    padding-top: calc(var(--space) * 16);
     text-align: center;
-    overflow: hidden;
-  }
-  /* Run-out grooves — concentric hairlines rising behind the headline */
-  .hero-grooves {
-    position: absolute;
-    inset: 0;
-    background: repeating-radial-gradient(
-      circle at 50% 130%,
-      transparent 0 22px,
-      rgba(33, 34, 39, 0.045) 22px 23px
-    );
-    -webkit-mask-image: linear-gradient(to bottom, transparent 12%, #000 60%);
-    mask-image: linear-gradient(to bottom, transparent 12%, #000 60%);
-    pointer-events: none;
-  }
-  .hero .wrap {
-    position: relative;
   }
   .kicker {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     border: 1px solid var(--line);
-    background: var(--canvas);
+    background: var(--surface-high);
     border-radius: 999px;
     padding: 6px 14px 6px 8px;
     font-size: 0.8125rem;
     margin-bottom: calc(var(--space) * 4);
+    box-shadow: var(--shadow-soft);
   }
   .kicker-token {
-    background: var(--blue-tint);
-    color: var(--blue-deep);
+    background: var(--grass-tint);
+    color: var(--grass-deep);
     font-weight: 650;
     border-radius: 999px;
     padding: 2px 10px;
@@ -245,15 +243,16 @@ import { DIG, MIX, RIG } from "../config/brand";
     width: 6px;
     height: 6px;
     border-radius: 999px;
-    background: var(--green-ink);
+    background: var(--grass);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--grass) 25%, transparent);
   }
   .hero h1 {
-    max-width: 17ch;
+    max-width: 16ch;
     margin-inline: auto;
   }
   .hero-lede {
     margin-inline: auto;
-    max-width: 37rem;
+    max-width: 38rem;
   }
   .hero-ctas {
     display: flex;
@@ -263,9 +262,18 @@ import { DIG, MIX, RIG } from "../config/brand";
     margin-top: calc(var(--space) * 5);
   }
   .hero-fineprint {
-    margin: calc(var(--space) * 4) auto 0;
+    margin: calc(var(--space) * 3.5) auto 0;
     font-size: 0.875rem;
     color: var(--ink-tertiary);
+  }
+
+  .hero-artifact {
+    margin: calc(var(--space) * 9) auto 0;
+    max-width: 560px;
+    padding-inline: calc(var(--space) * 3);
+  }
+  .hero-artifact .window {
+    box-shadow: var(--shadow-float);
   }
 
   /* ------------------------------------------------------------ */
@@ -273,12 +281,9 @@ import { DIG, MIX, RIG } from "../config/brand";
   /* ------------------------------------------------------------ */
   .spotlight {
     display: grid;
-    grid-template-columns: 5fr 6fr;
+    grid-template-columns: 1fr 1fr;
     gap: calc(var(--space) * 9);
     align-items: center;
-  }
-  .spotlight.reverse {
-    grid-template-columns: 6fr 5fr;
   }
   .spotlight.reverse .spotlight-copy {
     order: 2;
@@ -301,25 +306,71 @@ import { DIG, MIX, RIG } from "../config/brand";
     color: var(--ink-tertiary);
   }
 
+  /* "What it weighs" detail card */
+  .detects-card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-card);
+    padding: calc(var(--space) * 4);
+    box-shadow: var(--shadow-soft);
+  }
+  .detects-head {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-tertiary);
+    margin-bottom: calc(var(--space) * 2.5);
+  }
+  .detects-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--space) * 1.5);
+  }
+  .detects-grid li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 0.9375rem;
+    color: var(--ink-secondary);
+    line-height: 1.4;
+  }
+  .detects-grid li::before {
+    content: "";
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--grass);
+    transform: translateY(-1px);
+  }
+  @media (max-width: 420px) {
+    .detects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   /* ------------------------------------------------------------ */
-  /* Product artifacts — mini windows on the tinted mats.          */
-  /* The only shadowed elements in the system.                     */
+  /* Product artifacts — warm windows with soft float shadow       */
   /* ------------------------------------------------------------ */
   .window {
-    background: var(--canvas);
-    border: 1px solid var(--line);
+    background: var(--surface-high);
+    border: 1px solid var(--line-soft);
     border-radius: var(--radius-shot);
-    box-shadow: var(--shadow-artifact);
+    box-shadow: var(--shadow-soft);
     max-width: 460px;
     margin-inline: auto;
     overflow: hidden;
     font-size: 0.9375rem;
+    text-align: left;
   }
   .window-bar {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 14px;
+    padding: 11px 15px;
     border-bottom: 1px solid var(--line-soft);
     background: var(--surface);
   }
@@ -331,7 +382,7 @@ import { DIG, MIX, RIG } from "../config/brand";
     width: 9px;
     height: 9px;
     border-radius: 999px;
-    background: var(--surface-inset);
+    background: var(--canvas);
     border: 1px solid var(--line);
   }
   .window-title {
@@ -341,15 +392,16 @@ import { DIG, MIX, RIG } from "../config/brand";
     letter-spacing: 0.02em;
   }
   .window-body {
-    padding: calc(var(--space) * 2.5);
+    padding: calc(var(--space) * 3);
   }
 
   .chat-q {
-    background: var(--surface-high);
-    border-radius: 14px 14px 4px 14px;
+    background: var(--canvas);
+    border: 1px solid var(--line-soft);
+    border-radius: 16px 16px 5px 16px;
     padding: 10px 14px;
     font-weight: 550;
-    margin-left: 18%;
+    margin-left: 16%;
     margin-bottom: calc(var(--space) * 2);
   }
   .tool-chip {
@@ -365,7 +417,7 @@ import { DIG, MIX, RIG } from "../config/brand";
     margin-bottom: calc(var(--space) * 2);
   }
   .tool-glyph {
-    color: var(--blue-ink);
+    color: var(--grass);
     font-style: normal;
   }
   .rank {
@@ -379,8 +431,8 @@ import { DIG, MIX, RIG } from "../config/brand";
     width: 22px;
     height: 22px;
     border-radius: 999px;
-    background: var(--blue-tint);
-    color: var(--blue-deep);
+    background: var(--grass-tint);
+    color: var(--grass-deep);
     font-size: 0.75rem;
     font-weight: 650;
     display: flex;
@@ -408,9 +460,9 @@ import { DIG, MIX, RIG } from "../config/brand";
     justify-content: space-between;
   }
   .panel-score {
-    background: var(--green-tint);
-    color: var(--green-ink);
-    border: 1px solid color-mix(in srgb, var(--green-ink) 20%, transparent);
+    background: var(--grass-tint);
+    color: var(--grass-deep);
+    border: 1px solid color-mix(in srgb, var(--grass-deep) 20%, transparent);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     border-radius: 999px;
@@ -435,18 +487,22 @@ import { DIG, MIX, RIG } from "../config/brand";
     font-weight: 650;
   }
   .sig.ok {
-    color: var(--green-ink);
+    color: var(--grass-deep);
   }
   .sig.warn {
     color: var(--gold-ink);
   }
 
   /* ------------------------------------------------------------ */
-  /* Honest numbers                                                */
+  /* Honest numbers — a warm card                                  */
   /* ------------------------------------------------------------ */
-  .numbers {
-    background: var(--surface);
-    border-block: 1px solid var(--line-soft);
+  .numbers-section {
+    padding-block: calc(var(--space) * 4);
+  }
+  .numbers-card {
+    background: var(--band);
+    border-radius: var(--radius-card);
+    padding: calc(var(--space) * 7) calc(var(--space) * 5);
   }
   .numbers-row {
     display: grid;
@@ -475,18 +531,17 @@ import { DIG, MIX, RIG } from "../config/brand";
     font-weight: 550;
     letter-spacing: 0.02em;
     color: var(--ink-tertiary);
-    order: 2;
     margin-top: calc(var(--space) * 0.5);
   }
   .numbers-row dd {
-    font-size: clamp(3rem, 6vw, 4.25rem);
+    font-size: clamp(2.8rem, 6vw, 4rem);
     line-height: 1.05;
     margin: 0;
     font-variant-numeric: tabular-nums;
   }
   .numbers-note {
     text-align: center;
-    margin: calc(var(--space) * 6) auto 0;
+    margin: calc(var(--space) * 5) auto 0;
     color: var(--ink-tertiary);
     font-size: 0.9375rem;
     max-width: 40rem;
@@ -497,42 +552,28 @@ import { DIG, MIX, RIG } from "../config/brand";
   /* ------------------------------------------------------------ */
   .products-head {
     text-align: center;
-  }
-  .ring-holder {
-    display: none;
-    margin-top: calc(var(--space) * 6);
+    margin-bottom: calc(var(--space) * 6);
   }
   .family-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: calc(var(--space) * 3);
-    margin-top: calc(var(--space) * 5);
-  }
-  /* wide screens: the wrapped ring replaces the static grid */
-  @media (min-width: 900px) {
-    .ring-holder {
-      display: block;
-    }
-    .family-grid {
-      display: none;
-    }
   }
 
   .closing {
     text-align: center;
-    background: var(--surface);
-    border-top: 1px solid var(--line-soft);
-    margin-top: calc(var(--space) * 6);
+  }
+  .closing-card {
+    background: var(--band);
+    border-radius: calc(var(--radius-card) + 8px);
+    padding: clamp(32px, 6vw, 72px);
   }
   .closing .lede {
     margin-inline: auto;
   }
   .closing-code {
-    max-width: 560px;
+    max-width: 520px;
     margin: calc(var(--space) * 4) auto 0;
     text-align: left;
-  }
-  .closing :global(.codeblock) {
-    background: var(--canvas);
   }
 </style>

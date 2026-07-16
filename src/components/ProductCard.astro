@@ -1,14 +1,13 @@
 ---
 /**
- * Product-family card — the owner's established visual grammar:
- * colored border, name chip, one-sentence description, one accent
- * tint per card (same pattern as the extension's what's-new rail).
- * The catalog number is the deadwax etching — WOIII·001, 002, 003.
+ * Product-family card — v2 "warm editorial". Elevated warm surface,
+ * soft shadow, a colored accent rule and chip per product, catalog
+ * number as a quiet stamp. One accent tint per card.
  */
 interface Props {
   token: string;
   catalog: string;
-  tint: "blue" | "green" | "gold";
+  tint: "green" | "gold" | "clay" | "blue";
   description: string;
   href?: string;
   badge?: string;
@@ -18,6 +17,7 @@ const Tag = href ? "a" : "div";
 ---
 
 <Tag class={`product-card ${tint}`} href={href}>
+  <span class="accent-rule" aria-hidden="true"></span>
   <div class="card-top">
     <span class="chip">{token}</span>
     <span class="catalog">{catalog}</span>
@@ -29,30 +29,40 @@ const Tag = href ? "a" : "div";
 
 <style>
   .product-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: calc(var(--space) * 2);
     border-radius: var(--radius-card);
-    padding: calc(var(--space) * 3);
-    border: 1px solid;
+    padding: calc(var(--space) * 3.5) calc(var(--space) * 3);
+    background: var(--surface-high);
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-soft);
     text-decoration: none;
     color: var(--ink);
-    min-height: 200px;
-    transition: border-color 0.15s ease-out, background 0.15s ease-out;
+    min-height: 210px;
+    overflow: hidden;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
   }
-  /* hairline in the card's hue + a whisper of its tint as wash */
-  .product-card.blue {
-    border-color: color-mix(in srgb, var(--blue-ink) 35%, transparent);
-    background: color-mix(in srgb, var(--blue-tint) 30%, var(--canvas));
+
+  /* colored accent rule along the top edge */
+  .accent-rule {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
   }
-  .product-card.green {
-    border-color: color-mix(in srgb, var(--green-ink) 30%, transparent);
-    background: color-mix(in srgb, var(--green-tint) 30%, var(--canvas));
+  .green .accent-rule {
+    background: var(--green-ink);
   }
-  .product-card.gold {
-    border-color: color-mix(in srgb, var(--gold-ink) 30%, transparent);
-    background: color-mix(in srgb, var(--gold-tint) 30%, var(--canvas));
+  .gold .accent-rule {
+    background: var(--gold-ink);
+  }
+  .clay .accent-rule {
+    background: var(--clay-ink);
+  }
+  .blue .accent-rule {
+    background: var(--blue-ink);
   }
 
   .card-top {
@@ -67,10 +77,6 @@ const Tag = href ? "a" : "div";
     border-radius: 999px;
     padding: 4px 14px;
   }
-  .blue .chip {
-    background: var(--blue-tint);
-    color: var(--blue-deep);
-  }
   .green .chip {
     background: var(--green-tint);
     color: var(--green-ink);
@@ -79,8 +85,15 @@ const Tag = href ? "a" : "div";
     background: var(--gold-tint);
     color: var(--gold-ink);
   }
+  .clay .chip {
+    background: var(--clay-tint);
+    color: var(--clay-ink);
+  }
+  .blue .chip {
+    background: var(--blue-tint);
+    color: var(--blue-deep);
+  }
 
-  /* deadwax etching */
   .catalog {
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 0.6875rem;
@@ -109,14 +122,19 @@ const Tag = href ? "a" : "div";
     margin-top: auto;
     font-weight: 600;
     font-size: 0.9375rem;
-    color: var(--blue-ink);
+    color: var(--grass-deep);
   }
   a.product-card:hover {
-    border-color: var(--blue-ink);
-    background: color-mix(in srgb, var(--blue-tint) 55%, var(--canvas));
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-float);
   }
   a.product-card:hover .cta {
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a.product-card:hover {
+      transform: none;
+    }
   }
 </style>

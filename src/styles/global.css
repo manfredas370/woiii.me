@@ -1,6 +1,8 @@
 /* ------------------------------------------------------------------ */
-/* Fonts — Geist (variable, shared with the extension) + Instrument   */
-/* Serif italic for accent words. Both self-hosted, ~92 KB total.     */
+/* v2 — "warm editorial" (Granola-inspired). Warm paper canvas,       */
+/* earthy green accent, soft diffuse shadows. Light only.             */
+/* Fonts: Geist (variable, shared with the extension). Instrument     */
+/* Serif italic kept available but no longer the headline signature.  */
 /* ------------------------------------------------------------------ */
 @font-face {
   font-family: "Geist";
@@ -17,54 +19,66 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Tokens — paper, graphite ink, and record-label pastels.            */
-/* Light only. Same graphite family as the DIG extension.             */
+/* Tokens                                                              */
 /* ------------------------------------------------------------------ */
 :root {
-  /* text — four levels */
-  --ink: #212227;
-  --ink-secondary: #4c4d55;
-  --ink-tertiary: #74757e;
-  --ink-faint: #9b9ca4;
+  /* text — four warm levels */
+  --ink: #262420;
+  --ink-secondary: #565249;
+  --ink-tertiary: #86837a;
+  --ink-faint: #aca899;
 
-  /* surfaces — paper, whisper-quiet steps of the same hue */
-  --canvas: #fdfdfc;
-  --surface: #f6f6f5;
-  --surface-high: #efefee;
-  --surface-inset: #ebebea;
+  /* surfaces — warm paper page, lighter elevated cards, warmer bands */
+  --canvas: #f4f0e8;
+  --surface: #fcfbf7;
+  --surface-high: #ffffff;
+  --band: #ece7db;
 
-  /* borders — rgba so they melt into any surface */
-  --line-soft: rgba(33, 34, 39, 0.06);
-  --line: rgba(33, 34, 39, 0.1);
-  --line-strong: rgba(33, 34, 39, 0.22);
+  /* borders — warm rgba so they melt into paper */
+  --line-soft: rgba(38, 36, 31, 0.07);
+  --line: rgba(38, 36, 31, 0.12);
+  --line-strong: rgba(38, 36, 31, 0.22);
 
-  /* the one accent — archival label blue */
-  --blue-ink: #1a56b0;
-  --blue-deep: #164a99;
-  --blue-tint: #e9eff8;
+  /* the one accent — a warm grass green */
+  --grass: #4c7a37;
+  --grass-deep: #3c6129;
+  --grass-tint: #e7eeda;
 
-  /* label-center pastels (family cards, client rail) */
-  --green-tint: #e6efe4;
-  --green-ink: #24592f;
-  --gold-tint: #f4ecce;
-  --gold-ink: #6b5410;
-  --red-tint: #f7e6e4;
-  --red-ink: #a03a30;
+  /* small warm pastel set for the family / client cards */
+  --green-tint: #e7eeda;
+  --green-ink: #3c6129;
+  --gold-tint: #f3ead0;
+  --gold-ink: #7a5c1a;
+  --clay-tint: #f3e4da;
+  --clay-ink: #9a5738;
+  --blue-tint: #e3e8ee;
+  --blue-ink: #3d5a7a;
+  --blue-deep: #2f486a;
 
-  /* the "screenshot artifact" lift — the only shadow in the system */
-  --shadow-artifact: 0 1px 2px rgba(33, 34, 39, 0.05),
-    0 8px 24px -8px rgba(33, 34, 39, 0.12);
+  /* soft, warm, diffuse shadows — the v2 depth strategy */
+  --shadow-soft: 0 2px 4px rgba(38, 36, 31, 0.04),
+    0 12px 32px -10px rgba(38, 36, 31, 0.12);
+  --shadow-float: 0 4px 10px rgba(38, 36, 31, 0.05),
+    0 30px 70px -20px rgba(38, 36, 31, 0.22);
 
-  --radius-s: 8px;
-  --radius-m: 12px;
-  --radius-card: 20px;
-  --radius-shot: 16px;
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-card: 24px;
+  --radius-shot: 20px;
   --space: 8px;
-  --content-width: 1080px;
-  --text-width: 44rem;
+  --content-width: 1120px;
+  --text-width: 42rem;
 
-  accent-color: var(--blue-ink);
+  accent-color: var(--grass);
   color-scheme: only light;
+
+  /* legacy aliases still referenced by components */
+  --ink-muted: var(--ink-secondary);
+  --outline: var(--line);
+  --outline-strong: var(--line-strong);
+  --link: var(--grass-deep);
+  --red-tint: var(--clay-tint);
+  --red-ink: var(--clay-ink);
 }
 
 /* ------------------------------------------------------------------ */
@@ -85,6 +99,7 @@ html {
 }
 
 body {
+  position: relative;
   font-family: "Geist", system-ui, -apple-system, sans-serif;
   font-size: 1.0625rem;
   line-height: 1.65;
@@ -94,27 +109,44 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* whisper of paper grain over the whole page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
 ::selection {
-  background: var(--blue-tint);
-  color: var(--blue-deep);
+  background: var(--grass-tint);
+  color: var(--grass-deep);
 }
 
 h1,
 h2,
 h3 {
-  font-weight: 620;
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.028em;
   text-wrap: balance;
+  color: var(--ink);
 }
 
 h1 {
-  font-size: clamp(2.6rem, 7vw, 4.5rem);
-  font-weight: 660;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.7rem, 7vw, 4.75rem);
+  font-weight: 620;
+  letter-spacing: -0.035em;
 }
 h2 {
-  font-size: clamp(1.9rem, 4.5vw, 2.75rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
 }
 h3 {
   font-size: 1.25rem;
@@ -125,23 +157,22 @@ p {
 }
 
 a {
-  color: var(--blue-ink);
+  color: var(--grass-deep);
   text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in srgb, var(--blue-ink) 35%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--grass-deep) 35%, transparent);
   text-underline-offset: 3px;
   transition: text-decoration-color 0.15s ease-out;
 }
 a:hover {
-  text-decoration-color: var(--blue-ink);
+  text-decoration-color: var(--grass-deep);
 }
 
-/* Accent words — italic display serif inside a neutral Geist line */
+/* Accent words — warm green highlight inside a neutral headline */
 .accent {
-  font-family: "Instrument Serif", Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: var(--blue-ink);
+  font-family: inherit;
+  font-style: normal;
+  font-weight: inherit;
+  color: var(--grass);
 }
 
 code,
@@ -180,32 +211,33 @@ pre code {
 }
 
 .eyebrow {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink-tertiary);
+  letter-spacing: 0.02em;
+  color: var(--grass-deep);
   margin-bottom: calc(var(--space) * 2);
 }
 
 .lede {
-  font-size: 1.25rem;
-  line-height: 1.6;
+  font-size: 1.3rem;
+  line-height: 1.55;
   color: var(--ink-secondary);
   margin-top: calc(var(--space) * 3);
 }
 
 /* Pill buttons — one filled, one quiet */
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   border-radius: 999px;
-  padding: 12px 28px;
+  padding: 13px 30px;
   font-weight: 560;
   font-size: 1rem;
   text-decoration: none;
   border: 1px solid transparent;
   transition: background 0.15s ease-out, border-color 0.15s ease-out,
-    transform 0.1s ease-out;
+    transform 0.1s ease-out, box-shadow 0.15s ease-out;
 }
 .btn:active {
   transform: scale(0.985);
@@ -215,21 +247,23 @@ pre code {
   color: var(--canvas);
 }
 .btn.filled:hover {
-  background: #101116;
+  background: #14130f;
+  box-shadow: var(--shadow-soft);
 }
 .btn.outlined {
   border-color: var(--line-strong);
   color: var(--ink);
+  background: var(--surface-high);
 }
 .btn.outlined:hover {
-  background: var(--surface);
   border-color: var(--ink-faint);
+  box-shadow: var(--shadow-soft);
 }
 
 /* Soft-rounded mat behind product artifacts */
 .shot-card {
   border-radius: var(--radius-card);
-  padding: clamp(20px, 4.5vw, 48px);
+  padding: clamp(20px, 4.5vw, 52px);
   overflow: hidden;
 }
 .shot-card.blue {
@@ -262,7 +296,7 @@ pre code {
   top: 9px;
   right: 9px;
   border: 1px solid var(--line);
-  background: var(--canvas);
+  background: var(--surface-high);
   color: var(--ink-tertiary);
   border-radius: var(--radius-s);
   padding: 4px 11px;
@@ -276,13 +310,10 @@ pre code {
   border-color: var(--line-strong);
   color: var(--ink);
 }
-.copy-btn:active {
-  background: var(--surface-high);
-}
 
 /* Focus visibility */
 :focus-visible {
-  outline: 2px solid var(--blue-ink);
+  outline: 2px solid var(--grass);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -291,19 +322,10 @@ pre code {
   position: absolute;
   left: -9999px;
   top: 8px;
-  background: var(--canvas);
+  background: var(--surface-high);
   padding: 8px 16px;
   z-index: 10;
 }
 .skip-link:focus {
   left: 8px;
-}
-
-/* Legacy aliases still referenced by components */
-:root {
-  --ink-muted: var(--ink-secondary);
-  --outline: var(--line);
-  --outline-strong: var(--line-strong);
-  --surface-inset-2: var(--surface-inset);
-  --link: var(--blue-ink);
 }
