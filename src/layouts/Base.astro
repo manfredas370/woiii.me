@@ -41,6 +41,7 @@ const path = Astro.url.pathname;
           <a href="/connect" aria-current={path.startsWith("/connect") ? "page" : undefined}>Connect</a>
           <a href="/privacy" aria-current={path.startsWith("/privacy") ? "page" : undefined}>Privacy</a>
           <a href={DIG.repoUrl}>GitHub</a>
+          <a class="nav-cta" href="/connect">Connect DIG</a>
         </nav>
       </div>
     </header>
@@ -132,10 +133,24 @@ const path = Astro.url.pathname;
         color: var(--ink);
         background: var(--surface-high);
       }
-      @media (max-width: 480px) {
+      .site-header nav a.nav-cta {
+        background: var(--ink);
+        color: var(--canvas);
+        font-weight: 560;
+        padding: 7px 18px;
+        margin-left: 6px;
+      }
+      .site-header nav a.nav-cta:hover {
+        background: #14130f;
+        color: var(--canvas);
+      }
+      @media (max-width: 560px) {
         .site-header nav a {
           padding: 5px 8px;
           font-size: 0.875rem;
+        }
+        .site-header nav a.nav-cta {
+          padding: 5px 12px;
         }
       }
 

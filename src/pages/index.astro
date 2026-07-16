@@ -3,163 +3,324 @@ import Base from "../layouts/Base.astro";
 import ProductCard from "../components/ProductCard.astro";
 import CodeBlock from "../components/CodeBlock.astro";
 import { DIG, MIX, RIG } from "../config/brand";
-
-const detects = [
-  "Original vs. reissue",
-  "MFSL & half-speed masters",
-  "Renowned mastering engineers",
-  "Japanese pressings",
-  "Community ratings",
-  "Collector demand",
-];
 ---
 
 <Base
   title="WOIII.me — AI-powered tools for music lovers"
   description="Home of DIG for Discogs: pressing intelligence for your AI assistant and your browser. Which copy of this album should I buy? Answered with evidence, not folklore."
 >
-  <!-- Hero — calm, centered, big floating product artifact -->
+  <!-- ============================================================ -->
+  <!-- 1 · Hero — category H1, short bold subhead, one CTA,          -->
+  <!--     availability line, big product demo                      -->
+  <!-- ============================================================ -->
   <section class="hero">
     <div class="wrap">
-      <p class="kicker">
-        <span class="kicker-token">woiii.DIG</span>
-        <span class="kicker-live"><span class="kicker-dot"></span>Live now</span>
-      </p>
-      <h1>
-        Which <span class="accent">pressing</span> is actually worth&nbsp;buying?
-      </h1>
-      <p class="lede hero-lede">
-        DIG for Discogs answers with evidence, not folklore — surveying every
-        version of an album on Discogs and scoring each on community ratings,
-        collector demand, and audiophile markers.
+      <h1>The pressing guide for serious record buyers</h1>
+      <p class="hero-sub">
+        Evidence, not folklore.<br />Without leaving your AI assistant.
       </p>
       <div class="hero-ctas">
-        <a class="btn filled" href="/connect">Connect DIG</a>
-        <a class="btn outlined" href={DIG.repoUrl}>View on GitHub</a>
+        <a class="btn filled" href="/connect">Connect DIG for free</a>
       </div>
-      <p class="hero-fineprint">
-        Free and open source · read-only · your own Discogs account · no ads,
-        no data collection
-      </p>
+      <p class="hero-avail">Works with Claude, ChatGPT, Codex, and Chrome</p>
     </div>
 
-    <!-- the money shot: a large assistant window floating on the paper -->
-    <div class="hero-artifact">
-      <div class="window" role="img" aria-label="Example conversation: user asks which pressing of OK Computer to buy; the assistant calls the find_best_pressing tool and ranks three pressings with scores and evidence">
-        <div class="window-bar">
-          <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="window-title">Claude</span>
-        </div>
-        <div class="window-body chat">
-          <p class="chat-q">What's the best-sounding pressing of OK Computer?</p>
-          <p class="tool-chip"><span class="tool-glyph">⚙</span> find_best_pressing · axis: sonic</p>
-          <div class="chat-a">
-            <p class="rank"><span class="rank-n">1</span><span><strong>2016 XL 2×LP reissue</strong> — 92/100<br /><span class="rank-why">cut from the original masters · 4.6★ from 3k+ owners</span></span></p>
-            <p class="rank"><span class="rank-n">2</span><span><strong>1997 UK first pressing</strong> — 88/100<br /><span class="rank-why">collector favourite, prices climbing</span></span></p>
-            <p class="rank"><span class="rank-n">3</span><span><strong>2017 US repress</strong> — 79/100<br /><span class="rank-why">solid value pick</span></span></p>
-            <p class="chat-meta">Evidence: 41 versions surveyed · community ratings + audiophile markers</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Spotlight 1 — the assistant connector -->
-  <section class="section">
-    <div class="wrap spotlight">
-      <div class="spotlight-copy">
-        <p class="eyebrow">In your AI assistant</p>
-        <h2>Ask, and get a <span class="accent">verdict</span></h2>
-        <p>
-          Connect DIG to Claude, ChatGPT, or Codex and ask about any album.
-          It ranks the pressings with score breakdowns — original vs. reissue,
-          MFSL and half-speed masters, renowned mastering engineers, Japanese
-          pressings — and every verdict shows its evidence coverage.
-        </p>
-        <p class="honest-note">
-          Honest caveat: the first analysis of an album takes about 10 seconds.
-          Good answers are worth the wait.
-        </p>
-      </div>
-      <div class="detects-card">
-        <p class="detects-head">What it weighs</p>
-        <ul class="detects-grid">
-          {detects.map((d) => <li>{d}</li>)}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Spotlight 2 — the side panel -->
-  <section class="section">
-    <div class="wrap spotlight reverse">
-      <div class="spotlight-copy">
-        <p class="eyebrow">In your browser</p>
-        <h2>The same brain, on <span class="accent">discogs.com</span></h2>
-        <p>
-          The DIG side panel for Chrome shows pressing intelligence right next
-          to the listing you're looking at — scores, red flags, and better
-          alternatives while you browse or shop.
-        </p>
-        <p>
-          <a href="/connect#extension">Install the extension →</a>
-        </p>
-      </div>
-      <div class="shot-card green">
-        <div class="window" role="img" aria-label="Example side panel: a release page with a DIG score of 84, three signals listed, and a suggestion of a better-rated pressing">
+    <div class="wrap hero-demo-wrap">
+      <div class="hero-demo">
+        <div class="window big" role="img" aria-label="Example conversation: user asks which pressing of OK Computer to buy; the assistant calls the find_best_pressing tool and ranks three pressings with scores and evidence">
           <div class="window-bar">
             <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="window-title">DIG · discogs.com</span>
+            <span class="window-title">Claude</span>
           </div>
-          <div class="window-body panel">
-            <p class="panel-title">This pressing <span class="panel-score">84</span></p>
-            <ul class="panel-signals">
-              <li><span class="sig ok">✓</span> Original mastering, well-rated (4.4★)</li>
-              <li><span class="sig ok">✓</span> Sought by 1.2k collectors</li>
-              <li><span class="sig warn">△</span> 2019 repress rates higher for playback</li>
-            </ul>
-            <p class="chat-meta">Based on 27 versions of this master</p>
+          <div class="window-body chat">
+            <p class="chat-q">What's the best-sounding pressing of OK Computer?</p>
+            <p class="tool-chip"><span class="tool-glyph">⚙</span> find_best_pressing · axis: sonic</p>
+            <div class="chat-a">
+              <p class="rank"><span class="rank-n">1</span><span><strong>2016 XL 2×LP reissue</strong> — 92/100<br /><span class="rank-why">cut from the original masters · 4.6★ from 3k+ owners</span></span></p>
+              <p class="rank"><span class="rank-n">2</span><span><strong>1997 UK first pressing</strong> — 88/100<br /><span class="rank-why">collector favourite, prices climbing</span></span></p>
+              <p class="rank"><span class="rank-n">3</span><span><strong>2017 US repress</strong> — 79/100<br /><span class="rank-why">solid value pick</span></span></p>
+              <p class="chat-meta">Evidence: 41 versions surveyed · community ratings + audiophile markers</p>
+            </div>
+          </div>
+        </div>
+        <!-- floating side chips, Granola-style -->
+        <div class="float-chip fc-1" aria-hidden="true"><span class="fc-dot"></span>Surveying 41 versions…</div>
+        <div class="float-chip fc-2" aria-hidden="true">✓ Evidence coverage shown</div>
+      </div>
+
+      <!-- claims strip under the demo -->
+      <ul class="claims">
+        <li><strong>Read-only,</strong> on your own Discogs account</li>
+        <li><strong>Private by default</strong> — no ads, no data collection</li>
+        <li><strong>Free &amp; open source,</strong> no invite needed</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 2 · Wordmark wall — "For the doers / Trusted by…" analog      -->
+  <!-- ============================================================ -->
+  <section class="wall">
+    <div class="wrap">
+      <p class="wall-kicker">For the diggers</p>
+      <p class="wall-title">Works with the tools you already use</p>
+      <ul class="wordmarks">
+        <li>Claude</li>
+        <li>ChatGPT</li>
+        <li>Codex</li>
+        <li>Chrome</li>
+        <li>Discogs</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 3 · Tabbed journey — before / during / after the hunt        -->
+  <!-- ============================================================ -->
+  <section class="section journey">
+    <div class="wrap">
+      <h2 class="journey-head">DIG helps you before, during and after the&nbsp;hunt.</h2>
+
+      <div class="tabs">
+        <input class="tab-radio" type="radio" name="phase" id="tab-before" checked />
+        <input class="tab-radio" type="radio" name="phase" id="tab-during" />
+        <input class="tab-radio" type="radio" name="phase" id="tab-after" />
+
+        <div class="tab-bar" role="tablist" aria-label="When DIG helps">
+          <label for="tab-before">Before you buy</label>
+          <label for="tab-during">While you browse</label>
+          <label for="tab-after">After you add</label>
+        </div>
+
+        <div class="tab-panels">
+          <!-- BEFORE -->
+          <div class="tab-panel panel-before">
+            <div class="panel-copy">
+              <h3>Know which copy is worth it</h3>
+              <p>
+                Ask about any album and DIG surveys every version on Discogs,
+                scoring each on community ratings, collector demand, and
+                audiophile markers — original vs. reissue, MFSL and half-speed
+                masters, renowned mastering engineers, Japanese pressings.
+              </p>
+              <p class="honest-note">
+                Honest caveat: the first analysis of an album takes about
+                10 seconds. Good answers are worth the wait.
+              </p>
+            </div>
+            <div class="panel-shot">
+              <div class="window" role="img" aria-label="Assistant ranking three pressings of an album with scores">
+                <div class="window-bar">
+                  <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="window-title">Claude</span>
+                </div>
+                <div class="window-body chat">
+                  <p class="tool-chip"><span class="tool-glyph">⚙</span> compare_pressings · axis: value</p>
+                  <div class="chat-a">
+                    <p class="rank"><span class="rank-n">1</span><span><strong>2017 US repress</strong> — best value at ~€25<br /><span class="rank-why">96% of the sonics for a third of the price</span></span></p>
+                    <p class="rank"><span class="rank-n">2</span><span><strong>2016 XL reissue</strong> — the safe pick<br /><span class="rank-why">widely available, consistently well-rated</span></span></p>
+                    <p class="chat-meta">Evidence: prices + 3k community ratings</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DURING -->
+          <div class="tab-panel panel-during">
+            <div class="panel-copy">
+              <h3>Scores beside every listing</h3>
+              <p>
+                The DIG side panel for Chrome shows pressing intelligence right
+                next to the listing you're looking at — scores, red flags, and
+                better alternatives while you browse or shop on discogs.com.
+              </p>
+              <p><a href="/connect#extension">Install the extension →</a></p>
+            </div>
+            <div class="panel-shot">
+              <div class="window" role="img" aria-label="Side panel showing a pressing score of 84 with three signals">
+                <div class="window-bar">
+                  <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="window-title">DIG · discogs.com</span>
+                </div>
+                <div class="window-body panel">
+                  <p class="panel-title">This pressing <span class="panel-score">84</span></p>
+                  <ul class="panel-signals">
+                    <li><span class="sig ok">✓</span> Original mastering, well-rated (4.4★)</li>
+                    <li><span class="sig ok">✓</span> Sought by 1.2k collectors</li>
+                    <li><span class="sig warn">△</span> 2019 repress rates higher for playback</li>
+                  </ul>
+                  <p class="chat-meta">Based on 27 versions of this master</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AFTER -->
+          <div class="tab-panel panel-after">
+            <div class="panel-copy">
+              <h3>Your shelf, ranked and ready</h3>
+              <p>
+                DIG knows your collection and wantlist. Rank your wantlist by
+                what's actually worth chasing, profile your taste, or get
+                rating-weighted picks from records you already own.
+              </p>
+              <p class="honest-note">
+                Slash commands in supported clients:
+                <code>/rank-my-wantlist</code>, <code>/my-taste-profile</code>,
+                <code>/pick-from-my-collection</code>.
+              </p>
+            </div>
+            <div class="panel-shot">
+              <div class="window" role="img" aria-label="Assistant ranking the user's wantlist by priority">
+                <div class="window-bar">
+                  <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="window-title">Claude</span>
+                </div>
+                <div class="window-body chat">
+                  <p class="tool-chip"><span class="tool-glyph">⚙</span> /rank-my-wantlist</p>
+                  <div class="chat-a">
+                    <p class="rank"><span class="rank-n">1</span><span><strong>In a Silent Way — 1969 US</strong><br /><span class="rank-why">prices climbing · rare in this grade</span></span></p>
+                    <p class="rank"><span class="rank-n">2</span><span><strong>Kind of Blue — MFSL 2×45</strong><br /><span class="rank-why">strong sonics score, stable price</span></span></p>
+                    <p class="chat-meta">Ranked 14 wantlist items by urgency</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Honest numbers -->
-  <section class="numbers-section">
-    <div class="wrap">
-      <div class="numbers-card">
-        <dl class="numbers-row">
-          <div>
-            <dd><span class="accent">{DIG.toolCount}</span></dd>
-            <dt>MCP tools</dt>
+  <!-- ============================================================ -->
+  <!-- 4 · Big feature — "Perfect meeting memory" analog             -->
+  <!-- ============================================================ -->
+  <section class="section memory">
+    <div class="wrap memory-grid">
+      <div>
+        <p class="eyebrow">DIG knows your shelf</p>
+        <h2 class="memory-head">Perfect<br />collection<br />memory</h2>
+      </div>
+      <div class="memory-demo">
+        <p class="memory-q">What should I spin tonight?</p>
+        <div class="window">
+          <div class="window-bar">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="window-title">Claude</span>
           </div>
-          <div>
-            <dd><span class="accent">{DIG.promptCount}</span></dd>
-            <dt>Slash-command prompts</dt>
+          <div class="window-body chat">
+            <p class="tool-chip"><span class="tool-glyph">⚙</span> spin · mood: late night</p>
+            <div class="chat-a">
+              <p class="rank"><span class="rank-n">♪</span><span><strong>Talk Talk — Spirit of Eden</strong><br /><span class="rank-why">your 5★ shelf, unplayed for a while</span></span></p>
+              <p class="rank"><span class="rank-n">♪</span><span><strong>Alice Coltrane — Journey in Satchidananda</strong><br /><span class="rank-why">fits the mood, rated 4.5★ by you</span></span></p>
+              <p class="chat-meta">Picked from your own collection · rating-weighted</p>
+            </div>
           </div>
-          <div>
-            <dd><span class="accent">{DIG.restEndpointCount}</span></dd>
-            <dt>REST endpoints</dt>
-          </div>
-          <div>
-            <dd><span class="accent">0</span></dd>
-            <dt>Trackers &amp; ads</dt>
-          </div>
-        </dl>
-        <p class="numbers-note">
-          Scores are based on reputation and community data, not measured sound —
-          and every verdict says how much evidence sits behind it.
-        </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Product family -->
+  <!-- ============================================================ -->
+  <!-- 5 · Honest numbers — our truth-wall (no invented quotes)      -->
+  <!-- ============================================================ -->
+  <section class="section truths">
+    <div class="wrap">
+      <h2 class="truths-head">Built on evidence, honest about&nbsp;it</h2>
+      <div class="truth-cards">
+        <div class="truth-card num">
+          <p class="truth-big">15</p>
+          <p class="truth-label">MCP tools</p>
+        </div>
+        <div class="truth-card num">
+          <p class="truth-big">10</p>
+          <p class="truth-label">Slash-command prompts</p>
+        </div>
+        <div class="truth-card quote">
+          <p>Scores are based on reputation and community data, not measured sound.</p>
+        </div>
+        <div class="truth-card num">
+          <p class="truth-big">9</p>
+          <p class="truth-label">REST endpoints</p>
+        </div>
+        <div class="truth-card quote">
+          <p>Every verdict shows how much evidence sits behind it.</p>
+        </div>
+        <div class="truth-card num">
+          <p class="truth-big">0</p>
+          <p class="truth-label">Trackers &amp; ads</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 6 · Features grid — "Works everywhere you do" analog          -->
+  <!-- ============================================================ -->
+  <section class="section featgrid">
+    <div class="wrap">
+      <div class="featgrid-head">
+        <h2>Works wherever you&nbsp;dig</h2>
+        <a class="btn filled" href="/connect">Connect DIG for free</a>
+      </div>
+      <div class="feat-cards">
+        <div class="feat-card">
+          <h3>Evidence on display</h3>
+          <p>Every verdict shows its evidence coverage — how many versions were surveyed and what the score rests on.</p>
+        </div>
+        <div class="feat-card">
+          <h3>Audiophile markers</h3>
+          <p>MFSL and half-speed masters, renowned mastering engineers, Japanese pressings — weighed, not worshipped.</p>
+        </div>
+        <div class="feat-card">
+          <h3>Read-only, your account</h3>
+          <p>DIG runs on your own Discogs account and can't change your collection, wantlist, or anything else.</p>
+        </div>
+        <div class="feat-card">
+          <h3>Slow first look — on purpose</h3>
+          <p>The first analysis of an album takes about 10 seconds. Repeat questions are fast; results are cached briefly.</p>
+        </div>
+        <div class="feat-card">
+          <h3>Free and open source</h3>
+          <p>DIG is MIT-licensed, with no ads and no monetization. The whole engine is on GitHub.</p>
+        </div>
+        <div class="feat-card">
+          <h3>Any Discogs user</h3>
+          <p>Open access — one browser sign-in with your own Discogs account, no invite needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 7 · MCP connector — Granola has one; ours IS one              -->
+  <!-- ============================================================ -->
+  <section class="section mcp">
+    <div class="wrap mcp-card">
+      <p class="eyebrow">DIG MCP connector</p>
+      <h2>Use pressing intelligence anywhere</h2>
+      <p class="mcp-copy">
+        No more tab-hopping between listings and forums. Connect DIG in a few
+        clicks and your AI apps become fluent in pressings — one URL, one
+        browser sign-in with your own Discogs account.
+      </p>
+      <div class="mcp-code">
+        <CodeBlock code={DIG.mcpUrl} label="MCP server URL" />
+      </div>
+      <p class="mcp-hint">
+        Claude, ChatGPT, Codex, and more — <a href="/connect">step-by-step guides</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 8 · Product family (ours to keep) + closing CTA band          -->
+  <!-- ============================================================ -->
   <section class="section" id="products">
     <div class="wrap products-head">
       <p class="eyebrow">The family</p>
-      <h2>One brand, <span class="accent">three</span> tools</h2>
+      <h2>One brand, three tools</h2>
     </div>
     <div class="wrap">
       <div class="family-grid">
@@ -188,17 +349,14 @@ const detects = [
     </div>
   </section>
 
-  <!-- Closing CTA -->
   <section class="section closing">
     <div class="wrap">
       <div class="closing-card">
-        <h2>Two minutes to <span class="accent">connect</span></h2>
-        <p class="lede">One URL, any Discogs account, no invite needed.</p>
-        <div class="closing-code">
-          <CodeBlock code={DIG.mcpUrl} label="MCP server URL" />
-        </div>
+        <h2>Unlimited pressing verdicts, for&nbsp;free</h2>
+        <p class="lede">Two minutes to connect. Any Discogs account, no invite needed.</p>
         <div class="hero-ctas">
-          <a class="btn filled" href="/connect">Open the connect guide</a>
+          <a class="btn filled" href="/connect">Connect DIG for free</a>
+          <a class="btn outlined" href={DIG.repoUrl}>View on GitHub</a>
         </div>
       </div>
     </div>
@@ -207,52 +365,23 @@ const detects = [
 
 <style>
   /* ------------------------------------------------------------ */
-  /* Hero                                                          */
+  /* 1 · Hero                                                      */
   /* ------------------------------------------------------------ */
   .hero {
-    padding-top: calc(var(--space) * 16);
+    padding-top: calc(var(--space) * 15);
     text-align: center;
   }
-  .kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid var(--line);
-    background: var(--surface-high);
-    border-radius: 999px;
-    padding: 6px 14px 6px 8px;
-    font-size: 0.8125rem;
-    margin-bottom: calc(var(--space) * 4);
-    box-shadow: var(--shadow-soft);
-  }
-  .kicker-token {
-    background: var(--grass-tint);
-    color: var(--grass-deep);
-    font-weight: 650;
-    border-radius: 999px;
-    padding: 2px 10px;
-  }
-  .kicker-live {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--ink-secondary);
-    font-weight: 520;
-  }
-  .kicker-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: var(--grass);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--grass) 25%, transparent);
-  }
   .hero h1 {
-    max-width: 16ch;
+    max-width: 18ch;
     margin-inline: auto;
   }
-  .hero-lede {
-    margin-inline: auto;
-    max-width: 38rem;
+  .hero-sub {
+    margin: calc(var(--space) * 4) auto 0;
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    font-weight: 560;
+    line-height: 1.35;
+    color: var(--ink);
+    letter-spacing: -0.015em;
   }
   .hero-ctas {
     display: flex;
@@ -261,44 +390,205 @@ const detects = [
     flex-wrap: wrap;
     margin-top: calc(var(--space) * 5);
   }
-  .hero-fineprint {
-    margin: calc(var(--space) * 3.5) auto 0;
+  .hero-avail {
+    margin: calc(var(--space) * 2.5) auto 0;
     font-size: 0.875rem;
     color: var(--ink-tertiary);
   }
 
-  .hero-artifact {
-    margin: calc(var(--space) * 9) auto 0;
-    max-width: 560px;
-    padding-inline: calc(var(--space) * 3);
+  .hero-demo-wrap {
+    margin-top: calc(var(--space) * 9);
   }
-  .hero-artifact .window {
+  .hero-demo {
+    position: relative;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+  .window.big {
+    max-width: none;
     box-shadow: var(--shadow-float);
+    font-size: 1rem;
+  }
+  .float-chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-high);
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-soft);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.8125rem;
+    font-weight: 550;
+    color: var(--ink-secondary);
+    white-space: nowrap;
+  }
+  .fc-1 {
+    top: 18%;
+    left: -70px;
+    transform: rotate(-3deg);
+  }
+  .fc-2 {
+    bottom: 14%;
+    right: -60px;
+    transform: rotate(2deg);
+  }
+  .fc-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--grass);
+  }
+  @media (max-width: 860px) {
+    .float-chip {
+      display: none;
+    }
+  }
+
+  .claims {
+    list-style: none;
+    padding: 0;
+    margin: calc(var(--space) * 6) auto 0;
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--space) * 2) calc(var(--space) * 6);
+    flex-wrap: wrap;
+    max-width: 62rem;
+  }
+  .claims li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 0.9375rem;
+    color: var(--ink-secondary);
+  }
+  .claims li::before {
+    content: "✓";
+    color: var(--grass);
+    font-weight: 700;
+  }
+  .claims strong {
+    color: var(--ink);
+    font-weight: 600;
   }
 
   /* ------------------------------------------------------------ */
-  /* Spotlights                                                    */
+  /* 2 · Wordmark wall                                             */
   /* ------------------------------------------------------------ */
-  .spotlight {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: calc(var(--space) * 9);
-    align-items: center;
+  .wall {
+    padding-block: calc(var(--space) * 11);
+    text-align: center;
   }
-  .spotlight.reverse .spotlight-copy {
-    order: 2;
+  .wall-kicker {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--grass-deep);
+  }
+  .wall-title {
+    font-size: 1.05rem;
+    font-weight: 550;
+    color: var(--ink-secondary);
+    margin-top: calc(var(--space) * 1);
+  }
+  .wordmarks {
+    list-style: none;
+    padding: 0;
+    margin: calc(var(--space) * 4) auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--space) * 3) calc(var(--space) * 7);
+    flex-wrap: wrap;
+  }
+  .wordmarks li {
+    font-size: 1.35rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    color: var(--ink-faint);
+  }
+
+  /* ------------------------------------------------------------ */
+  /* 3 · Tabbed journey                                            */
+  /* ------------------------------------------------------------ */
+  .journey-head {
+    text-align: center;
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+
+  .tab-radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .tab-bar {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin: calc(var(--space) * 5) auto calc(var(--space) * 6);
+    background: var(--band);
+    border-radius: 999px;
+    padding: 5px;
+    width: fit-content;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .tab-bar label {
+    border-radius: 999px;
+    padding: 9px 22px;
+    font-size: 0.9375rem;
+    font-weight: 560;
+    color: var(--ink-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease-out, color 0.15s ease-out;
+  }
+  .tab-bar label:hover {
+    color: var(--ink);
+  }
+  #tab-before:checked ~ .tab-bar label[for="tab-before"],
+  #tab-during:checked ~ .tab-bar label[for="tab-during"],
+  #tab-after:checked ~ .tab-bar label[for="tab-after"] {
+    background: var(--surface-high);
+    color: var(--ink);
+    box-shadow: var(--shadow-soft);
+  }
+  .tab-radio:focus-visible ~ .tab-bar {
+    outline: 2px solid var(--grass);
+    outline-offset: 2px;
+  }
+
+  .tab-panel {
+    display: none;
+    grid-template-columns: 5fr 6fr;
+    gap: calc(var(--space) * 8);
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: calc(var(--radius-card) + 8px);
+    box-shadow: var(--shadow-soft);
+    padding: clamp(24px, 4vw, 56px);
+  }
+  #tab-before:checked ~ .tab-panels .panel-before,
+  #tab-during:checked ~ .tab-panels .panel-during,
+  #tab-after:checked ~ .tab-panels .panel-after {
+    display: grid;
   }
   @media (max-width: 800px) {
-    .spotlight,
-    .spotlight.reverse {
+    .tab-panel {
       grid-template-columns: 1fr;
-      gap: calc(var(--space) * 5);
-    }
-    .spotlight.reverse .spotlight-copy {
-      order: 0;
+      gap: calc(var(--space) * 4);
     }
   }
-  .spotlight-copy p {
+  .panel-copy h3 {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    letter-spacing: -0.02em;
+  }
+  .panel-copy p {
     margin-top: calc(var(--space) * 2);
   }
   .honest-note {
@@ -306,54 +596,8 @@ const detects = [
     color: var(--ink-tertiary);
   }
 
-  /* "What it weighs" detail card */
-  .detects-card {
-    background: var(--surface);
-    border: 1px solid var(--line-soft);
-    border-radius: var(--radius-card);
-    padding: calc(var(--space) * 4);
-    box-shadow: var(--shadow-soft);
-  }
-  .detects-head {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-tertiary);
-    margin-bottom: calc(var(--space) * 2.5);
-  }
-  .detects-grid {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: calc(var(--space) * 1.5);
-  }
-  .detects-grid li {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    font-size: 0.9375rem;
-    color: var(--ink-secondary);
-    line-height: 1.4;
-  }
-  .detects-grid li::before {
-    content: "";
-    flex: none;
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: var(--grass);
-    transform: translateY(-1px);
-  }
-  @media (max-width: 420px) {
-    .detects-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
   /* ------------------------------------------------------------ */
-  /* Product artifacts — warm windows with soft float shadow       */
+  /* Shared window artifact                                        */
   /* ------------------------------------------------------------ */
   .window {
     background: var(--surface-high);
@@ -394,7 +638,6 @@ const detects = [
   .window-body {
     padding: calc(var(--space) * 3);
   }
-
   .chat-q {
     background: var(--canvas);
     border: 1px solid var(--line-soft);
@@ -451,7 +694,6 @@ const detects = [
     padding-top: calc(var(--space) * 1.5);
     margin-top: calc(var(--space) * 2);
   }
-
   .panel-title {
     font-weight: 650;
     font-size: 1.05rem;
@@ -494,61 +736,158 @@ const detects = [
   }
 
   /* ------------------------------------------------------------ */
-  /* Honest numbers — a warm card                                  */
+  /* 4 · Perfect collection memory                                 */
   /* ------------------------------------------------------------ */
-  .numbers-section {
-    padding-block: calc(var(--space) * 4);
-  }
-  .numbers-card {
-    background: var(--band);
-    border-radius: var(--radius-card);
-    padding: calc(var(--space) * 7) calc(var(--space) * 5);
-  }
-  .numbers-row {
+  .memory-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    text-align: center;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--space) * 8);
+    align-items: center;
   }
-  .numbers-row > div {
-    display: flex;
-    flex-direction: column;
-    padding-block: calc(var(--space) * 1);
-  }
-  .numbers-row > div + div {
-    border-left: 1px solid var(--line);
-  }
-  @media (max-width: 720px) {
-    .numbers-row {
-      grid-template-columns: 1fr 1fr;
-      row-gap: calc(var(--space) * 4);
-    }
-    .numbers-row > div:nth-child(3) {
-      border-left: 0;
+  @media (max-width: 800px) {
+    .memory-grid {
+      grid-template-columns: 1fr;
     }
   }
-  .numbers-row dt {
-    font-size: 0.8125rem;
-    font-weight: 550;
-    letter-spacing: 0.02em;
-    color: var(--ink-tertiary);
-    margin-top: calc(var(--space) * 0.5);
+  .memory-head {
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
   }
-  .numbers-row dd {
-    font-size: clamp(2.8rem, 6vw, 4rem);
-    line-height: 1.05;
-    margin: 0;
-    font-variant-numeric: tabular-nums;
-  }
-  .numbers-note {
-    text-align: center;
-    margin: calc(var(--space) * 5) auto 0;
-    color: var(--ink-tertiary);
-    font-size: 0.9375rem;
-    max-width: 40rem;
+  .memory-q {
+    display: inline-block;
+    background: var(--surface-high);
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-soft);
+    border-radius: 18px 18px 5px 18px;
+    padding: 12px 18px;
+    font-weight: 560;
+    margin-bottom: calc(var(--space) * 2.5);
+    transform: rotate(-1deg);
   }
 
   /* ------------------------------------------------------------ */
-  /* Family grid + closing                                         */
+  /* 5 · Truth wall                                                */
+  /* ------------------------------------------------------------ */
+  .truths-head {
+    text-align: center;
+    max-width: 20ch;
+    margin: 0 auto calc(var(--space) * 6);
+  }
+  .truth-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(var(--space) * 3);
+  }
+  @media (max-width: 800px) {
+    .truth-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .truth-card {
+    background: var(--surface-high);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: calc(var(--space) * 4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 150px;
+  }
+  .truth-card.quote p {
+    font-size: 1.1rem;
+    font-weight: 550;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .truth-big {
+    font-size: 3.2rem;
+    font-weight: 640;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--grass);
+    font-variant-numeric: tabular-nums;
+  }
+  .truth-label {
+    margin-top: calc(var(--space) * 1);
+    font-size: 0.9375rem;
+    color: var(--ink-tertiary);
+  }
+
+  /* ------------------------------------------------------------ */
+  /* 6 · Features grid                                             */
+  /* ------------------------------------------------------------ */
+  .featgrid-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--space) * 3);
+    flex-wrap: wrap;
+    margin-bottom: calc(var(--space) * 5);
+  }
+  .feat-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(var(--space) * 3);
+  }
+  @media (max-width: 900px) {
+    .feat-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .feat-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+  .feat-card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-card);
+    padding: calc(var(--space) * 3.5) calc(var(--space) * 3);
+  }
+  .feat-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: calc(var(--space) * 1);
+  }
+  .feat-card p {
+    font-size: 0.9375rem;
+    color: var(--ink-secondary);
+    line-height: 1.55;
+  }
+
+  /* ------------------------------------------------------------ */
+  /* 7 · MCP connector                                             */
+  /* ------------------------------------------------------------ */
+  .mcp-card {
+    background: var(--band);
+    border-radius: calc(var(--radius-card) + 8px);
+    padding: clamp(32px, 6vw, 72px);
+    text-align: center;
+  }
+  .mcp-copy {
+    margin: calc(var(--space) * 3) auto 0;
+    color: var(--ink-secondary);
+    max-width: 40rem;
+  }
+  .mcp-code {
+    max-width: 520px;
+    margin: calc(var(--space) * 4) auto 0;
+    text-align: left;
+  }
+  .mcp-card :global(.codeblock) {
+    background: var(--surface-high);
+  }
+  .mcp-hint {
+    margin: calc(var(--space) * 3) auto 0;
+    font-size: 0.9375rem;
+    color: var(--ink-tertiary);
+  }
+
+  /* ------------------------------------------------------------ */
+  /* 8 · Family + closing                                          */
   /* ------------------------------------------------------------ */
   .products-head {
     text-align: center;
@@ -562,18 +901,14 @@ const detects = [
 
   .closing {
     text-align: center;
+    padding-top: 0;
   }
   .closing-card {
-    background: var(--band);
+    background: var(--grass-tint);
     border-radius: calc(var(--radius-card) + 8px);
     padding: clamp(32px, 6vw, 72px);
   }
   .closing .lede {
     margin-inline: auto;
-  }
-  .closing-code {
-    max-width: 520px;
-    margin: calc(var(--space) * 4) auto 0;
-    text-align: left;
   }
 </style>
