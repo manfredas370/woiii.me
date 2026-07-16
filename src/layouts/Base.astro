@@ -108,7 +108,7 @@ const path = Astro.url.pathname;
         text-decoration: none;
       }
       .wordmark-dot {
-        color: var(--blue-ink);
+        color: var(--accent-hue);
       }
       .site-header nav {
         display: flex;
@@ -188,7 +188,7 @@ const path = Astro.url.pathname;
         text-decoration: none;
       }
       .site-footer ul a:hover {
-        color: var(--blue-ink);
+        color: var(--accent-hue);
         text-decoration: underline;
         text-underline-offset: 3px;
       }
@@ -231,9 +231,32 @@ const path = Astro.url.pathname;
         });
       }
 
-      // 2) Per-letter "shiver" reveal on section headlines (.shiver),
-      //    once, on scroll-into-view. Static under reduced motion.
+      // 2) Scroll reveals — .reveal elements rise in on first view.
+      //    Hidden state is applied by JS, so no-JS never hides content.
       const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const revealEls = document.querySelectorAll<HTMLElement>(".reveal");
+      if (!reduced && revealEls.length && "IntersectionObserver" in window) {
+        let stagger = 0;
+        const ioReveal = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              ioReveal.unobserve(e.target);
+              const el = e.target as HTMLElement;
+              el.style.transitionDelay = `${Math.min(stagger++ % 3, 2) * 90}ms`;
+              el.classList.add("reveal-in");
+            }
+          },
+          { threshold: 0.12 }
+        );
+        for (const el of revealEls) {
+          el.classList.add("reveal-pre");
+          ioReveal.observe(el);
+        }
+      }
+
+      // 3) Per-letter "shiver" reveal on section headlines (.shiver),
+      //    once, on scroll-into-view. Static under reduced motion.
       const headlines = document.querySelectorAll<HTMLElement>(".shiver");
       if (!reduced && headlines.length && "IntersectionObserver" in window) {
         for (const h of headlines) {
