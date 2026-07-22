@@ -1,0 +1,24 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_56_372)">
+<rect width="500" height="500" fill="url(#paint0_linear_56_372)"/>
+<g filter="url(#filter0_f_56_372)">
+<circle cx="128" cy="364" r="200" fill="white" fill-opacity="0.9" style="fill:white;fill-opacity:0.9;"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_56_372" x="-552" y="-316" width="1360" height="1360" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="240" result="effect1_foregroundBlur_56_372"/>
+</filter>
+<linearGradient id="paint0_linear_56_372" x1="0" y1="0" x2="500" y2="500" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E5D6FA" style="stop-color:#E5D6FA;stop-color:color(display-p3 0.8967 0.8374 0.9815);stop-opacity:1;"/>
+<stop offset="0.360577" stop-color="#CCB5F4" style="stop-color:#CCB5F4;stop-color:color(display-p3 0.8009 0.7103 0.9574);stop-opacity:1;"/>
+<stop offset="0.680288" stop-color="#A4E5A3" style="stop-color:#A4E5A3;stop-color:color(display-p3 0.6419 0.8998 0.6376);stop-opacity:1;"/>
+<stop offset="1" stop-color="#ACE2AC" style="stop-color:#ACE2AC;stop-color:color(display-p3 0.6754 0.8851 0.6754);stop-opacity:1;"/>
+</linearGradient>
+<clipPath id="clip0_56_372">
+<rect width="500" height="500" rx="28" fill="white" style="fill:white;fill-opacity:1;"/>
+</clipPath>
+</defs>
+</svg>

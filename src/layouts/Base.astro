@@ -5,9 +5,10 @@ import { BRAND, DIG, SUPPORT, DISCOGS_ATTRIBUTION } from "../config/brand";
 interface Props {
   title: string;
   description: string;
+  bodyClass?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, bodyClass } = Astro.props;
 const path = Astro.url.pathname;
 ---
 
@@ -18,29 +19,31 @@ const path = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
     <link
       rel="preload"
-      href="/fonts/Geist-Variable.woff2"
+      href="/fonts/GT-Standard-L-Regular.otf"
       as="font"
-      type="font/woff2"
+      type="font/otf"
       crossorigin
     />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
   </head>
-  <body>
+  <body class={bodyClass}>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
       <div class="wrap header-row">
-        <a class="wordmark" href="/">WOIII<span class="wordmark-dot">.me</span></a>
+        <a class="wordmark" href="/" aria-label="WOIII.me home">
+          <img src="/woiii-logo.svg" alt="" width="108" height="32" />
+        </a>
         <nav aria-label="Main">
+          <a href="/#why-dig">Why .DIG</a>
+          <a href="/#journey">How it works</a>
           <a href="/#products">Products</a>
-          <a href="/connect" aria-current={path.startsWith("/connect") ? "page" : undefined}>Connect</a>
-          <a href="/privacy" aria-current={path.startsWith("/privacy") ? "page" : undefined}>Privacy</a>
-          <a href={DIG.repoUrl}>GitHub</a>
+          <a class="header-connect-button" href="/connect" aria-current={path.startsWith("/connect") ? "page" : undefined}>Connect guide</a>
         </nav>
       </div>
     </header>
@@ -49,38 +52,44 @@ const path = Astro.url.pathname;
       <slot />
     </main>
 
-    <footer class="site-footer">
-      <div class="wrap">
-        <div class="footer-grid">
-          <div class="footer-brand">
-            <p class="footer-wordmark">WOIII<span class="wordmark-dot">.me</span></p>
-            <p class="footer-tag">AI-powered tools for music lovers.</p>
-            <p class="footer-stamp">EST. 2026 · NO TRACKERS PRESSED INTO THIS SITE</p>
+    <footer
+      id="site-footer"
+      class:list={["site-footer", { "site-footer-light": path === "/" }]}
+      data-header-tone={path === "/" ? "light" : "dark"}
+    >
+      <div class="wrap footer-inner">
+        <div class="footer-links">
+          <div>
+            <h2 class="footer-heading">woiii.me/DIG for Discogs</h2>
+            <ul>
+              <li><a href="/connect">Connection guide</a></li>
+              <li><a href={DIG.repoUrl} target="_blank" rel="noopener noreferrer">Source code</a> <span class="footer-note">MIT</span></li>
+              <li><a href={DIG.releasesUrl} target="_blank" rel="noopener noreferrer">Releases</a></li>
+            </ul>
           </div>
           <div id="support">
             <h2 class="footer-heading">Support</h2>
             <ul>
               <li><a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a></li>
-              <li><a href={DIG.issuesUrl}>GitHub Issues</a> <span class="footer-note">bugs</span></li>
-              <li><a href={DIG.discussionsUrl}>Discussions</a> <span class="footer-note">questions &amp; ideas</span></li>
-            </ul>
-          </div>
-          <div>
-            <h2 class="footer-heading">{DIG.name}</h2>
-            <ul>
-              <li><a href="/connect">Connect guide</a></li>
-              <li><a href={DIG.repoUrl}>Source code</a> <span class="footer-note">MIT</span></li>
-              <li><a href={DIG.releasesUrl}>Releases</a></li>
-              <li><a href="/privacy">Privacy policy</a></li>
+              <li><a href={DIG.issuesUrl} target="_blank" rel="noopener noreferrer">GitHub issues</a></li>
+              <li><a href={DIG.discussionsUrl} target="_blank" rel="noopener noreferrer">Discussions</a></li>
             </ul>
           </div>
         </div>
-        <div class="footer-legal-block">
-          <p class="footer-legal">
-            No analytics, no cookies, no trackers — on this site or in the products.
-          </p>
-          <p class="footer-legal">{DISCOGS_ATTRIBUTION}</p>
-          <p class="footer-legal">© {new Date().getFullYear()} {BRAND.publisher}</p>
+
+        <p class="footer-tagline">AI-powered tools for <em>music lovers</em></p>
+
+        <div class="footer-lower">
+          <div class="footer-mega-logo" aria-hidden="true">
+            <img src="/woiii-logo.svg" alt="" width="108" height="32" />
+          </div>
+          <div class="footer-meta">
+            <p>{DISCOGS_ATTRIBUTION}</p>
+            <div class="footer-meta-row">
+              <p>© {new Date().getFullYear()} {BRAND.publisher}</p>
+              <a href="/privacy">Privacy Policy</a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
@@ -89,6 +98,31 @@ const path = Astro.url.pathname;
       .site-header {
         border-bottom: 1px solid var(--line);
         background: var(--canvas);
+      }
+      .site-header .header-row nav a.header-connect-button {
+        min-height: 40px;
+        padding: 0 18px !important;
+        border: 1px solid #fff !important;
+        border-radius: 999px !important;
+        color: #080808 !important;
+        background: #fff !important;
+      }
+      .site-header .header-row nav a.header-connect-button:hover,
+      .site-header .header-row nav a.header-connect-button[aria-current="page"] {
+        border-color: #e7e7e7 !important;
+        color: #080808 !important;
+        background: #e7e7e7 !important;
+      }
+      .site-header.is-on-light .header-row nav a.header-connect-button {
+        border-color: #000 !important;
+        color: #fff !important;
+        background: #000 !important;
+      }
+      .site-header.is-on-light .header-row nav a.header-connect-button:hover,
+      .site-header.is-on-light .header-row nav a.header-connect-button[aria-current="page"] {
+        border-color: #202020 !important;
+        color: #fff !important;
+        background: #202020 !important;
       }
       .header-row {
         display: flex;
@@ -99,13 +133,21 @@ const path = Astro.url.pathname;
         flex-wrap: wrap;
         row-gap: calc(var(--space) * 1);
       }
-      .wordmark,
-      .footer-wordmark {
+      .wordmark {
         font-weight: 700;
         font-size: 1.2rem;
         letter-spacing: -0.02em;
         color: var(--ink);
         text-decoration: none;
+      }
+      .wordmark {
+        display: inline-flex;
+        align-items: center;
+      }
+      .wordmark img {
+        display: block;
+        width: 108px;
+        height: 32px;
       }
       .wordmark-dot {
         color: var(--accent-hue);
@@ -140,79 +182,201 @@ const path = Astro.url.pathname;
       }
 
       .site-footer {
-        border-top: 1px solid var(--line);
-        background: var(--surface);
-        padding-block: calc(var(--space) * 9) calc(var(--space) * 6);
-        margin-top: calc(var(--space) * 14);
+        min-height: 400px;
+        border-top: 0;
+        overflow: hidden;
+        background: #000;
+        padding-block: 54px 0;
+        margin-top: 0;
       }
-      .footer-grid {
+      .footer-inner {
+        position: relative;
+        width: min(100%, 1440px);
+        max-width: 1440px;
+        padding-inline: clamp(24px, 3.35vw, 48px);
+      }
+      .footer-links {
         display: grid;
-        grid-template-columns: 1.4fr 1fr 1fr;
-        gap: calc(var(--space) * 6);
-        margin-bottom: calc(var(--space) * 7);
-      }
-      @media (max-width: 720px) {
-        .footer-grid {
-          grid-template-columns: 1fr;
-          gap: calc(var(--space) * 5);
-        }
+        grid-template-columns: 220px 220px;
+        gap: 60px;
       }
       .footer-heading {
-        font-size: 0.75rem;
+        margin-bottom: 16px;
+        color: #fff;
+        font-size: 0.875rem;
         font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--ink-tertiary);
-        margin-bottom: calc(var(--space) * 2);
-      }
-      .footer-tag {
-        color: var(--ink-secondary);
-        margin-top: calc(var(--space) * 1);
-      }
-      .footer-stamp {
-        margin-top: calc(var(--space) * 3);
-        font-family: ui-monospace, "SF Mono", Menlo, monospace;
-        font-size: 0.6875rem;
-        letter-spacing: 0.08em;
-        color: var(--ink-faint);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        text-transform: none;
       }
       .site-footer ul {
         list-style: none;
         padding: 0;
         display: grid;
-        gap: 10px;
-        font-size: 0.9375rem;
+        gap: 3px;
+        font-size: 0.875rem;
+        line-height: 1.3;
       }
       .site-footer ul a {
-        color: var(--ink-secondary);
+        color: rgba(255, 255, 255, 0.52);
         text-decoration: none;
       }
       .site-footer ul a:hover {
-        color: var(--accent-hue);
+        color: #fff;
         text-decoration: underline;
         text-underline-offset: 3px;
       }
       .footer-note {
-        color: var(--ink-faint);
-        font-size: 0.8125rem;
-        margin-left: 4px;
+        color: rgba(255, 255, 255, 0.34);
       }
-      .footer-legal-block {
-        border-top: 1px solid var(--line);
-        padding-top: calc(var(--space) * 4);
-        display: grid;
-        gap: 6px;
-      }
-      .footer-legal {
-        font-size: 0.8125rem;
-        line-height: 1.6;
-        color: var(--ink-faint);
+      .footer-tagline {
         max-width: none;
+        margin-top: 70px;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .footer-tagline em {
+        color: var(--accent-hue);
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: calc(1em + 2px);
+        font-weight: 400;
+      }
+      .footer-lower {
+        display: grid;
+        grid-template-columns: 400px minmax(0, 1fr);
+        gap: 40px;
+        align-items: start;
+        margin-top: 20px;
+      }
+      .footer-mega-logo {
+        position: relative;
+        width: 400px;
+        height: 135px;
+        overflow: visible;
+        clip-path: inset(-100px 0);
+        opacity: 0.12;
+      }
+      .footer-mega-logo img {
+        position: absolute;
+        top: -10px;
+        left: -235px;
+        width: 635px;
+        height: auto;
+        max-width: none;
+      }
+      .footer-meta {
+        padding-top: 38px;
+        color: rgba(255, 255, 255, 0.46);
+        font-size: 0.875rem;
+        line-height: 1.3;
+      }
+      .footer-meta p {
+        max-width: none;
+      }
+      .footer-meta-row {
+        display: flex;
+        align-items: center;
+        gap: 42px;
+        margin-top: 26px;
+      }
+      .footer-meta a {
+        color: rgba(255, 255, 255, 0.46);
+        text-decoration: none;
+      }
+      .footer-meta a:hover { color: #fff; }
+
+      .site-footer-light {
+        background: #f7f7f4;
+      }
+      .site-footer-light .footer-inner::before {
+        content: "";
+        position: absolute;
+        top: -54px;
+        right: clamp(24px, 3.35vw, 48px);
+        left: clamp(24px, 3.35vw, 48px);
+        height: 1px;
+        background: #e8e8e3;
+      }
+      .site-footer-light .footer-heading,
+      .site-footer-light .footer-tagline {
+        color: #080808;
+      }
+      .site-footer-light .footer-tagline em {
+        color: #8b94f2;
+      }
+      .site-footer-light ul a {
+        color: rgba(8, 8, 8, 0.56);
+      }
+      .site-footer-light ul a:hover,
+      .site-footer-light .footer-meta a:hover {
+        color: #080808;
+      }
+      .site-footer-light .footer-note {
+        color: rgba(8, 8, 8, 0.36);
+      }
+      .site-footer-light .footer-meta,
+      .site-footer-light .footer-meta a {
+        color: rgba(8, 8, 8, 0.5);
+      }
+      .site-footer-light .footer-mega-logo img {
+        filter: invert(1);
+      }
+      .site-footer-light .footer-mega-logo {
+        opacity: 0.04;
+      }
+
+      @media (max-width: 720px) {
+        .site-header .header-row nav a.header-connect-button { min-height: 36px; padding-inline: 12px !important; }
+        .site-footer { min-height: auto; padding-block: 48px 40px; }
+        .footer-inner { width: 100%; padding-inline: 24px; }
+        .footer-links { grid-template-columns: 1fr 1fr; gap: 28px; }
+        .footer-tagline { margin-top: 58px; font-size: 1.3rem; }
+        .footer-lower { grid-template-columns: 1fr; gap: 24px; }
+        .footer-mega-logo { width: 100%; height: 108px; overflow: hidden; clip-path: none; }
+        .footer-mega-logo img { top: -23px; left: -185px; width: 500px; }
+        .footer-meta { padding-top: 0; }
+        .site-footer-light .footer-inner::before { top: -48px; }
+      }
+      @media (max-width: 480px) {
+        .footer-links { grid-template-columns: 1fr; gap: 32px; }
+        .footer-tagline { margin-top: 52px; }
+        .footer-meta-row { align-items: flex-start; flex-direction: column; gap: 8px; }
       }
     </style>
 
     <script>
       // Progressive enhancement only — the site works fully without JS.
+
+      // Give the fixed landing header a subtle glass surface after scrolling,
+      // and switch its contrast when a light section moves behind it.
+      const siteHeader = document.querySelector<HTMLElement>(".site-header");
+      const syncHeaderSurface = () => {
+        if (!siteHeader) return;
+        siteHeader.classList.toggle("is-scrolled", scrollY > 12);
+
+        const probeY = Math.max(1, Math.min(innerHeight - 1, siteHeader.offsetHeight / 2));
+        const backdrop = [...document.querySelectorAll<HTMLElement>("[data-header-tone]")].find(
+          (section) => {
+            const bounds = section.getBoundingClientRect();
+            return bounds.top <= probeY && bounds.bottom > probeY;
+          },
+        );
+        siteHeader.classList.toggle("is-on-light", backdrop?.dataset.headerTone === "light");
+      };
+      let headerFrame = 0;
+      const scheduleHeaderSurface = () => {
+        if (headerFrame) return;
+        headerFrame = requestAnimationFrame(() => {
+          headerFrame = 0;
+          syncHeaderSurface();
+        });
+      };
+      syncHeaderSurface();
+      addEventListener("scroll", scheduleHeaderSurface, { passive: true });
+      addEventListener("resize", scheduleHeaderSurface, { passive: true });
 
       // 1) Copy buttons on code blocks.
       for (const btn of document.querySelectorAll<HTMLButtonElement>(".copy-btn")) {
@@ -233,7 +397,8 @@ const path = Astro.url.pathname;
 
       // 2) Scroll reveals — .reveal elements rise in on first view.
       //    Hidden state is applied by JS, so no-JS never hides content.
-      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        new URLSearchParams(location.search).has("qa");
       const revealEls = document.querySelectorAll<HTMLElement>(".reveal");
       if (!reduced && revealEls.length && "IntersectionObserver" in window) {
         let stagger = 0;

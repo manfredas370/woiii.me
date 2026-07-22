@@ -1,11 +1,26 @@
 {
-  "name": "landing-page",
-  "description": "The public home of WOIII.me — AI-powered tools for music lovers",
+  "name": "woiii-me",
+  "description": "Motion-led Astro website and connection guide for woiii.me/DIG",
   "author": "WOIII.me",
   "license": "MIT",
   "private": true,
   "type": "module",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "homepage": "https://woiii.me",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manfredas370/woiii.me.git"
+  },
+  "bugs": {
+    "url": "https://github.com/manfredas370/woiii.me/issues"
+  },
+  "keywords": [
+    "astro",
+    "discogs",
+    "mcp",
+    "music",
+    "record-collecting"
+  ],
   "engines": {
     "node": ">=22.12.0"
   },

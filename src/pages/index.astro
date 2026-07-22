@@ -1,842 +1,792 @@
 ---
 import Base from "../layouts/Base.astro";
-import ProductCard from "../components/ProductCard.astro";
 import ProductRing from "../components/ProductRing.astro";
-import CodeBlock from "../components/CodeBlock.astro";
-import { DIG, MIX, RIG } from "../config/brand";
+import { DIG } from "../config/brand";
 ---
 
 <Base
   title="WOIII.me — AI-powered tools for music lovers"
   description="Home of DIG for Discogs: pressing intelligence for your AI assistant and your browser. Which copy of this album should I buy? Answered with evidence, not folklore."
 >
-  <!-- Hero — one idea, lots of air, run-out grooves behind -->
-  <section class="section hero">
-    <div class="hero-grooves" aria-hidden="true"></div>
-    <div class="wrap">
-      <p class="kicker">
-        <span class="kicker-token">woiii.DIG</span>
-        <span class="kicker-live"><span class="kicker-dot"></span>live now</span>
-      </p>
-      <h1>
-        Which <span class="accent">pressing</span> is actually worth&nbsp;buying?
+  <section class="landing-hero" aria-labelledby="hero-title">
+    <div class="hero-copy edge-wrap">
+      <h1 id="hero-title">
+        Which <span class="accent">pressing</span> is actually worth <span class="accent">buying?</span>
       </h1>
-      <p class="lede hero-lede">
-        DIG for Discogs answers with evidence, not folklore — surveying every
-        version of an album on Discogs and scoring each on community ratings,
-        collector demand, and audiophile markers.
-      </p>
-      <div class="hero-ctas">
-        <a class="btn filled" href="/connect">Connect DIG</a>
-        <a class="btn outlined" href={DIG.repoUrl}>View on GitHub</a>
-      </div>
-      <p class="hero-fineprint">
-        Free and open source · read-only · your own Discogs account · no ads,
-        no data collection
-      </p>
-    </div>
-  </section>
-
-  <!-- Spotlight — the verdict, with floating status chips -->
-  <section class="section">
-    <div class="wrap spotlight">
-      <div class="spotlight-copy">
-        <p class="eyebrow">In your AI assistant</p>
-        <h2 class="shiver">Ask, and get a <span class="accent">verdict</span></h2>
-        <p>
-          Connect DIG to Claude, ChatGPT, or Codex and ask about any album.
-          It ranks the pressings with score breakdowns — original vs. reissue,
-          MFSL and half-speed masters, renowned mastering engineers, Japanese
-          pressings — and every verdict shows its evidence coverage.
-        </p>
-        <p class="honest-note">
-          Honest caveat: the first analysis of an album takes about 10 seconds.
-          Good answers are worth the wait.
-        </p>
-      </div>
-      <div class="shot-card blue reveal">
-        <div class="demo-float">
-          <div class="window" role="img" aria-label="Example conversation: user asks which pressing of OK Computer to buy; the assistant calls the find_best_pressing tool and ranks three pressings with scores and evidence">
-            <div class="window-bar">
-              <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="window-title">Claude</span>
-            </div>
-            <div class="window-body chat">
-              <p class="chat-q">What's the best-sounding pressing of OK Computer?</p>
-              <p class="tool-chip"><span class="tool-glyph">⚙</span> find_best_pressing · axis: sonic</p>
-              <div class="chat-a">
-                <p class="rank"><span class="rank-n">1</span><span><strong>2016 XL 2×LP reissue</strong> — 92/100<br /><span class="rank-why">cut from the original masters · 4.6★ from 3k+ owners</span></span></p>
-                <p class="rank"><span class="rank-n">2</span><span><strong>1997 UK first pressing</strong> — 88/100<br /><span class="rank-why">collector favourite, prices climbing</span></span></p>
-                <p class="rank"><span class="rank-n">3</span><span><strong>2017 US repress</strong> — 79/100<br /><span class="rank-why">solid value pick</span></span></p>
-                <p class="chat-meta">Evidence: 41 versions surveyed · community ratings + audiophile markers</p>
-              </div>
-            </div>
-          </div>
-          <div class="float-chip fc-1" aria-hidden="true"><span class="fc-dot"></span>Surveying 41 versions…</div>
-          <div class="float-chip fc-2" aria-hidden="true">✓ Evidence coverage shown</div>
-        </div>
+      <div class="hero-actions" aria-label="DIG actions">
+        <a class="site-button site-button-primary" href="/connect">Connect .DIG</a>
+        <a class="site-button site-button-secondary" href={DIG.repoUrl} target="_blank" rel="noopener noreferrer">
+          View on GitHub
+        </a>
       </div>
     </div>
-  </section>
 
-  <!-- Tabbed journey — before / during / after the hunt -->
-  <section class="section journey">
-    <div class="wrap">
-      <h2 class="shiver journey-head">
-        Before, during and <span class="accent">after</span> the hunt
-      </h2>
-
-      <div class="tabs">
-        <input class="tab-radio" type="radio" name="phase" id="tab-before" checked />
-        <input class="tab-radio" type="radio" name="phase" id="tab-during" />
-        <input class="tab-radio" type="radio" name="phase" id="tab-after" />
-
-        <div class="tab-bar" role="tablist" aria-label="When DIG helps">
-          <label for="tab-before">Before you buy</label>
-          <label for="tab-during">While you browse</label>
-          <label for="tab-after">After you add</label>
-        </div>
-
-        <div class="tab-panels reveal">
-          <!-- BEFORE -->
-          <div class="tab-panel panel-before">
-            <div class="panel-copy">
-              <h3>Know which copy is worth it</h3>
-              <p>
-                Compare pressings along the axis you care about — sonics,
-                collectibility, or value — and see exactly why one copy beats
-                another before money changes hands.
-              </p>
-            </div>
-            <div class="panel-shot">
-              <div class="window" role="img" aria-label="Assistant comparing two pressings by value with scores and reasons">
-                <div class="window-bar">
-                  <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                  <span class="window-title">Claude</span>
-                </div>
-                <div class="window-body chat">
-                  <p class="tool-chip"><span class="tool-glyph">⚙</span> compare_pressings · axis: value</p>
-                  <div class="chat-a">
-                    <p class="rank"><span class="rank-n">1</span><span><strong>2017 US repress</strong> — best value at ~€25<br /><span class="rank-why">96% of the sonics for a third of the price</span></span></p>
-                    <p class="rank"><span class="rank-n">2</span><span><strong>2016 XL reissue</strong> — the safe pick<br /><span class="rank-why">widely available, consistently well-rated</span></span></p>
-                    <p class="chat-meta">Evidence: prices + 3k community ratings</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- DURING -->
-          <div class="tab-panel panel-during">
-            <div class="panel-copy">
-              <h3>Scores beside every listing</h3>
-              <p>
-                The DIG side panel for Chrome shows pressing intelligence right
-                next to the listing you're looking at — scores, red flags, and
-                better alternatives while you browse or shop on discogs.com.
-              </p>
-              <p><a href="/connect#extension">Install the extension →</a></p>
-            </div>
-            <div class="panel-shot">
-              <div class="window" role="img" aria-label="Side panel showing a pressing score of 84 with three signals">
-                <div class="window-bar">
-                  <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                  <span class="window-title">DIG · discogs.com</span>
-                </div>
-                <div class="window-body panel">
-                  <p class="panel-title">This pressing <span class="panel-score">84</span></p>
-                  <ul class="panel-signals">
-                    <li><span class="sig ok">✓</span> Original mastering, well-rated (4.4★)</li>
-                    <li><span class="sig ok">✓</span> Sought by 1.2k collectors</li>
-                    <li><span class="sig warn">△</span> 2019 repress rates higher for playback</li>
-                  </ul>
-                  <p class="chat-meta">Based on 27 versions of this master</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- AFTER -->
-          <div class="tab-panel panel-after">
-            <div class="panel-copy">
-              <h3>Your shelf, ranked and ready</h3>
-              <p>
-                DIG knows your collection and wantlist. Rank your wantlist by
-                what's actually worth chasing, profile your taste, or get
-                rating-weighted picks from records you already own.
-              </p>
-              <p class="honest-note">
-                Slash commands in supported clients:
-                <code>/rank-my-wantlist</code>, <code>/my-taste-profile</code>,
-                <code>/pick-from-my-collection</code>.
-              </p>
-            </div>
-            <div class="panel-shot">
-              <div class="window" role="img" aria-label="Assistant ranking the user's wantlist by priority">
-                <div class="window-bar">
-                  <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                  <span class="window-title">Claude</span>
-                </div>
-                <div class="window-body chat">
-                  <p class="tool-chip"><span class="tool-glyph">⚙</span> /rank-my-wantlist</p>
-                  <div class="chat-a">
-                    <p class="rank"><span class="rank-n">1</span><span><strong>In a Silent Way — 1969 US</strong><br /><span class="rank-why">prices climbing · rare in this grade</span></span></p>
-                    <p class="rank"><span class="rank-n">2</span><span><strong>Kind of Blue — MFSL 2×45</strong><br /><span class="rank-why">strong sonics score, stable price</span></span></p>
-                    <p class="chat-meta">Ranked 14 wantlist items by urgency</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Perfect collection memory -->
-  <section class="section memory">
-    <div class="wrap memory-grid">
-      <div>
-        <p class="eyebrow">DIG knows your shelf</p>
-        <h2 class="shiver memory-head">
-          Perfect <span class="accent">collection</span> memory
-        </h2>
-        <p class="memory-copy">
-          Genre and decade breakdowns, a taste profile, recommendations that
-          respect what you already own — all from your own Discogs account.
-        </p>
-      </div>
-      <div class="memory-demo reveal">
-        <p class="memory-q">What should I spin tonight?</p>
-        <div class="window">
-          <div class="window-bar">
-            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="window-title">Claude</span>
-          </div>
-          <div class="window-body chat">
-            <p class="tool-chip"><span class="tool-glyph">⚙</span> spin · mood: late night</p>
-            <div class="chat-a">
-              <p class="rank"><span class="rank-n">♪</span><span><strong>Talk Talk — Spirit of Eden</strong><br /><span class="rank-why">your 5★ shelf, unplayed for a while</span></span></p>
-              <p class="rank"><span class="rank-n">♪</span><span><strong>Alice Coltrane — Journey in Satchidananda</strong><br /><span class="rank-why">fits the mood, rated 4.5★ by you</span></span></p>
-              <p class="chat-meta">Picked from your own collection · rating-weighted</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Honest numbers -->
-  <section class="section numbers">
-    <div class="wrap">
-      <dl class="numbers-row">
-        <div>
-          <dt>MCP tools</dt>
-          <dd><span class="accent">{DIG.toolCount}</span></dd>
-        </div>
-        <div>
-          <dt>Slash-command prompts</dt>
-          <dd><span class="accent">{DIG.promptCount}</span></dd>
-        </div>
-        <div>
-          <dt>REST endpoints</dt>
-          <dd><span class="accent">{DIG.restEndpointCount}</span></dd>
-        </div>
-        <div>
-          <dt>Trackers &amp; ads</dt>
-          <dd><span class="accent">0</span></dd>
-        </div>
-      </dl>
-      <p class="numbers-note">
-        Scores are based on reputation and community data, not measured sound —
-        and every verdict says how much evidence sits behind it.
-      </p>
-    </div>
-  </section>
-
-  <!-- Product family -->
-  <section class="section" id="products">
-    <div class="wrap products-head">
-      <p class="eyebrow">The family</p>
-      <h2 class="shiver">One brand, <span class="accent">three</span> tools</h2>
-    </div>
-    <div class="ring-holder">
+    <div class="hero-ring" aria-label="WOIII product family in motion">
       <ProductRing />
     </div>
-    <div class="wrap">
-      <div class="family-grid">
-        <ProductCard
-          token={DIG.token}
-          catalog="WOIII·001"
-          tint="blue"
-          description="Pressing intelligence for Discogs — in your AI assistant and your browser. Live now."
-          href="/connect"
-        />
-        <ProductCard
-          token={MIX.token}
-          catalog="WOIII·002"
-          tint="green"
-          badge={MIX.badge}
-          description={MIX.description}
-        />
-        <ProductCard
-          token={RIG.token}
-          catalog="WOIII·003"
-          tint="gold"
-          badge={RIG.badge}
-          description={RIG.description}
-        />
+  </section>
+
+  <section class="manifesto" id="why-dig" aria-labelledby="manifesto-title">
+    <div class="edge-wrap manifesto-inner">
+      <h2 class="sr-only" id="manifesto-title">Evidence for better record buying</h2>
+      <div class="manifesto-copy" data-scroll-text-reveal>
+        <p>Record collecting is full of confident opinions.</p>
+        <p aria-label="DIG adds the part that is usually missing: evidence.">
+          <span class="manifesto-badge scroll-reveal-word" aria-hidden="true">
+            <img src="/woiii-dig-badge.svg" alt="" width="136" height="30" />
+          </span> adds the part that is usually missing: <em>evidence.</em>
+        </p>
+        <p>It compares the pressings, shows its coverage, and leaves the final call with you.</p>
       </div>
     </div>
   </section>
 
-  <!-- Closing CTA — the lime pressing -->
-  <section class="section closing">
-    <div class="wrap">
-      <div class="closing-card reveal">
-        <h2 class="shiver">Two minutes to <span class="closing-serif">connect</span></h2>
-        <p class="closing-lede">One URL, any Discogs account, no invite needed.</p>
-        <div class="closing-code">
-          <CodeBlock code={DIG.mcpUrl} label="MCP server URL" />
+  <section class="journey" id="journey" aria-labelledby="journey-title">
+    <div class="edge-wrap">
+      <h2 id="journey-title">Before. During. <span class="accent">After.</span></h2>
+      <div class="journey-grid">
+        <article class="journey-card reveal">
+          <span>Before you buy</span>
+          <h3>Know which copy deserves your money.</h3>
+          <p>Compare the pressings by sonics, collectibility, or value before the listing disappears.</p>
+          <a href="/connect">Ask DIG</a>
+        </article>
+        <article class="journey-card reveal">
+          <span>While you browse</span>
+          <h3>See the score<br />beside the<br />listing.</h3>
+          <p>Catch red flags and discover stronger alternatives without leaving discogs.com.</p>
+          <a href="/connect#extension">Get the extension</a>
+        </article>
+        <article class="journey-card reveal">
+          <span>After you add</span>
+          <h3>Turn your shelf into a living memory.</h3>
+          <p>Rank the wantlist, profile your taste, or ask what deserves a spin tonight.</p>
+          <a href="/connect">Connect your collection</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="impact" id="impact" aria-labelledby="impact-title">
+    <div class="edge-wrap">
+      <h2 class="sr-only" id="impact-title">DIG by the numbers</h2>
+      <dl class="impact-grid">
+        <div class="reveal">
+          <dd><span data-count={DIG.toolCount}>{DIG.toolCount}</span><sup>+</sup></dd>
+          <dt>MCP tools for the record hunt</dt>
         </div>
-        <div class="hero-ctas">
-          <a class="btn closing-btn" href="/connect">Open the connect guide</a>
+        <div class="reveal">
+          <dd><span data-count={DIG.promptCount}>{DIG.promptCount}</span><sup>+</sup></dd>
+          <dt>Guided prompts and shortcuts</dt>
         </div>
+        <div class="reveal">
+          <dd><span data-count="0">0</span></dd>
+          <dt>Trackers, ads, or data collection</dt>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="products" id="products" aria-labelledby="products-title" data-header-tone="light">
+    <div class="edge-wrap">
+      <h2 id="products-title">Other products</h2>
+
+      <div class="product-grid">
+        <article class="product-art-card reveal">
+          <img class="product-art-background" src="/products/mix-background.svg" alt="" width="500" height="500" loading="lazy" />
+          <img class="product-art-dots" src="/products/dots.svg" alt="" width="452" height="452" loading="lazy" />
+          <div class="product-art-content">
+            <img class="product-art-logo" src="/products/mix-badge.svg" alt="WOIII.MIX" width="136" height="30" />
+            <h3>A private mixtape<br />with a point of view</h3>
+            <span class="product-coming-soon">Coming soon</span>
+          </div>
+        </article>
+        <article class="product-art-card reveal">
+          <img class="product-art-background" src="/products/rig-background.svg" alt="" width="500" height="500" loading="lazy" />
+          <img class="product-art-dots" src="/products/dots.svg" alt="" width="452" height="452" loading="lazy" />
+          <div class="product-art-content">
+            <img class="product-art-logo" src="/products/rig-badge.svg" alt="WOIII.RIG" width="136" height="30" />
+            <h3>Hi-fi gear matched<br />to how you listen</h3>
+            <span class="product-coming-soon">Coming soon</span>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
-  /* ------------------------------------------------------------ */
-  /* Hero                                                          */
-  /* ------------------------------------------------------------ */
-  .hero {
-    position: relative;
-    padding-block: calc(var(--space) * 17) calc(var(--space) * 15);
-    text-align: center;
-    overflow: hidden;
+  :global(body) {
+    --accent-hue: #c8ff9f;
   }
-  /* Run-out grooves — concentric hairlines rising behind the headline */
-  .hero-grooves {
-    position: absolute;
-    inset: 0;
-    background: repeating-radial-gradient(
-      circle at 50% 130%,
-      transparent 0 22px,
-      rgba(255, 255, 255, 0.05) 22px 23px
+
+  :global(.site-header) {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    border: 0 !important;
+    box-shadow: none;
+    background: #000;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: background 220ms ease, backdrop-filter 220ms ease;
+  }
+  :global(.site-header.is-scrolled) {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.28) 0%,
+      rgba(0, 0, 0, 0.16) 58%,
+      rgba(0, 0, 0, 0) 100%
     );
-    -webkit-mask-image: linear-gradient(to bottom, transparent 12%, #000 60%);
-    mask-image: linear-gradient(to bottom, transparent 12%, #000 60%);
-    pointer-events: none;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
-  .hero .wrap {
-    position: relative;
+  :global(.site-header.is-on-light.is-scrolled) {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.44) 0%,
+      rgba(255, 255, 255, 0.22) 58%,
+      rgba(255, 255, 255, 0) 100%
+    );
   }
-  .kicker {
+  :global(.site-header .wordmark img) {
+    transition: filter 180ms ease;
+  }
+  :global(.site-header.is-on-light .wordmark img) {
+    filter: invert(1);
+  }
+  :global(.site-header .wrap) {
+    width: min(100%, 1440px);
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: clamp(24px, 3.35vw, 48px);
+  }
+  :global(.site-header .header-row nav) {
+    gap: clamp(16px, 2vw, 30px);
+  }
+  :global(.site-header .header-row nav a) {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    border-radius: 999px;
-    padding: 6px 14px 6px 8px;
-    font-size: 0.8125rem;
-    margin-bottom: calc(var(--space) * 4);
-  }
-  .kicker-token {
-    background: var(--accent-tint);
-    color: var(--accent-hue);
-    font-weight: 650;
-    border-radius: 999px;
-    padding: 2px 10px;
-  }
-  .kicker-live {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--ink-secondary);
-    font-weight: 520;
-  }
-  .kicker-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: var(--accent-hue);
-  }
-  .hero h1 {
-    max-width: 17ch;
-    margin-inline: auto;
-  }
-  .hero-lede {
-    margin-inline: auto;
-    max-width: 37rem;
-  }
-  .hero-ctas {
-    display: flex;
-    gap: calc(var(--space) * 2);
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: calc(var(--space) * 5);
-  }
-  .hero-fineprint {
-    margin: calc(var(--space) * 4) auto 0;
+    min-height: auto;
+    padding: 4px 0;
+    border-radius: 0;
+    color: rgba(255, 255, 255, 0.72) !important;
+    background: transparent !important;
     font-size: 0.875rem;
-    color: var(--ink-tertiary);
+    font-weight: 500 !important;
   }
+  :global(.site-header .header-row nav a:hover),
+  :global(.site-header .header-row nav a[aria-current="page"]) {
+    color: #fff !important;
+    background: transparent !important;
+  }
+  :global(.site-header.is-on-light .header-row nav a) {
+    color: rgba(0, 0, 0, 0.68) !important;
+  }
+  :global(.site-header.is-on-light .header-row nav a:hover),
+  :global(.site-header.is-on-light .header-row nav a[aria-current="page"]) {
+    color: #000 !important;
+  }
+  :global(.site-footer) { margin-top: 0; }
 
-  /* ------------------------------------------------------------ */
-  /* Spotlight                                                     */
-  /* ------------------------------------------------------------ */
-  .spotlight {
-    display: grid;
-    grid-template-columns: 5fr 6fr;
-    gap: calc(var(--space) * 9);
-    align-items: center;
-  }
-  @media (max-width: 800px) {
-    .spotlight {
-      grid-template-columns: 1fr;
-      gap: calc(var(--space) * 5);
-    }
-  }
-  .spotlight-copy p {
-    margin-top: calc(var(--space) * 2);
-  }
-  .honest-note {
-    font-size: 0.9375rem;
-    color: var(--ink-tertiary);
-  }
-
-  .demo-float {
-    position: relative;
-  }
-  .float-chip {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--surface-high);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 8px 16px;
-    font-size: 0.8125rem;
-    font-weight: 550;
-    color: var(--ink-secondary);
-    white-space: nowrap;
-    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
-  }
-  .fc-1 {
-    top: 12%;
-    left: -34px;
-    transform: rotate(-3deg);
-  }
-  .fc-2 {
-    bottom: 10%;
-    right: -26px;
-    transform: rotate(2deg);
-  }
-  .fc-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: var(--accent-hue);
-  }
-  @media (max-width: 1100px) {
-    .float-chip {
-      display: none;
-    }
-  }
-
-  /* ------------------------------------------------------------ */
-  /* Product artifacts — mini windows on deep label mats.          */
-  /* ------------------------------------------------------------ */
-  .window {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-shot);
-    box-shadow: var(--shadow-artifact);
-    max-width: 460px;
+  .edge-wrap {
+    width: min(100%, 1440px);
     margin-inline: auto;
-    overflow: hidden;
-    font-size: 0.9375rem;
-    text-align: left;
+    padding-inline: clamp(24px, 3.35vw, 48px);
   }
-  .window-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--line-soft);
-    background: var(--surface-high);
-  }
-  .window-dots {
+  .site-button {
     display: inline-flex;
-    gap: 5px;
-  }
-  .window-dots i {
-    width: 9px;
-    height: 9px;
-    border-radius: 999px;
-    background: var(--surface-inset);
-    border: 1px solid var(--line);
-  }
-  .window-title {
-    font-size: 0.75rem;
-    font-weight: 550;
-    color: var(--ink-tertiary);
-    letter-spacing: 0.02em;
-  }
-  .window-body {
-    padding: calc(var(--space) * 2.5);
-  }
-
-  .chat-q {
-    background: var(--surface-high);
-    border-radius: 14px 14px 4px 14px;
-    padding: 10px 14px;
-    font-weight: 550;
-    margin-left: 15%;
-    margin-bottom: calc(var(--space) * 2);
-  }
-  .tool-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 0.71rem;
-    color: var(--ink-tertiary);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 3px 10px;
-    margin-bottom: calc(var(--space) * 2);
-  }
-  .tool-glyph {
-    color: var(--accent-hue);
-    font-style: normal;
-  }
-  .rank {
-    display: flex;
-    gap: 10px;
-    margin-bottom: calc(var(--space) * 1.75);
-    line-height: 1.45;
-  }
-  .rank-n {
-    flex: none;
-    width: 22px;
-    height: 22px;
-    border-radius: 999px;
-    background: var(--accent-tint);
-    color: var(--accent-hue);
-    font-size: 0.75rem;
-    font-weight: 650;
-    display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 2px;
-  }
-  .rank-why {
-    color: var(--ink-tertiary);
-    font-size: 0.845rem;
-  }
-  .chat-meta {
-    font-size: 0.75rem;
-    color: var(--ink-faint);
-    border-top: 1px solid var(--line-soft);
-    padding-top: calc(var(--space) * 1.5);
-    margin-top: calc(var(--space) * 2);
-  }
-
-  .panel-title {
-    font-weight: 650;
-    font-size: 1.05rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .panel-score {
-    background: var(--green-tint);
-    color: var(--green-ink);
-    border: 1px solid color-mix(in srgb, var(--green-ink) 30%, transparent);
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
+    gap: 6px;
+    min-height: 54px;
+    padding: 0 22px;
+    border: 1px solid transparent;
     border-radius: 999px;
-    padding: 3px 13px;
+    color: #fff;
+    font-family: "GT Standard", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
   }
-  .panel-signals {
-    list-style: none;
-    padding: 0;
-    margin-block: calc(var(--space) * 2);
-    display: grid;
-    gap: 10px;
+  .site-button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
   }
-  .panel-signals li {
-    display: flex;
-    gap: 10px;
-    align-items: baseline;
-    line-height: 1.45;
+  .site-button-primary { color: #fff; background: #8b94f2; }
+  .site-button-primary:hover { background: #9aa2f5; }
+  .site-button-secondary {
+    border-color: rgba(255, 255, 255, 0.32);
+    background: transparent;
   }
-  .sig {
-    flex: none;
-    font-size: 0.8rem;
-    font-weight: 650;
+  .site-button-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.56);
+    background: rgba(255, 255, 255, 0.08);
   }
-  .sig.ok {
-    color: var(--green-ink);
-  }
-  .sig.warn {
-    color: var(--gold-ink);
-  }
-
-  /* ------------------------------------------------------------ */
-  /* Tabbed journey                                                */
-  /* ------------------------------------------------------------ */
-  .journey-head {
-    text-align: center;
-    max-width: 24ch;
-    margin-inline: auto;
-  }
-  .tab-radio {
+  .site-button-dark { background: #080808; }
+  .site-button-dark:hover { background: #272727; }
+  .sr-only {
     position: absolute;
     width: 1px;
     height: 1px;
+    padding: 0;
+    margin: -1px;
     overflow: hidden;
-    clip: rect(0 0 0 0);
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
-  }
-  .tab-bar {
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-    margin: calc(var(--space) * 5) auto calc(var(--space) * 6);
-    background: var(--surface);
-    border: 1px solid var(--line-soft);
-    border-radius: 999px;
-    padding: 5px;
-    width: fit-content;
-    max-width: 100%;
-    overflow-x: auto;
-  }
-  .tab-bar label {
-    border-radius: 999px;
-    padding: 9px 22px;
-    font-size: 0.9375rem;
-    font-weight: 560;
-    color: var(--ink-secondary);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.15s ease-out, color 0.15s ease-out;
-  }
-  .tab-bar label:hover {
-    color: var(--ink);
-  }
-  #tab-before:checked ~ .tab-bar label[for="tab-before"],
-  #tab-during:checked ~ .tab-bar label[for="tab-during"],
-  #tab-after:checked ~ .tab-bar label[for="tab-after"] {
-    background: var(--accent-hue);
-    color: var(--on-accent);
-  }
-  .tab-radio:focus-visible ~ .tab-bar {
-    outline: 2px solid var(--accent-hue);
-    outline-offset: 2px;
+    border: 0;
   }
 
-  .tab-panel {
-    display: none;
-    grid-template-columns: 5fr 6fr;
-    gap: calc(var(--space) * 8);
-    align-items: center;
-    background: var(--surface);
-    border: 1px solid var(--line-soft);
-    border-radius: calc(var(--radius-card) + 8px);
-    padding: clamp(24px, 4vw, 56px);
-  }
-  #tab-before:checked ~ .tab-panels .panel-before,
-  #tab-during:checked ~ .tab-panels .panel-during,
-  #tab-after:checked ~ .tab-panels .panel-after {
-    display: grid;
-  }
-  @media (max-width: 800px) {
-    .tab-panel {
-      grid-template-columns: 1fr;
-      gap: calc(var(--space) * 4);
-    }
-  }
-  .panel-copy h3 {
-    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
-    letter-spacing: -0.02em;
-  }
-  .panel-copy p {
-    margin-top: calc(var(--space) * 2);
-  }
-  .tab-panel .window {
-    background: var(--surface-high);
-  }
-  .tab-panel .window-bar {
-    background: var(--surface-inset);
-  }
-  .tab-panel .chat-q {
-    background: var(--surface-inset);
-  }
-
-  /* ------------------------------------------------------------ */
-  /* Perfect collection memory                                     */
-  /* ------------------------------------------------------------ */
-  .memory-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: calc(var(--space) * 8);
-    align-items: center;
-  }
-  @media (max-width: 800px) {
-    .memory-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  .memory-head {
-    font-size: clamp(2.4rem, 5.5vw, 3.8rem);
-  }
-  .memory-copy {
-    margin-top: calc(var(--space) * 3);
-    color: var(--ink-secondary);
-  }
-  .memory-q {
-    display: inline-block;
-    background: var(--surface-high);
-    border: 1px solid var(--line);
-    border-radius: 18px 18px 5px 18px;
-    padding: 12px 18px;
-    font-weight: 560;
-    margin-bottom: calc(var(--space) * 2.5);
-    transform: rotate(-1deg);
-  }
-
-  /* ------------------------------------------------------------ */
-  /* Honest numbers                                                */
-  /* ------------------------------------------------------------ */
-  .numbers {
-    background: var(--surface);
-    border-block: 1px solid var(--line-soft);
-  }
-  .numbers-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    text-align: center;
-  }
-  .numbers-row > div {
-    display: flex;
-    flex-direction: column;
-    padding-block: calc(var(--space) * 1);
-  }
-  .numbers-row > div + div {
-    border-left: 1px solid var(--line);
-  }
-  @media (max-width: 720px) {
-    .numbers-row {
-      grid-template-columns: 1fr 1fr;
-      row-gap: calc(var(--space) * 4);
-    }
-    .numbers-row > div:nth-child(3) {
-      border-left: 0;
-    }
-  }
-  .numbers-row dt {
-    font-size: 0.8125rem;
-    font-weight: 550;
-    letter-spacing: 0.02em;
-    color: var(--ink-tertiary);
-    order: 2;
-    margin-top: calc(var(--space) * 0.5);
-  }
-  .numbers-row dd {
-    font-size: clamp(3rem, 6vw, 4.25rem);
-    line-height: 1.05;
-    margin: 0;
-    font-variant-numeric: tabular-nums;
-  }
-  .numbers-note {
-    text-align: center;
-    margin: calc(var(--space) * 6) auto 0;
-    color: var(--ink-tertiary);
-    font-size: 0.9375rem;
-    max-width: 40rem;
-  }
-
-  /* ------------------------------------------------------------ */
-  /* Family grid + closing                                         */
-  /* ------------------------------------------------------------ */
-  .products-head {
-    text-align: center;
-  }
-  .ring-holder {
-    display: none;
-    margin-top: calc(var(--space) * 6);
-  }
-  .family-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: calc(var(--space) * 3);
-    margin-top: calc(var(--space) * 5);
-  }
-  @media (min-width: 900px) {
-    .ring-holder {
-      display: block;
-    }
-    .family-grid {
-      display: none;
-    }
-  }
-
-  /* Closing — the lime pressing */
-  .closing {
-    padding-top: calc(var(--space) * 6);
-  }
-  .closing-card {
-    background: var(--accent-hue);
-    color: var(--on-accent);
-    border-radius: calc(var(--radius-card) + 8px);
-    padding: clamp(36px, 6vw, 80px);
-    text-align: center;
-  }
-  .closing-card h2 {
-    color: var(--on-accent);
-  }
-  .closing-serif {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-  }
-  .closing-lede {
-    margin: calc(var(--space) * 3) auto 0;
-    font-size: 1.25rem;
-    color: color-mix(in srgb, var(--on-accent) 75%, transparent);
-  }
-  .closing-code {
-    max-width: 560px;
-    margin: calc(var(--space) * 4) auto 0;
-    text-align: left;
-  }
-  .closing-card :global(.codeblock) {
-    background: rgba(0, 0, 0, 0.16);
-    border-color: rgba(0, 0, 0, 0.3);
-    color: var(--on-accent);
-  }
-  .closing-card :global(.codeblock-label) {
-    color: color-mix(in srgb, var(--on-accent) 65%, transparent);
-  }
-  .closing-card :global(.copy-btn) {
-    background: rgba(0, 0, 0, 0.75);
-    border-color: transparent;
-    color: var(--accent-hue);
-  }
-  .closing-card :global(.copy-btn:hover) {
-    color: var(--accent-strong);
-  }
-  .btn.closing-btn {
-    background: var(--on-accent);
-    color: var(--accent-hue);
-  }
-  .btn.closing-btn:hover {
+  .landing-hero {
+    position: relative;
+    min-height: 100svh;
+    padding-top: 112px;
+    overflow: hidden;
     background: #000;
   }
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .landing-hero h1 {
+    max-width: 970px;
+    margin: 58px auto 0;
+    font-size: clamp(3.25rem, 7vw, 6.25rem);
+    font-weight: 470;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    animation: hero-enter 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .hero-summary {
+    max-width: 670px;
+    margin: 30px auto 0;
+    color: #b9b9b2;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.55;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .text-link { color: #fff; text-decoration: none; font-weight: 600; }
+  .text-link span { display: inline-block; margin-left: 5px; transition: transform 180ms ease; }
+  .text-link:hover span { transform: translate(3px, -3px); }
+  .hero-ring {
+    position: absolute;
+    z-index: 1;
+    inset: auto 0 -74px;
+  }
+
+  .impact {
+    padding: clamp(44px, 4vw, 56px) 0 clamp(80px, 8vw, 120px);
+    background: #000;
+  }
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .impact-grid > div {
+    padding: 54px clamp(20px, 4vw, 64px);
+    text-align: center;
+    background: #000;
+  }
+  .impact-grid dd {
+    font-family: "GT Standard", sans-serif;
+    font-size: clamp(4.5rem, 9vw, 8.5rem);
+    font-weight: 430;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--accent-hue);
+  }
+  .impact-grid sup { font-size: 0.4em; vertical-align: top; }
+  .impact-grid dt {
+    max-width: 14rem;
+    margin: 26px auto 0;
+    color: #b8b8b2;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .manifesto {
+    min-height: 1050px;
+    padding-block: clamp(100px, 10vw, 150px);
+    background: #000;
+  }
+  .manifesto-inner { position: relative; }
+  .manifesto-copy {
+    display: grid;
+    gap: 0.32em;
+    margin-top: 90px;
+  }
+  .manifesto-copy p {
+    max-width: 1240px;
+    font-family: "GT Standard", sans-serif;
+    font-size: clamp(2.75rem, 5.25vw, 5rem);
+    font-weight: 420;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .manifesto-copy em {
+    font-family: "Instrument Serif", serif;
+    font-weight: 400;
+    color: var(--accent-hue);
+  }
+  :global(.manifesto-copy .scroll-reveal-word) {
+    display: inline-block;
+    opacity: 0.15;
+    filter: blur(6px);
+    will-change: opacity, filter;
+  }
+  .manifesto-copy .manifesto-badge {
+    width: auto;
+    height: 0.79em;
+    line-height: 0;
+    vertical-align: -0.09em;
+  }
+  .manifesto-badge img {
+    display: block;
+    width: auto;
+    height: 100%;
+  }
+  .products {
+    padding-block: clamp(90px, 7vw, 110px);
+    color: #080808;
+    background: #f7f7f4;
+  }
+  .products h2,
+  .journey h2 {
+    max-width: none;
+    margin-bottom: 52px;
+    font-size: clamp(3.2rem, 6vw, 5.3rem);
+    font-weight: 440;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: center;
+    width: 100%;
+    margin-inline: auto;
+    gap: 24px;
+  }
+  .product-art-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+    border-radius: clamp(28px, 3vw, 48px);
+    background: #ecece8;
+    transition: transform 240ms ease;
+  }
+  .product-art-card:hover {
+    transform: translateY(-6px);
+  }
+  .product-art-background {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .product-art-dots {
+    position: absolute;
+    inset: 4.8%;
+    display: block;
+    width: 90.4%;
+    height: 90.4%;
+  }
+  .product-art-content {
+    position: absolute;
+    top: 31.6%;
+    left: clamp(32px, 11.2%, 66px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .product-art-logo {
+    display: block;
+    width: auto;
+    height: 32px;
+  }
+  .product-art-content h3 {
+    margin-top: 40px;
+    color: #fff;
+    font-family: "GT Standard", sans-serif;
+    font-size: clamp(1.6rem, 2.2vw, 2rem);
+    font-weight: 440;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  .product-coming-soon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    margin-top: 20px;
+    padding-inline: 22px;
+    border: 1px solid rgba(42, 43, 48, 0.22);
+    border-radius: 999px;
+    color: #2a2b30;
+    font-family: "GT Standard", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+  }
+  .product-panel {
+    --shift: 0px;
+    position: relative;
+    min-height: 690px;
+    padding: clamp(24px, 3vw, 42px);
+    border-radius: 48px;
+    overflow: hidden;
+    color: #080808;
+    transform: translateY(var(--shift));
+    transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms ease;
+  }
+  .product-panel:hover { transform: translateY(calc(var(--shift) - 8px)); box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12); }
+  .dig-panel { background: #86ddf5; }
+  .mix-panel { background: #d8f2aa; }
+  .rig-panel {
+    grid-column: 1 / -1;
+    min-height: 620px;
+    background: #c9c0ff;
+  }
+  .product-heading {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .product-token { font-size: 1.3rem; font-weight: 750; letter-spacing: -0.03em; }
+  .product-heading h3 {
+    max-width: 12ch;
+    margin-top: 13px;
+    font-size: clamp(2rem, 3.5vw, 3.35rem);
+    font-weight: 520;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .panel-link,
+  .status-chip {
+    flex: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+    color: #080808;
+    background: rgba(255, 255, 255, 0.28);
+    font-size: 0.82rem;
+    font-weight: 620;
+    text-decoration: none;
+  }
+  .panel-link:hover { background: #fff; }
+  .product-facts {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 22px;
+    margin-top: 27px;
+    padding: 0;
+    list-style: none;
+    font-size: 0.82rem;
+  }
+  .product-facts li::before { content: "•"; margin-right: 7px; }
+  .product-description { margin-top: 26px; color: rgba(0, 0, 0, 0.65); line-height: 1.5; }
+  .product-stage {
+    position: absolute;
+    inset: 38% 6% -6%;
+    display: grid;
+    place-items: center;
+  }
+  .assistant-window {
+    width: min(100%, 570px);
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 24px;
+    color: #f7f7f4;
+    background: #101213;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+    transform: rotate(-2deg);
+  }
+  .assistant-bar,
+  .rig-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #92968f;
+    font-size: 0.72rem;
+  }
+  .assistant-brand { color: var(--accent-hue); font-weight: 750; }
+  .assistant-query {
+    margin: 20px 0;
+    padding: 14px 16px;
+    border-radius: 15px 15px 4px 15px;
+    background: #202322;
+    font-weight: 580;
+  }
+  .verdict {
+    display: grid;
+    grid-template-columns: 34px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 13px 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .verdict-rank { color: var(--accent-hue); font: 0.72rem ui-monospace, monospace; }
+  .verdict strong { display: block; font-size: 0.88rem; }
+  .verdict small { display: block; margin-top: 3px; color: #858983; font-size: 0.69rem; }
+  .verdict b { color: var(--accent-hue); font-size: 1.35rem; }
+  .verdict.muted { opacity: 0.7; }
+  .evidence-line { margin: 12px 10px 3px; color: #6e736c; font-size: 0.67rem; }
+
+  .mix-stage { perspective: 1000px; }
+  .mixtape-card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: min(72%, 400px);
+    aspect-ratio: 4 / 5;
+    padding: 26px;
+    border-radius: 30px;
+    color: #fff;
+    background: #111;
+    box-shadow: 0 26px 60px rgba(35, 52, 18, 0.25);
+  }
+  .mixtape-card.back { transform: translate(-24%, -12%) rotate(-10deg); background: #ff806e; }
+  .mixtape-card.middle { transform: translate(20%, -7%) rotate(8deg); background: #5e57e7; }
+  .mixtape-card.front { transform: rotate(-1deg); }
+  .mixtape-card.front strong { font-family: "Instrument Serif", serif; font-size: clamp(2.8rem, 4.5vw, 4.2rem); font-weight: 400; line-height: 0.88; }
+  .mix-label,
+  .mixtape-card small { font-size: 0.7rem; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.08em; }
+  .mixtape-card small { color: #9c9c95; }
+
+  .rig-stage { inset: 34% 8% -10%; }
+  .rig-console {
+    width: min(100%, 930px);
+    padding: 25px;
+    border-radius: 28px;
+    color: #fff;
+    background: #151419;
+    box-shadow: 0 28px 70px rgba(33, 24, 74, 0.25);
+    transform: rotate(1.5deg);
+  }
+  .rig-top { padding-bottom: 20px; border-bottom: 1px solid #2d2c33; }
+  .rig-top b { color: #eee; }
+  .rig-item {
+    display: grid;
+    grid-template-columns: 45px 1fr 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid #2d2c33;
+  }
+  .rig-item span { color: #a79cff; font: 0.78rem ui-monospace, monospace; }
+  .rig-item em { color: #85828e; font-style: normal; }
+  .rig-item b { color: #a79cff; font-size: 1.35rem; }
+  .rig-meter { display: flex; gap: 8px; align-items: end; height: 70px; margin-top: 24px; }
+  .rig-meter i { flex: 1; height: 34%; border-radius: 5px; background: #a79cff; }
+  .rig-meter i:nth-child(2) { height: 60%; }
+  .rig-meter i:nth-child(3) { height: 45%; }
+  .rig-meter i:nth-child(4) { height: 82%; }
+  .rig-meter i:nth-child(5) { height: 70%; }
+  .rig-meter i:nth-child(6) { height: 100%; }
+  .rig-meter i:nth-child(7) { height: 72%; }
+  .journey {
+    padding: clamp(96px, 8vw, 130px) 0 clamp(44px, 4vw, 56px);
+    background: #000;
+  }
+  .journey-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .journey-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 390px;
+    padding: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 32px;
+    transition: border-color 180ms ease, transform 240ms ease;
+  }
+  .journey-card:hover { transform: translateY(-6px); border-color: var(--accent-hue); }
+  .journey-card > span { color: var(--accent-hue); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .journey-card h3 { min-height: 3em; margin-top: 42px; font-size: clamp(2rem, 3vw, 3rem); font-weight: 480; line-height: 1; letter-spacing: -0.02em; }
+  .journey-card p { margin-top: 24px; color: #9c9c95; line-height: 1.55; }
+  .journey-card a {
+    width: fit-content;
+    margin-top: auto;
+    color: #fff;
+    font-weight: 620;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.22em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+  }
+  .journey-card a:hover,
+  .journey-card a:focus-visible {
+    color: var(--accent-hue);
+    text-decoration-color: currentColor;
+  }
+
+  @keyframes hero-enter {
+    from { opacity: 0; transform: translateY(36px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (max-width: 900px) {
+    .landing-hero { min-height: 960px; }
+    .impact-grid { grid-template-columns: 1fr; }
+    .impact-grid > div { padding-block: 55px; }
+    .manifesto { min-height: auto; }
+    .product-grid,
+    .journey-grid { grid-template-columns: 1fr; }
+    .rig-panel { grid-column: auto; }
+    .journey-card { min-height: 390px; }
+  }
+
+  @media (max-width: 600px) {
+    :global(.site-header .wrap) { padding-inline: 22px; }
+    :global(.site-header .header-row) { flex-wrap: nowrap; gap: 10px; }
+    :global(.site-header .header-row nav) { gap: 12px; }
+    :global(.site-header .header-row nav a) { font-size: 0.75rem; white-space: nowrap; }
+    :global(.site-header .header-row nav a[href="/#journey"]) { display: none; }
+    .landing-hero { min-height: 844px; padding-top: 100px; }
+    .landing-hero h1 { margin-top: 44px; font-size: clamp(3rem, 13vw, 3.7rem); line-height: 1; }
+    .hero-summary { margin-top: 24px; font-size: 0.96rem; }
+    .hero-actions { flex-direction: row; gap: 10px; margin-top: 24px; }
+    .hero-ring { bottom: 130px; }
+    .manifesto-copy { margin-top: 64px; }
+    .manifesto-copy p { font-size: 2.65rem; }
+    .products h2,
+    .journey h2 { margin-bottom: 44px; text-align: left; }
+    .product-panel { min-height: 700px; border-radius: 32px; }
+    .product-heading { display: block; }
+    .panel-link,
+    .status-chip { display: inline-flex; margin-top: 20px; }
+    .product-facts { display: grid; gap: 5px; }
+    .product-stage { inset: 50% 5% -7%; }
+    .assistant-window { transform: rotate(-1deg); }
+    .mix-stage { inset: 50% 5% -7%; }
+    .mixtape-card { width: 77%; padding: 21px; }
+    .rig-stage { inset: 50% 5% -8%; }
+    .rig-item { grid-template-columns: 32px 1fr auto; }
+    .rig-item em { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .landing-hero h1 { animation: none; }
+    .product-art-card,
+    .product-panel,
+    .journey-card,
+    .site-button { transition: none; }
+  }
 </style>
+
+<script>
+  const scrollReveal = document.querySelector<HTMLElement>("[data-scroll-text-reveal]");
+
+  if (scrollReveal) {
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      new URLSearchParams(location.search).has("qa");
+
+    if (!reduced) {
+      const words: HTMLElement[] = [];
+      const paragraphs = scrollReveal.querySelectorAll<HTMLElement>("p");
+
+      for (const paragraph of paragraphs) {
+        const accessibleCopy = paragraph.textContent?.trim();
+        if (accessibleCopy && !paragraph.hasAttribute("aria-label")) {
+          paragraph.setAttribute("aria-label", accessibleCopy);
+        }
+
+        const walker = document.createTreeWalker(paragraph, NodeFilter.SHOW_TEXT);
+        const textNodes: Text[] = [];
+        let current: Node | null;
+        while ((current = walker.nextNode())) textNodes.push(current as Text);
+
+        for (const textNode of textNodes) {
+          const fragment = document.createDocumentFragment();
+          for (const part of textNode.data.split(/(\s+)/)) {
+            if (!part) continue;
+            if (/^\s+$/.test(part)) {
+              fragment.append(part);
+              continue;
+            }
+
+            const word = document.createElement("span");
+            word.className = "scroll-reveal-word";
+            word.setAttribute("aria-hidden", "true");
+            word.textContent = part;
+            fragment.append(word);
+          }
+          textNode.replaceWith(fragment);
+        }
+
+        words.push(...paragraph.querySelectorAll<HTMLElement>(".scroll-reveal-word"));
+      }
+
+      let frame = 0;
+      const clamp = (value: number) => Math.min(1, Math.max(0, value));
+
+      const render = () => {
+        frame = 0;
+        const rect = scrollReveal.getBoundingClientRect();
+        const documentTop = rect.top + scrollY;
+        const start = documentTop - innerHeight * 0.85;
+        const end = documentTop + rect.height - innerHeight * 0.35;
+        const progress = clamp((scrollY - start) / Math.max(end - start, 1));
+        const count = words.length;
+
+        for (let index = 0; index < count; index++) {
+          const reveal = clamp(progress * count - index);
+          words[index].style.opacity = String(0.15 + reveal * 0.85);
+          words[index].style.filter = `blur(${(1 - reveal) * 6}px)`;
+        }
+      };
+
+      const schedule = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(render);
+      };
+
+      addEventListener("scroll", schedule, { passive: true });
+      addEventListener("resize", schedule, { passive: true });
+      render();
+    }
+  }
+</script>
+
+<script>
+  const motionReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!motionReduced) {
+    const panels = document.querySelectorAll<HTMLElement>("[data-parallax]");
+    let ticking = false;
+    const updatePanels = () => {
+      for (const panel of panels) {
+        const rect = panel.getBoundingClientRect();
+        const center = rect.top + rect.height / 2 - innerHeight / 2;
+        const shift = Math.max(-18, Math.min(18, center * -0.025));
+        panel.style.setProperty("--shift", `${shift}px`);
+      }
+      ticking = false;
+    };
+    addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updatePanels);
+    }, { passive: true });
+    updatePanels();
+  }
+</script>

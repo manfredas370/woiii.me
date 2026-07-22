@@ -23,5 +23,13 @@ pnpm-debug.log*
 # local claude code config (machine-specific paths)
 .claude/
 
+# local visual QA captures
+.design-evidence/
+design-qa.md
+
+# npm is the canonical package manager for this project
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
 # jetbrains setting folder
 .idea/

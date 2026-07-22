@@ -5,267 +5,149 @@ import Shot from "../components/Shot.astro";
 import { DIG } from "../config/brand";
 
 const clients = [
-  { id: "claude-web", label: "claude.ai", note: "Custom connector", tint: "blue" },
-  { id: "claude-desktop", label: "Claude Desktop", note: "Custom connector", tint: "blue" },
-  { id: "claude-code", label: "Claude Code", note: "One command", tint: "gold" },
-  { id: "chatgpt", label: "ChatGPT", note: "Developer mode", tint: "green" },
-  { id: "codex", label: "Codex CLI", note: "config.toml", tint: "gold" },
-  { id: "extension", label: "Chrome extension", note: "Load unpacked", tint: "red" },
+  { id: "claude", label: "Claude", note: "Web or desktop", icon: "/client-icons/claude.svg" },
+  { id: "chatgpt", label: "ChatGPT", note: "Developer mode", icon: "/client-icons/chatgpt.svg" },
+  { id: "codex", label: "Codex", note: "App or IDE", icon: "/client-icons/codex.svg" },
+  { id: "extension", label: "Chrome extension", note: "Load unpacked", icon: "/client-icons/chrome.svg" },
 ] as const;
-
-const codexToml = `[mcp_servers.discogs]
-url = "${DIG.mcpUrl}"`;
 ---
 
 <Base
   title="Connect DIG for Discogs — WOIII.me"
-  description="Step-by-step guide to connecting DIG for Discogs to claude.ai, Claude Desktop, Claude Code, ChatGPT, Codex CLI, or installing the Chrome side panel."
+  description="Step-by-step guide to connecting DIG for Discogs to Claude, ChatGPT, Codex, or the Chrome side panel."
+  bodyClass="connect-page"
 >
-  <section class="section intro">
-    <div class="wrap">
-      <h1>Connect <span class="accent">DIG</span></h1>
-      <p class="lede">
-        One server, one browser sign-in with your own Discogs account. Free,
-        read-only, no invite needed. Pick your client below — you'll paste this
-        URL in most of the steps:
-      </p>
-      <div class="intro-code">
-        <CodeBlock code={DIG.mcpUrl} label="MCP server URL" />
+  <!-- Expandable client setup guides -->
+  <section class="client-picker" id="clients" aria-labelledby="client-picker-title" data-header-tone="dark">
+    <div class="edge-wrap">
+      <div class="connect-hero-inner">
+        <h1 id="client-picker-title">Two minutes<br />to <span>connect.</span></h1>
+        <p class="connect-lede">
+          Choose your client, paste one URL, and sign in with your own<br />
+          Discogs account. Free, read-only, no invite needed.
+        </p>
+      </div>
+      <div class="rail">
+        <details class="rail-item" id="claude" name="setup">
+          <summary class="rail-card">
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[0].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">Claude</span><span class="rail-note">Web or desktop</span></span>
+          </summary>
+          <div class="rail-panel">
+            <p class="rail-req">Requires a Claude plan that allows custom connectors. The same setup works in claude.ai and Claude Desktop.</p>
+            <ol class="steps rail-steps">
+              <li>
+                <p>Open <strong>Settings → Connectors</strong> in claude.ai or Claude Desktop.</p>
+                <Shot src="/shots/claude-web-1-settings.png" alt="claude.ai settings page with the Connectors section visible" caption="Settings → Connectors on claude.ai" />
+              </li>
+              <li>
+                <p>Click <strong>Add custom connector</strong>, name it <code>DIG for Discogs</code>, and paste the server URL:</p>
+                <CodeBlock code={DIG.mcpUrl} />
+                <Shot src="/shots/claude-web-2-add-connector.png" alt="Add custom connector dialog with name and URL fields filled in" caption="The add-connector dialog — name and URL are all you need" />
+              </li>
+              <li>
+                <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect — your browser opens Discogs, you sign in, and you're done.</p>
+                <Shot src="/shots/claude-web-3-authorize.png" alt="Discogs authorization page asking to allow the DIG application" caption="One-time Discogs sign-in — DIG only ever gets read access" />
+              </li>
+              <li><p>Try it: <em>“What's the best pressing of OK Computer?”</em></p></li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="rail-item" id="chatgpt" name="setup">
+          <summary class="rail-card">
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[1].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">ChatGPT</span><span class="rail-note">Developer mode</span></span>
+          </summary>
+          <div class="rail-panel">
+            <p class="rail-req">Web only (chatgpt.com), Plus or Pro plan. Developer-mode apps get read tools — which is all DIG has, so nothing is missing.</p>
+            <ol class="steps rail-steps">
+              <li>
+                <p>Open <strong>Settings → Apps &amp; Connectors → Advanced settings</strong> and switch on <strong>Developer mode</strong>.</p>
+                <Shot src="/shots/chatgpt-1-devmode.png" alt="ChatGPT advanced settings with the developer mode toggle enabled" caption="Developer mode lives under Apps & Connectors → Advanced settings" />
+              </li>
+              <li>
+                <p>Back in <strong>Apps &amp; Connectors</strong>, choose <strong>Create</strong>, name the app <code>DIG for Discogs</code>, set authentication to <strong>OAuth</strong>, and paste the server URL:</p>
+                <CodeBlock code={DIG.mcpUrl} />
+                <Shot src="/shots/chatgpt-2-create-app.png" alt="ChatGPT create app dialog with the MCP server URL field filled in" caption="The create-app dialog in developer mode" />
+              </li>
+              <li><p>Complete the Discogs sign-in when prompted, then mention the app in a chat (type <code>/</code> or pick it from the tools menu).</p></li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="rail-item" id="codex" name="setup">
+          <summary class="rail-card">
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[2].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">Codex</span><span class="rail-note">App or IDE</span></span>
+          </summary>
+          <div class="rail-panel">
+            <p class="rail-req">Codex clients on the same computer share their MCP server configuration.</p>
+            <ol class="steps rail-steps">
+              <li><p>Open <strong>Settings → MCP servers</strong> in Codex.</p></li>
+              <li><p>Select <strong>Add server</strong>, name it <code>discogs</code>, choose <strong>Streamable HTTP</strong>, and paste the server URL:</p><CodeBlock code={DIG.mcpUrl} /></li>
+              <li><p>Save the server, restart if prompted, then select <strong>Authenticate</strong> to complete the one-time Discogs sign-in.</p></li>
+              <li><p>Try it: <em>“Compare the best pressings of this album.”</em></p></li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="rail-item" id="extension" name="setup">
+          <summary class="rail-card">
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[3].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">Chrome extension</span><span class="rail-note">Load unpacked</span></span>
+          </summary>
+          <div class="rail-panel">
+            <p class="rail-req">Requires Chrome {DIG.chromeMinVersion}+. Until the Chrome Web Store listing is live, the extension installs from source — it takes about two minutes.</p>
+            <ol class="steps rail-steps">
+              <li>
+                <p>Download the source from <a href={DIG.repoUrl} target="_blank" rel="noopener noreferrer">GitHub</a> — the green <strong>Code</strong> button → <strong>Download ZIP</strong> — and unzip it.</p>
+                <Shot src="/shots/ext-1-download.png" alt="GitHub repository page with the Code button menu open and Download ZIP highlighted" caption="Grab the ZIP straight from the repository" />
+              </li>
+              <li>
+                <p>Open <code>chrome://extensions</code> and switch on <strong>Developer mode</strong> (top right).</p>
+                <Shot src="/shots/ext-2-devmode.png" alt="Chrome extensions page with the developer mode toggle in the top right corner enabled" caption="Developer mode unlocks the Load unpacked button" />
+              </li>
+              <li>
+                <p>Click <strong>Load unpacked</strong> and select the <code>extension/</code> folder inside the unzipped download.</p>
+                <Shot src="/shots/ext-3-load-unpacked.png" alt="File picker selecting the extension folder from the unzipped repository" caption="Pick the extension/ folder — not the repository root" />
+              </li>
+              <li>
+                <p>Visit any release on <a href="https://www.discogs.com" target="_blank" rel="noopener noreferrer">discogs.com</a>, open the side panel, and sign in with your Discogs account.</p>
+                <Shot src="/shots/ext-4-sidepanel.png" alt="The DIG side panel open next to a Discogs release page showing a pressing score" caption="The side panel scores the pressing you're looking at" />
+              </li>
+            </ol>
+          </div>
+        </details>
       </div>
     </div>
   </section>
 
-  <!-- Client picker rail -->
-  <nav class="wrap rail-wrap" aria-label="Choose your client">
-    <ul class="rail">
-      {
-        clients.map((c) => (
-          <li>
-            <a class={`rail-card ${c.tint}`} href={`#${c.id}`}>
-              <span class="rail-label">{c.label}</span>
-              <span class="rail-note">{c.note}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-
-  <!-- claude.ai -->
-  <section class="section guide" id="claude-web">
-    <div class="wrap">
-      <h2>claude.ai <span class="guide-sub">custom connector</span></h2>
-      <p class="guide-req">
-        Requires a Claude plan that allows custom connectors. Works in the web
-        app.
-      </p>
-      <ol class="steps">
-        <li>
-          <p>Open <strong>Settings → Connectors</strong> (your initials, bottom left → Settings).</p>
-          <Shot
-            src="/shots/claude-web-1-settings.png"
-            alt="claude.ai settings page with the Connectors section visible"
-            caption="Settings → Connectors on claude.ai"
-          />
-        </li>
-        <li>
-          <p>Click <strong>Add custom connector</strong>, name it <code>DIG for Discogs</code>, and paste the server URL:</p>
-          <CodeBlock code={DIG.mcpUrl} />
-          <Shot
-            src="/shots/claude-web-2-add-connector.png"
-            alt="Add custom connector dialog with name and URL fields filled in"
-            caption="The add-connector dialog — name and URL are all you need"
-          />
-        </li>
-        <li>
-          <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect — your browser opens Discogs, you sign in, and you're done.</p>
-          <Shot
-            src="/shots/claude-web-3-authorize.png"
-            alt="Discogs authorization page asking to allow the DIG application"
-            caption="One-time Discogs sign-in — DIG only ever gets read access"
-          />
-        </li>
-        <li>
-          <p>Try it: <em>"What's the best pressing of OK Computer?"</em></p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Claude Desktop -->
-  <section class="section guide" id="claude-desktop">
-    <div class="wrap">
-      <h2>Claude Desktop <span class="guide-sub">custom connector</span></h2>
-      <p class="guide-req">
-        Same flow as claude.ai — connectors added on the web are available in
-        the desktop app with the same account, and vice versa.
-      </p>
-      <ol class="steps">
-        <li>
-          <p>Open <strong>Settings → Connectors</strong> in the desktop app.</p>
-          <Shot
-            src="/shots/claude-desktop-1-settings.png"
-            alt="Claude Desktop settings window showing the Connectors tab"
-            caption="Settings → Connectors in Claude Desktop"
-          />
-        </li>
-        <li>
-          <p>Click <strong>Add custom connector</strong> and paste the server URL:</p>
-          <CodeBlock code={DIG.mcpUrl} />
-        </li>
-        <li>
-          <p>Enable it in a chat and complete the one-time Discogs sign-in when prompted.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Claude Code -->
-  <section class="section guide" id="claude-code">
-    <div class="wrap">
-      <h2>Claude Code <span class="guide-sub">one command</span></h2>
-      <ol class="steps">
-        <li>
-          <p>Run this in your terminal:</p>
-          <CodeBlock code={DIG.claudeCodeOneLiner} />
-        </li>
-        <li>
-          <p>Inside a Claude Code session, run <code>/mcp</code> and pick <strong>discogs</strong> to complete the browser sign-in.</p>
-        </li>
-        <li>
-          <p>Slash commands like <code>/find-best-pressing</code> and <code>/rank-my-wantlist</code> are available right away.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ChatGPT -->
-  <section class="section guide" id="chatgpt">
-    <div class="wrap">
-      <h2>ChatGPT <span class="guide-sub">developer mode</span></h2>
-      <p class="guide-req">
-        Web only (chatgpt.com), Plus or Pro plan. Developer-mode apps get read
-        tools — which is all DIG has, so nothing is missing.
-      </p>
-      <ol class="steps">
-        <li>
-          <p>Open <strong>Settings → Apps &amp; Connectors → Advanced settings</strong> and switch on <strong>Developer mode</strong>.</p>
-          <Shot
-            src="/shots/chatgpt-1-devmode.png"
-            alt="ChatGPT advanced settings with the developer mode toggle enabled"
-            caption="Developer mode lives under Apps & Connectors → Advanced settings"
-          />
-        </li>
-        <li>
-          <p>Back in <strong>Apps &amp; Connectors</strong>, choose <strong>Create</strong>, name the app <code>DIG for Discogs</code>, set authentication to <strong>OAuth</strong>, and paste the server URL:</p>
-          <CodeBlock code={DIG.mcpUrl} />
-          <Shot
-            src="/shots/chatgpt-2-create-app.png"
-            alt="ChatGPT create app dialog with the MCP server URL field filled in"
-            caption="The create-app dialog in developer mode"
-          />
-        </li>
-        <li>
-          <p>Complete the Discogs sign-in when prompted, then mention the app in a chat (type <code>/</code> or pick it from the tools menu).</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Codex CLI -->
-  <section class="section guide" id="codex">
-    <div class="wrap">
-      <h2>Codex CLI <span class="guide-sub">config.toml</span></h2>
-      <ol class="steps">
-        <li>
-          <p>Add this block to <code>~/.codex/config.toml</code>:</p>
-          <CodeBlock code={codexToml} />
-        </li>
-        <li>
-          <p>Sign in with your Discogs account:</p>
-          <CodeBlock code="codex mcp login discogs" />
-        </li>
-        <li>
-          <p>That's it — ask Codex about pressings, your collection, or your wantlist.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Chrome extension -->
-  <section class="section guide" id="extension">
-    <div class="wrap">
-      <h2>Chrome side panel <span class="guide-sub">load unpacked</span></h2>
-      <p class="guide-req">
-        Requires Chrome {DIG.chromeMinVersion}+. Until the Chrome Web Store
-        listing is live, the extension installs from source — it takes about
-        two minutes.
-      </p>
-      <ol class="steps">
-        <li>
-          <p>Download the source from <a href={DIG.repoUrl}>GitHub</a> — the green <strong>Code</strong> button → <strong>Download ZIP</strong> — and unzip it.</p>
-          <Shot
-            src="/shots/ext-1-download.png"
-            alt="GitHub repository page with the Code button menu open and Download ZIP highlighted"
-            caption="Grab the ZIP straight from the repository"
-          />
-        </li>
-        <li>
-          <p>Open <code>chrome://extensions</code> and switch on <strong>Developer mode</strong> (top right).</p>
-          <Shot
-            src="/shots/ext-2-devmode.png"
-            alt="Chrome extensions page with the developer mode toggle in the top right corner enabled"
-            caption="Developer mode unlocks the Load unpacked button"
-          />
-        </li>
-        <li>
-          <p>Click <strong>Load unpacked</strong> and select the <code>extension/</code> folder inside the unzipped download.</p>
-          <Shot
-            src="/shots/ext-3-load-unpacked.png"
-            alt="File picker selecting the extension folder from the unzipped repository"
-            caption="Pick the extension/ folder — not the repository root"
-          />
-        </li>
-        <li>
-          <p>Visit any release on <a href="https://www.discogs.com">discogs.com</a>, open the side panel, and sign in with your Discogs account.</p>
-          <Shot
-            src="/shots/ext-4-sidepanel.png"
-            alt="The DIG side panel open next to a Discogs release page showing a pressing score"
-            caption="The side panel scores the pressing you're looking at"
-          />
-        </li>
-      </ol>
-    </div>
-  </section>
-
   <!-- After connecting -->
-  <section class="section guide" id="after">
+  <section class="guide guide-final" id="after" data-header-tone="dark">
     <div class="wrap">
-      <h2>Good to know</h2>
+      <h2 class="guide-final-title">Good to <span class="accent-serif">know</span></h2>
       <ul class="notes">
-        <li>
-          <strong>First analysis is slow — on purpose.</strong> The first look at
-          an album surveys every version and takes ~10 seconds. Repeat questions
-          are fast (results are cached).
+        <li class="note-wide">
+          <strong>First analysis is slow — on purpose.</strong> DIG checks every
+          listed version, pressing detail, price signal, and collector note before
+          answering. That broader first pass takes about ten seconds; repeat
+          questions are near-instant because the result is cached.
         </li>
         <li>
-          <strong>Try the slash commands.</strong> In clients that support MCP
-          prompts: <code>/find-best-pressing</code>, <code>/best-value-pressing</code>,
-          <code>/rank-my-wantlist</code>, <code>/recommend-by-mood</code> and more.
+          <strong>Use slash commands.</strong> Try
+          {" "}<code>/find-best-pressing</code> or
+          {" "}<code>/rank-my-wantlist</code> in clients that support MCP shortcuts.
         </li>
         <li>
-          <strong>Older client?</strong> If your client only supports SSE
-          transport, use <code>{DIG.sseUrl}</code>.
+          <strong>Older client?</strong> SSE-only clients can use the legacy
+          endpoint: <code>{DIG.sseUrl}</code>.
         </li>
         <li>
-          <strong>Changed your mind?</strong> Revoke DIG's access any time in
-          your Discogs account settings under authorized applications. Details in
-          the <a href="/privacy">privacy policy</a>.
-        </li>
-        <li>
-          <strong>Stuck?</strong> Ask in
-          <a href={DIG.discussionsUrl}>GitHub Discussions</a> or open an
-          <a href={DIG.issuesUrl}>issue</a>.
+          <strong>Stuck?</strong> Ask in{" "}
+          <a href={DIG.discussionsUrl} target="_blank" rel="noopener noreferrer">GitHub Discussions</a>{" "}or open an{" "}
+          <a href={DIG.issuesUrl} target="_blank" rel="noopener noreferrer">issue</a>. Include your client and the step where
+          setup stopped.
         </li>
       </ul>
     </div>
@@ -273,175 +155,419 @@ url = "${DIG.mcpUrl}"`;
 </Base>
 
 <style>
-  .intro {
-    padding-bottom: calc(var(--space) * 6);
+  :global(body) { --accent-hue: #c8ff9f; background: #000; }
+  :global(.site-footer) { margin-top: 0; }
+  :global(body.connect-page .site-header) {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    border: 0 !important;
+    background: transparent !important;
+    transition: background 220ms ease, color 180ms ease;
   }
-  .intro-code {
-    max-width: 640px;
-    margin-top: calc(var(--space) * 4);
+  :global(body.connect-page .site-header.is-scrolled) {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.32) 0%,
+      rgba(0, 0, 0, 0.14) 58%,
+      rgba(0, 0, 0, 0) 100%
+    ) !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  :global(body.connect-page .site-header.is-on-light.is-scrolled) {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.44) 0%,
+      rgba(255, 255, 255, 0.22) 58%,
+      rgba(255, 255, 255, 0) 100%
+    ) !important;
+  }
+  :global(.site-header .wordmark img) { transition: filter 180ms ease; }
+  :global(.site-header.is-on-light .wordmark img) { filter: invert(1); }
+  :global(.site-header .wrap) {
+    width: min(100%, 1440px);
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: clamp(24px, 3.35vw, 48px);
+  }
+  :global(.site-header .header-row nav) { gap: clamp(16px, 2vw, 30px); }
+  :global(.site-header .header-row nav a) {
+    display: inline-flex;
+    align-items: center;
+    min-height: auto;
+    padding: 4px 0;
+    border-radius: 0;
+    color: rgba(255, 255, 255, 0.72) !important;
+    background: transparent !important;
+    font-size: 0.875rem;
+    font-weight: 500 !important;
+  }
+  :global(.site-header .header-row nav a:hover),
+  :global(.site-header .header-row nav a[aria-current="page"]) { color: #fff !important; }
+  :global(.site-header.is-on-light .header-row nav a) { color: rgba(0, 0, 0, 0.68) !important; }
+  :global(.site-header.is-on-light .header-row nav a:hover),
+  :global(.site-header.is-on-light .header-row nav a[aria-current="page"]) { color: #000 !important; }
+
+  .edge-wrap {
+    width: min(100%, 1440px);
+    margin-inline: auto;
+    padding-inline: clamp(24px, 3.35vw, 48px);
   }
 
-  .rail-wrap {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    background: color-mix(in srgb, var(--canvas) 88%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line-soft);
-    padding-block: calc(var(--space) * 2);
+  .connect-hero-inner { text-align: center; }
+  .connect-kicker,
+  .section-kicker {
     max-width: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.12em;
   }
-  .rail-wrap .rail {
-    max-width: calc(var(--content-width) - var(--space) * 6);
-    margin-inline: auto;
+  .connect-kicker { color: var(--accent-hue); }
+  .connect-hero-inner h1 {
+    max-width: 970px;
+    margin: 0 auto;
+    color: #fff;
+    font-size: clamp(3.25rem, 7vw, 6.25rem);
+    font-weight: 470;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    animation: hero-enter 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
+  .connect-hero-inner h1 span {
+    color: var(--accent-hue);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-weight: 400;
+  }
+  .connect-lede {
+    max-width: 650px;
+    margin: 38px auto 0;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 1.2rem;
+    line-height: 1.45;
+  }
+
+  .client-picker {
+    padding-block: 170px 140px;
+    color: #fff;
+    background: #000;
+  }
+  .section-kicker { color: var(--accent-hue); }
   .rail {
     list-style: none;
     padding: 0;
-    display: flex;
-    gap: calc(var(--space) * 2);
-    overflow-x: auto;
-    scrollbar-width: thin;
-    -webkit-overflow-scrolling: touch;
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .rail-item {
+    overflow: hidden;
+    scroll-margin-top: 90px;
+    border-radius: 30px;
+    background: #141414;
   }
   .rail-card {
     display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 128px;
+    border-radius: 30px;
+    padding: 28px;
+    cursor: pointer;
+    list-style: none;
+    color: #fff;
+    background: transparent;
+    border: 0;
+    transition: background 180ms ease;
+  }
+  .rail-card::-webkit-details-marker { display: none; }
+  .rail-card::after {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 42px;
+    margin-left: auto;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.74);
+    background:
+      linear-gradient(currentColor, currentColor) center / 14px 2px no-repeat,
+      linear-gradient(currentColor, currentColor) center / 2px 14px no-repeat,
+      rgba(255, 255, 255, 0.07);
+  }
+  .rail-item[open] > .rail-card::after {
+    color: #111;
+    background:
+      linear-gradient(currentColor, currentColor) center / 14px 2px no-repeat,
+      var(--accent-hue);
+  }
+  .rail-item:not([open]) > .rail-card:hover { background: #1a1a1a; }
+  .rail-logo-shell {
+    width: 64px;
+    height: 64px;
+    display: block;
+    flex: 0 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  .rail-logo {
+    display: block;
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+  .rail-copy {
+    display: flex;
+    min-width: 0;
     flex-direction: column;
-    gap: 2px;
-    min-width: 150px;
-    border-radius: 16px;
-    padding: 12px 18px;
-    text-decoration: none;
-    white-space: nowrap;
-    border: 1px solid transparent;
-    transition: border-color 0.15s ease-out, transform 0.1s ease-out;
-  }
-  .rail-card:active {
-    transform: scale(0.98);
-  }
-  .rail-card.blue {
-    background: var(--blue-tint);
-    color: var(--blue-ink);
-  }
-  .rail-card.green {
-    background: var(--green-tint);
-    color: var(--green-ink);
-  }
-  .rail-card.gold {
-    background: var(--gold-tint);
-    color: var(--gold-ink);
-  }
-  .rail-card.red {
-    background: var(--red-tint);
-    color: var(--red-ink);
-  }
-  .rail-card.blue:hover {
-    border-color: color-mix(in srgb, var(--blue-ink) 35%, transparent);
-  }
-  .rail-card.green:hover {
-    border-color: color-mix(in srgb, var(--green-ink) 30%, transparent);
-  }
-  .rail-card.gold:hover {
-    border-color: color-mix(in srgb, var(--gold-ink) 30%, transparent);
-  }
-  .rail-card.red:hover {
-    border-color: color-mix(in srgb, var(--red-ink) 30%, transparent);
+    gap: 8px;
   }
   .rail-label {
-    font-weight: 650;
+    display: block;
+    font-size: clamp(1.65rem, 2.5vw, 2.45rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
   }
   .rail-note {
-    font-size: 0.8rem;
-    opacity: 0.8;
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.58);
   }
-
+  .rail-panel {
+    display: block;
+    padding: 0 28px 32px 116px;
+  }
+  .rail-req {
+    width: 100%;
+    max-width: none;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
   .guide {
-    border-top: 1px solid var(--line-soft);
-    scroll-margin-top: 90px;
+    padding-block: 130px;
+    scroll-margin-top: 80px;
+    color: #f2f2ee;
+    background: #000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .guide:nth-of-type(even) { background: #090909; }
+  .guide > .wrap {
+    width: min(100%, 1440px);
+    max-width: 1440px;
+    padding-inline: clamp(24px, 3.35vw, 48px);
+    display: grid;
+    grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+    column-gap: clamp(56px, 8vw, 130px);
+    align-items: start;
   }
   .guide h2 {
+    grid-column: 1;
+    grid-row: 1;
     display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    position: sticky;
+    top: 120px;
+    color: #fff;
+    font-size: clamp(3rem, 5vw, 5.4rem);
+    font-weight: 470;
+    line-height: 0.96;
   }
   .guide-sub {
     font-size: 0.75rem;
-    font-weight: 550;
-    letter-spacing: 0.04em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--ink-tertiary);
-    background: var(--surface-high);
+    color: #111;
+    background: var(--accent-hue);
     border-radius: 999px;
-    padding: 4px 12px;
+    padding: 7px 12px 6px;
   }
   .guide-req {
-    color: var(--ink-tertiary);
-    margin-top: calc(var(--space) * 1.5);
-    font-size: 0.9375rem;
+    grid-column: 1;
+    grid-row: 2;
+    max-width: 330px;
+    margin-top: 32px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 
-  /* Steps — numbered chips joined by a hairline timeline */
   .steps {
-    margin-top: calc(var(--space) * 5);
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    margin: 0;
     padding-left: 0;
     list-style: none;
     counter-reset: step;
     display: grid;
-    gap: calc(var(--space) * 5);
-    max-width: 46rem;
+    gap: 16px;
+    max-width: none;
   }
   .steps > li {
     counter-increment: step;
     position: relative;
-    padding-left: 56px;
+    min-width: 0;
+    padding: 30px 30px 30px 88px;
+    border-radius: 28px;
+    color: rgba(255, 255, 255, 0.72);
+    background: #141414;
   }
   .steps > li::before {
-    content: counter(step);
+    content: "0" counter(step);
     position: absolute;
-    left: 0;
-    top: -3px;
-    width: 34px;
-    height: 34px;
+    left: 28px;
+    top: 28px;
+    width: 36px;
+    height: 36px;
     border-radius: 999px;
-    background: var(--canvas);
-    border: 1px solid var(--line-strong);
-    color: var(--ink);
-    font-size: 0.9375rem;
-    font-weight: 650;
+    background: var(--accent-hue);
+    border: 0;
+    color: #111;
+    font-family: ui-monospace, "SF Mono", monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .steps > li:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    left: 16.5px;
-    top: 39px;
-    bottom: calc(var(--space) * -4.5);
-    width: 1px;
-    background: var(--line);
-  }
+  .steps p { max-width: 46rem; }
+  .steps strong { color: #fff; font-weight: 600; }
+  .steps em { color: var(--accent-hue); }
+  .steps code { background: #050505; border-color: rgba(255, 255, 255, 0.1); }
   .steps :global(.codeblock) {
-    margin-top: calc(var(--space) * 1.5);
+    margin-top: 18px;
+    background: #080808;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .steps :global(.copy-btn) { color: #111; background: var(--accent-hue); border-color: var(--accent-hue); }
+  .steps.rail-steps {
+    gap: 4px;
+    margin-top: 16px;
+  }
+  .steps.rail-steps > li {
+    padding: 16px 56px 16px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .steps.rail-steps > li::before {
+    inset: 19px auto auto -88px;
+    width: 64px;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    color: rgba(255, 255, 255, 0.42);
+    background: transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
   }
 
   .notes {
+    grid-column: 2;
+    grid-row: 1 / span 4;
     list-style: none;
     padding: 0;
-    margin-top: calc(var(--space) * 4);
+    margin: 0;
     display: grid;
-    gap: calc(var(--space) * 2);
-    max-width: 46rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: none;
   }
   .notes > li {
-    background: var(--surface);
-    border: 1px solid var(--line-soft);
-    border-radius: var(--radius-m);
-    padding: calc(var(--space) * 2) calc(var(--space) * 2.5);
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    min-height: 180px;
+    background: #141414;
+    border: 0;
+    border-radius: 28px;
+    padding: 28px;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .notes > li strong { display: block; margin-bottom: 14px; color: #fff; font-size: 1.1rem; }
+  .notes code { overflow-wrap: anywhere; word-break: break-word; }
+  .guide-final { padding-bottom: 170px; border-top: 0; }
+  .guide-final > .wrap {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 56px;
+  }
+  .guide-final .guide-final-title {
+    display: block;
+    width: 100%;
+    grid-column: 1;
+    grid-row: 1;
+    position: static;
+  }
+  .guide-final .guide-final-title .accent-serif {
+    color: var(--accent-hue);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-weight: 400;
+  }
+  .guide-final .notes {
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .guide-final .notes > li {
+    min-height: 220px;
+    background: #141414;
+  }
+  .guide-final .notes > .note-wide { grid-column: 1 / span 2; }
+
+  @media (max-width: 900px) {
+    .guide > .wrap { grid-template-columns: 1fr; }
+    .guide h2 { position: static; }
+    .guide-req { grid-row: 2; max-width: 42rem; }
+    .steps,
+    .notes { grid-column: 1; grid-row: auto; margin-top: 52px; }
+    .guide-final .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
+    .guide-final .notes > .note-wide { grid-column: 1 / span 2; }
+  }
+
+  @media (max-width: 600px) {
+    :global(.site-header .wrap) { padding-inline: 22px; }
+    :global(.site-header .header-row) { flex-wrap: nowrap; gap: 10px; }
+    :global(.site-header .header-row nav) { gap: 12px; }
+    :global(.site-header .header-row nav a) { font-size: 0.75rem; white-space: nowrap; }
+    :global(.site-header .header-row nav a[href="/#journey"]) { display: none; }
+    .connect-hero-inner h1 { margin-top: 28px; font-size: clamp(3rem, 13vw, 3.7rem); line-height: 1; }
+    .connect-lede { margin-top: 30px; font-size: 1rem; }
+    .client-picker { padding-block: 125px 88px; }
+    .rail { grid-template-columns: 1fr; margin-top: 72px; }
+    .rail-card { min-height: 112px; border-radius: 28px; padding: 22px 24px; }
+    .rail-card::after { width: 38px; height: 38px; }
+    .rail-panel { padding: 0 24px 28px; }
+    .guide { padding-block: 84px; }
+    .guide h2 { font-size: 3.35rem; }
+    .steps { margin-top: 40px; }
+    .steps.rail-steps { margin-top: 16px; }
+    .steps > li { padding: 76px 24px 26px; border-radius: 24px; }
+    .steps > li::before { left: 24px; top: 24px; }
+    .steps.rail-steps > li { padding: 16px 52px 16px 0; border: 0; border-radius: 0; }
+    .steps.rail-steps > li::before { inset: 19px auto auto -36px; width: 36px; }
+    .notes { grid-template-columns: 1fr; margin-top: 40px; }
+    .guide-final .notes { grid-template-columns: 1fr; margin-top: 0; }
+    .guide-final .notes > .note-wide { grid-column: 1; }
+    .guide-final { padding-bottom: 110px; }
+  }
+
+  @keyframes hero-enter {
+    from { opacity: 0; transform: translateY(36px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .connect-hero-inner h1 { animation: none; }
+    .rail-card { transition: none; }
   }
 </style>

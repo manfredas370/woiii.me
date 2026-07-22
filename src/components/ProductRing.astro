@@ -1,35 +1,31 @@
 ---
 /**
- * Wrapped product-card ring — the Bending Spoons hero geometry:
- * N cards on a cylinder of radius R viewed from inside
+ * Wrapped album-cover ring — the Bending Spoons hero geometry:
+ * N square covers on a cylinder of radius R viewed from inside
  * (translate3d(R·sinθ, 0, −R·cosθ) rotateY(−θ), 800px perspective),
  * plus slow continuous rotation. Server-renders the initial positions
  * so the wrap is intact without JS; the script only animates.
- * Desktop only — the family grid takes over below 900px.
  */
-import { DIG, MIX, RIG } from "../config/brand";
 
-interface RingCard {
-  token: string;
-  catalog: string;
-  tint: "blue" | "green" | "gold" | "paper";
-  line: string;
-  badge?: string;
-  href?: string;
+interface AlbumCover {
+  src: string;
+  alt: string;
 }
 
-const unique: RingCard[] = [
-  { token: DIG.token, catalog: "WOIII·001", tint: "blue", line: "Pressing intelligence in your AI assistant.", href: "/connect" },
-  { token: MIX.token, catalog: "WOIII·002", tint: "green", line: "A bespoke playlist concierge.", badge: MIX.badge },
-  { token: DIG.token, catalog: "WOIII·001", tint: "blue", line: "The side panel for discogs.com.", href: "/connect#extension" },
-  { token: RIG.token, catalog: "WOIII·003", tint: "gold", line: "An AI hi-fi gear finder.", badge: RIG.badge },
-  { token: "WOIII.me", catalog: "EST·2026", tint: "paper", line: "Free tools, open source, no tracking." },
+const unique: AlbumCover[] = [
+  { src: "/images/albums/01.png", alt: "Antonio Carlos Jobim — Wave album cover" },
+  { src: "/images/albums/02.png", alt: "Steely Dan — Can't Buy a Thrill album cover" },
+  { src: "/images/albums/03.png", alt: "Pescado Rabioso — Artaud album cover" },
+  { src: "/images/albums/04.png", alt: "Jungle album cover" },
+  { src: "/images/albums/05.png", alt: "Selected album cover with two figures against abstract artwork" },
+  { src: "/images/albums/06.png", alt: "Saracho — En Medio album cover" },
+  { src: "/images/albums/07.png", alt: "The Famous Sound of Three Blind Mice, volume one album cover" },
 ];
-const cards: RingCard[] = [...unique, ...unique];
+const covers: AlbumCover[] = [...unique, ...unique];
 
-const N = cards.length;
+const N = covers.length;
 const STEP = 360 / N;
-const R = 480;
+const R = 1240;
 
 /** Same math the client script uses — initial frame for no-JS/reduced-motion. */
 function pose(i: number) {
@@ -49,23 +45,23 @@ function pose(i: number) {
 <div class="ring-stage" data-radius={R}>
   <div class="ring">
     {
-      cards.map((c, i) => {
+      covers.map((cover, i) => {
         const p = pose(i);
-        const Tag = c.href ? "a" : "div";
         return (
-          <Tag
-            class={`ring-card ${c.tint}`}
-            href={c.href}
+          <div
+            class="ring-card"
             style={`transform: ${p.transform}; opacity: ${p.opacity}`}
             aria-hidden={i >= unique.length ? "true" : undefined}
-            tabindex={c.href && i >= unique.length ? -1 : undefined}
           >
-            <span class="ring-chip">{c.token}</span>
-            {c.badge && <span class="ring-badge">{c.badge}</span>}
-            <p class="ring-line">{c.line}</p>
-            <span class="ring-catalog">{c.catalog}</span>
-            <span class="ring-groove" aria-hidden="true" />
-          </Tag>
+            <img
+              src={cover.src}
+              alt={i < unique.length ? cover.alt : ""}
+              width="600"
+              height="600"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
         );
       })
     }
@@ -75,18 +71,20 @@ function pose(i: number) {
 <style>
   .ring-stage {
     position: relative;
-    height: 400px;
-    perspective: 800px;
+    width: 100vw;
+    height: 700px;
+    margin-left: calc(50% - 50vw);
+    perspective: clamp(1760px, 144vw, 2200px);
     overflow: clip;
-    /* edges dissolve into the canvas, like theirs into black */
+    /* Keep the cylinder full-bleed while gently dissolving only its clipped edges. */
     -webkit-mask-image: linear-gradient(
       to right,
       transparent,
-      #000 12%,
-      #000 88%,
+      #000 1.5%,
+      #000 98.5%,
       transparent
     );
-    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 1.5%, #000 98.5%, transparent);
   }
   .ring {
     position: absolute;
@@ -97,101 +95,38 @@ function pose(i: number) {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 250px;
-    aspect-ratio: 4 / 5;
-    border-radius: var(--radius-card);
-    border: 1px solid;
-    padding: calc(var(--space) * 2.5);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: calc(var(--space) * 1.5);
-    text-decoration: none;
-    color: var(--ink);
+    width: clamp(480px, 39.3vw, 540px);
+    aspect-ratio: 1;
+    border-radius: clamp(10px, 1.4vw, 20px);
+    border: 0;
     overflow: hidden;
+    isolation: isolate;
     will-change: transform, opacity;
     backface-visibility: hidden;
+    background: #111;
+    box-shadow: 0 30px 72px rgba(0, 0, 0, 0.36);
   }
-  .ring-card.blue {
-    background: var(--blue-tint);
-    border-color: color-mix(in srgb, var(--blue-ink) 30%, transparent);
-  }
-  .ring-card.green {
-    background: var(--green-tint);
-    border-color: color-mix(in srgb, var(--green-ink) 25%, transparent);
-  }
-  .ring-card.gold {
-    background: var(--gold-tint);
-    border-color: color-mix(in srgb, var(--gold-ink) 25%, transparent);
-  }
-  .ring-card.paper {
-    background: var(--surface);
-    border-color: var(--line-strong);
+  .ring-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .ring-chip {
-    font-weight: 680;
-    font-size: 1.05rem;
-    letter-spacing: -0.01em;
-  }
-  .blue .ring-chip {
-    color: var(--blue-deep);
-  }
-  .green .ring-chip {
-    color: var(--green-ink);
-  }
-  .gold .ring-chip {
-    color: var(--gold-ink);
-  }
-  .paper .ring-chip {
-    color: var(--ink);
+  @media (max-width: 600px) {
+    .ring-stage {
+      width: 100vw;
+      height: 400px;
+      perspective: 1020px;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 1%, #000 99%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 1%, #000 99%, transparent);
+    }
+    .ring-card {
+      width: 276px;
+      border-radius: 10px;
+    }
   }
 
-  .ring-badge {
-    font-size: 0.625rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-tertiary);
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    padding: 2px 9px;
-  }
-
-  .ring-line {
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: var(--ink-secondary);
-    max-width: 100%;
-  }
-
-  .ring-catalog {
-    margin-top: auto;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 0.625rem;
-    letter-spacing: 0.08em;
-    color: var(--ink-faint);
-  }
-
-  /* label-center grooves, cropped at the card's corner */
-  .ring-groove {
-    position: absolute;
-    right: -70px;
-    bottom: -70px;
-    width: 190px;
-    height: 190px;
-    border-radius: 999px;
-    background: repeating-radial-gradient(
-        circle at center,
-        transparent 0 9px,
-        rgba(255, 255, 255, 0.06) 9px 10px
-      );
-    pointer-events: none;
-  }
-
-  a.ring-card:hover .ring-line {
-    color: var(--ink);
-  }
 </style>
 
 <script>
@@ -201,13 +136,21 @@ function pose(i: number) {
     const cards = [...ring.children] as HTMLElement[];
     const N = cards.length;
     const STEP = 360 / N;
-    const R = Number(stage.dataset.radius);
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const baseRadius = Number(stage.dataset.radius);
+    const qa = new URLSearchParams(location.search).has("qa");
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches || qa;
+    if (qa) stage.dataset.qa = "true";
 
     let angle = 0;
     let last = 0;
     let running = false;
     let raf = 0;
+
+    const radius = () => {
+      const cardWidth = cards[0]?.offsetWidth || (innerWidth < 600 ? 276 : 540);
+      const gap = 12;
+      return (cardWidth + gap) / (2 * Math.sin(Math.PI / N)) || baseRadius;
+    };
 
     const render = () => {
       for (let i = 0; i < N; i++) {
@@ -216,6 +159,7 @@ function pose(i: number) {
         const rad = (th * Math.PI) / 180;
         const a = Math.abs(th);
         const el = cards[i];
+        const R = radius();
         el.style.transform = `translate(-50%, -50%) translate3d(${R * Math.sin(rad)}px, 0, ${-R * Math.cos(rad)}px) rotateY(${-th}deg)`;
         el.style.opacity = a < 80 ? "1" : a > 105 ? "0" : String(1 - (a - 80) / 25);
         el.style.visibility = a > 110 ? "hidden" : "visible";
@@ -247,6 +191,7 @@ function pose(i: number) {
       ).observe(stage);
       stage.addEventListener("pointerenter", stop);
       stage.addEventListener("pointerleave", start);
+      addEventListener("resize", render, { passive: true });
     }
   }
 </script>

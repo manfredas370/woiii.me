@@ -1,12 +1,19 @@
 /* ------------------------------------------------------------------ */
-/* Fonts — Instrument Sans (headlines, the Bending Spoons grotesque)  */
-/* + Instrument Serif italic (accent words) + Geist (body/UI, shared  */
-/* with the DIG extension). All self-hosted, ~122 KB total.           */
+/* Fonts — GT Standard (sans-serif display, body, and UI)             */
+/* + Instrument Serif italic for the accent words.                    */
 /* ------------------------------------------------------------------ */
 @font-face {
-  font-family: "Instrument Sans";
-  src: url("/fonts/InstrumentSans-Variable.woff2") format("woff2");
-  font-weight: 400 700;
+  font-family: "GT Standard";
+  src: url("/fonts/GT-Standard-L-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Standard";
+  src: url("/fonts/GT-Standard-L-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
   font-display: swap;
 }
 @font-face {
@@ -14,12 +21,6 @@
   src: url("/fonts/InstrumentSerif-Italic.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-Variable.woff2") format("woff2");
-  font-weight: 100 900;
   font-display: swap;
 }
 
@@ -103,7 +104,7 @@ html {
 }
 
 body {
-  font-family: "Geist", system-ui, -apple-system, sans-serif;
+  font-family: "GT Standard", system-ui, -apple-system, sans-serif;
   font-size: 1.0625rem;
   line-height: 1.65;
   color: var(--ink);
@@ -120,17 +121,17 @@ body {
 h1,
 h2,
 h3 {
-  font-family: "Instrument Sans", "Geist", system-ui, sans-serif;
+  font-family: "GT Standard", system-ui, sans-serif;
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
+  line-height: 1;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 h1 {
   font-size: clamp(2.7rem, 7.2vw, 4.75rem);
   font-weight: 640;
-  letter-spacing: -0.032em;
+  letter-spacing: -0.02em;
 }
 h2 {
   font-size: clamp(2rem, 4.6vw, 2.9rem);

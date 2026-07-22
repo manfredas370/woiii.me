@@ -1,9 +1,5 @@
 ---
-/**
- * Screenshot figure with caption. Until real screenshots land in
- * /public/shots/, missing images render as a styled placeholder slot
- * so the walkthrough structure is complete and testable.
- */
+/** Screenshot figure with caption. Missing assets stay out of the rendered guide. */
 import fs from "node:fs";
 import path from "node:path";
 
@@ -16,19 +12,14 @@ const { src, alt, caption } = Astro.props;
 const exists = fs.existsSync(path.join("public", src));
 ---
 
-<figure class="shot">
-  {
-    exists ? (
+{
+  exists && (
+    <figure class="shot">
       <img src={src} alt={alt} loading="lazy" decoding="async" />
-    ) : (
-      <div class="shot-placeholder" role="img" aria-label={alt}>
-        <span>Screenshot pending</span>
-        <code>{src}</code>
-      </div>
-    )
-  }
-  <figcaption>{caption}</figcaption>
-</figure>
+      <figcaption>{caption}</figcaption>
+    </figure>
+  )
+}
 
 <style>
   .shot {
@@ -39,19 +30,6 @@ const exists = fs.existsSync(path.join("public", src));
     border-radius: var(--radius-shot);
     border: 1px solid var(--outline);
     display: block;
-  }
-  .shot-placeholder {
-    border: 1px dashed var(--outline-strong);
-    border-radius: var(--radius-shot);
-    background: var(--surface);
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    color: var(--ink-muted);
-    font-size: 0.9rem;
   }
   figcaption {
     font-size: 0.875rem;
