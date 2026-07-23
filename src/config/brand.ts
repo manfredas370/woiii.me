@@ -51,7 +51,7 @@ export const RIG = {
 } as const;
 
 export const SUPPORT = {
-  email: "hello@woiii.me",
+  email: "help@woiii.me",
 } as const;
 
 /**
