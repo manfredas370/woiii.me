@@ -82,6 +82,7 @@ No environment variables are required for the static website.
 ## Project structure
 
 ```text
+docs/               Implementation and design-system documentation
 public/             Static images, icons, fonts and product artwork
 src/components/     Reusable Astro components
 src/config/         Shared brand and product content
@@ -89,6 +90,11 @@ src/layouts/        Page shell, navigation and footer
 src/pages/          Route entry points
 src/styles/         Global typography and design tokens
 ```
+
+## Documentation
+
+- [Implementation plan and status](docs/implementation-plan.md)
+- [Design system](docs/design.md)
 
 ## Rights and attribution
 
