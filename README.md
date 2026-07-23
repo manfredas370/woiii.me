@@ -1,23 +1,36 @@
-# woiii.me / DIG for Discogs
+# woiii.me
 
-The public website for **woiii.me/DIG** — an AI assistant for smarter record
-buying. DIG compares pressings, surfaces evidence and helps collectors decide
-which copy is worth buying.
+The public home of **woiii.me** — a growing family of AI-powered tools for music
+discovery, collecting and listening. This repository contains the shared brand
+website, product introductions, connection guides and privacy information.
+
+**DIG for Discogs** is currently the most developed product in the family, so
+it has the deepest coverage on the site today. **woiii.MIX** and **woiii.RIG**
+are in progress and will gain dedicated experiences as they develop.
 
 [Visit woiii.me](https://woiii.me) · [Open the connection guide](https://woiii.me/connect)
+
+## Product family
+
+| Product | Status | Purpose |
+| --- | --- | --- |
+| **woiii.DIG** | Available | Evidence-led pressing research, collection tools and Discogs intelligence for AI assistants and the browser |
+| **woiii.MIX** | In development | A playlist concierge that turns a listener profile into a private mixtape with song-by-song commentary |
+| **woiii.RIG** | Coming soon | A hi-fi gear finder built around listening goals, live listings and price history |
 
 ## Version
 
 This repository contains **woiii.me 1.0**, the first complete public release of
-the landing page and connection guide.
+the product-family landing page. The release also includes the first detailed
+product experience: the DIG connection guide.
 
 ## Highlights
 
-- Motion-led, responsive landing page with an animated album-cover orbit.
-- Scroll-reveal storytelling for the DIG value proposition.
-- Expandable setup guides for Claude, ChatGPT, Codex and the Chrome extension.
-- Product previews for woiii.MIX and woiii.RIG.
-- Adaptive navigation plus light and dark footer treatments.
+- A unified landing page for the woiii.me product family.
+- Product storytelling for DIG, plus early previews of MIX and RIG.
+- Motion-led, responsive presentation with an animated album-cover orbit.
+- Expandable DIG setup guides for Claude, ChatGPT, Codex and Chrome.
+- Shared navigation, typography and light/dark page treatments.
 - Privacy-first by design: no analytics, cookies or trackers.
 - Static Astro output ready for Vercel.
 
@@ -25,9 +38,9 @@ the landing page and connection guide.
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Landing page, DIG story, workflow, metrics and product previews |
-| `/connect` | Client-specific connection instructions for the DIG MCP server |
-| `/privacy` | Privacy policy and Discogs attribution |
+| `/` | woiii.me product-family landing page, current DIG story and previews of products in progress |
+| `/connect` | Client-specific setup instructions for DIG for Discogs |
+| `/privacy` | Privacy policy covering the website and current DIG services |
 
 ## Technology
 

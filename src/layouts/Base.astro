@@ -6,9 +6,10 @@ interface Props {
   title: string;
   description: string;
   bodyClass?: string;
+  headerVariant?: "standard" | "overlay";
 }
 
-const { title, description, bodyClass } = Astro.props;
+const { title, description, bodyClass, headerVariant = "standard" } = Astro.props;
 const path = Astro.url.pathname;
 ---
 
@@ -34,7 +35,7 @@ const path = Astro.url.pathname;
   <body class={bodyClass}>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="site-header">
+    <header class:list={["site-header", { "site-header-overlay": headerVariant === "overlay" }]}>
       <div class="wrap header-row">
         <a class="wordmark" href="/" aria-label="WOIII.me home">
           <img src="/woiii-logo.svg" alt="" width="108" height="32" />
@@ -174,6 +175,70 @@ const path = Astro.url.pathname;
         color: var(--ink);
         background: var(--surface-high);
       }
+      .site-header-overlay {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 50;
+        border: 0;
+        background: transparent;
+        transition: background 220ms ease, color 180ms ease;
+      }
+      .site-header-overlay.is-scrolled {
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.32) 0%,
+          rgba(0, 0, 0, 0.14) 58%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .site-header-overlay.is-on-light.is-scrolled {
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.44) 0%,
+          rgba(255, 255, 255, 0.22) 58%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+      .site-header-overlay .wordmark img {
+        transition: filter 180ms ease;
+      }
+      .site-header-overlay.is-on-light .wordmark img {
+        filter: invert(1);
+      }
+      .site-header-overlay .wrap {
+        width: min(100%, 1440px);
+        max-width: 1440px;
+        margin-inline: auto;
+        padding-inline: clamp(24px, 3.35vw, 48px);
+      }
+      .site-header-overlay .header-row nav {
+        gap: clamp(16px, 2vw, 30px);
+      }
+      .site-header-overlay .header-row nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: auto;
+        padding: 4px 0;
+        border-radius: 0;
+        color: rgba(255, 255, 255, 0.72);
+        background: transparent;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+      .site-header-overlay .header-row nav a:hover,
+      .site-header-overlay .header-row nav a[aria-current="page"] {
+        color: #fff;
+        background: transparent;
+      }
+      .site-header-overlay.is-on-light .header-row nav a {
+        color: rgba(0, 0, 0, 0.68);
+      }
+      .site-header-overlay.is-on-light .header-row nav a:hover,
+      .site-header-overlay.is-on-light .header-row nav a[aria-current="page"] {
+        color: #000;
+      }
       @media (max-width: 480px) {
         .site-header nav a {
           padding: 5px 8px;
@@ -268,7 +333,7 @@ const path = Astro.url.pathname;
         max-width: none;
       }
       .footer-meta {
-        padding-top: 38px;
+        padding-top: 40px;
         color: rgba(255, 255, 255, 0.46);
         font-size: 0.875rem;
         line-height: 1.3;

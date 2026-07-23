@@ -16,6 +16,7 @@ const clients = [
   title="Connect DIG for Discogs — WOIII.me"
   description="Step-by-step guide to connecting DIG for Discogs to Claude, ChatGPT, Codex, or the Chrome side panel."
   bodyClass="connect-page"
+  headerVariant="overlay"
 >
   <!-- Expandable client setup guides -->
   <section class="client-picker" id="clients" aria-labelledby="client-picker-title" data-header-tone="dark">
@@ -157,57 +158,6 @@ const clients = [
 <style>
   :global(body) { --accent-hue: #c8ff9f; background: #000; }
   :global(.site-footer) { margin-top: 0; }
-  :global(body.connect-page .site-header) {
-    position: fixed;
-    inset: 0 0 auto;
-    z-index: 50;
-    border: 0 !important;
-    background: transparent !important;
-    transition: background 220ms ease, color 180ms ease;
-  }
-  :global(body.connect-page .site-header.is-scrolled) {
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.32) 0%,
-      rgba(0, 0, 0, 0.14) 58%,
-      rgba(0, 0, 0, 0) 100%
-    ) !important;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-  :global(body.connect-page .site-header.is-on-light.is-scrolled) {
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.44) 0%,
-      rgba(255, 255, 255, 0.22) 58%,
-      rgba(255, 255, 255, 0) 100%
-    ) !important;
-  }
-  :global(.site-header .wordmark img) { transition: filter 180ms ease; }
-  :global(.site-header.is-on-light .wordmark img) { filter: invert(1); }
-  :global(.site-header .wrap) {
-    width: min(100%, 1440px);
-    max-width: 1440px;
-    margin-inline: auto;
-    padding-inline: clamp(24px, 3.35vw, 48px);
-  }
-  :global(.site-header .header-row nav) { gap: clamp(16px, 2vw, 30px); }
-  :global(.site-header .header-row nav a) {
-    display: inline-flex;
-    align-items: center;
-    min-height: auto;
-    padding: 4px 0;
-    border-radius: 0;
-    color: rgba(255, 255, 255, 0.72) !important;
-    background: transparent !important;
-    font-size: 0.875rem;
-    font-weight: 500 !important;
-  }
-  :global(.site-header .header-row nav a:hover),
-  :global(.site-header .header-row nav a[aria-current="page"]) { color: #fff !important; }
-  :global(.site-header.is-on-light .header-row nav a) { color: rgba(0, 0, 0, 0.68) !important; }
-  :global(.site-header.is-on-light .header-row nav a:hover),
-  :global(.site-header.is-on-light .header-row nav a[aria-current="page"]) { color: #000 !important; }
 
   .edge-wrap {
     width: min(100%, 1440px);

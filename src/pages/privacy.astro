@@ -6,8 +6,10 @@ import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
 <Base
   title="Privacy policy — WOIII.me"
   description="The privacy policy for DIG for Discogs and the WOIII.me site: per-user OAuth, no analytics, no data collection, no sale or sharing of data."
+  bodyClass="privacy-page"
+  headerVariant="overlay"
 >
-  <section class="section">
+  <section class="section privacy-section" data-header-tone="dark">
     <div class="wrap policy">
       <h1>Privacy <span class="accent">policy</span></h1>
       <p class="lede">
@@ -80,14 +82,19 @@ import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
 
       <h2>Contact</h2>
       <p>
-        Questions about privacy: <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>
-        or <a href={DIG.issuesUrl} target="_blank" rel="noopener noreferrer">GitHub Issues</a>.
+        Questions about privacy: <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>{" "}
+        or{" "}<a href={DIG.issuesUrl} target="_blank" rel="noopener noreferrer">GitHub Issues</a>.
       </p>
     </div>
   </section>
 </Base>
 
 <style>
+  .privacy-section {
+    --accent-hue: #c8ff9f;
+    background: #000;
+    padding-block: 170px 104px;
+  }
   .policy h2 {
     font-size: 1.35rem;
     margin-top: calc(var(--space) * 7);
@@ -112,5 +119,10 @@ import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
     font-size: 0.875rem;
     color: var(--ink-tertiary);
     margin-top: calc(var(--space) * 3);
+  }
+  @media (max-width: 640px) {
+    .privacy-section {
+      padding-block: 125px 64px;
+    }
   }
 </style>
