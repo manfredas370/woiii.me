@@ -25,9 +25,9 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Tokens — black vinyl, lime strobe. Bending Spoons-dark with the    */
-/* record-shop soul kept: deadwax stamps, groove hairlines, label     */
-/* pastels re-pressed for a dark room.                                */
+/* Tokens — black vinyl, lime strobe, with the record-shop soul kept: */
+/* deadwax stamps, groove hairlines, and label pastels re-pressed for */
+/* a dark room.                                                       */
 /* ------------------------------------------------------------------ */
 :root {
   /* text — four levels on black */
@@ -215,7 +215,7 @@ pre code {
   margin-top: calc(var(--space) * 3);
 }
 
-/* Pill buttons — lime primary (Bending Spoons contrast), quiet ghost */
+/* Pill buttons — high-contrast lime primary, quiet ghost             */
 .btn {
   display: inline-block;
   border-radius: 999px;

@@ -71,16 +71,16 @@ import { DIG } from "../config/brand";
     <div class="edge-wrap">
       <h2 class="sr-only" id="impact-title">DIG by the numbers</h2>
       <dl class="impact-grid">
-        <div class="reveal">
-          <dd><span data-count={DIG.toolCount}>{DIG.toolCount}</span><sup>+</sup></dd>
+        <div>
+          <dd><span>{DIG.toolCount}</span><sup>+</sup></dd>
           <dt>MCP tools for the record hunt</dt>
         </div>
-        <div class="reveal">
-          <dd><span data-count={DIG.promptCount}>{DIG.promptCount}</span><sup>+</sup></dd>
+        <div>
+          <dd><span>{DIG.promptCount}</span><sup>+</sup></dd>
           <dt>Guided prompts and shortcuts</dt>
         </div>
-        <div class="reveal">
-          <dd><span data-count="0">0</span></dd>
+        <div>
+          <dd><span>0</span></dd>
           <dt>Trackers, ads, or data collection</dt>
         </div>
       </dl>
@@ -126,7 +126,7 @@ import { DIG } from "../config/brand";
     z-index: 50;
     border: 0 !important;
     box-shadow: none;
-    background: #000;
+    background: transparent !important;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     transition: background 220ms ease, backdrop-filter 220ms ease;
@@ -137,7 +137,7 @@ import { DIG } from "../config/brand";
       rgba(0, 0, 0, 0.28) 0%,
       rgba(0, 0, 0, 0.16) 58%,
       rgba(0, 0, 0, 0) 100%
-    );
+    ) !important;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
@@ -147,7 +147,7 @@ import { DIG } from "../config/brand";
       rgba(255, 255, 255, 0.44) 0%,
       rgba(255, 255, 255, 0.22) 58%,
       rgba(255, 255, 255, 0) 100%
-    );
+    ) !important;
   }
   :global(.site-header .wordmark img) {
     transition: filter 180ms ease;
@@ -382,12 +382,32 @@ import { DIG } from "../config/brand";
     gap: 24px;
   }
   .product-art-card {
+    --gradient-x: 0px;
+    --gradient-y: 0px;
+    --pointer-x: 50%;
+    --pointer-y: 50%;
     position: relative;
     overflow: hidden;
     aspect-ratio: 1;
     border-radius: clamp(28px, 3vw, 48px);
     background: #ecece8;
     transition: transform 240ms ease;
+  }
+  .product-art-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      circle at var(--pointer-x) var(--pointer-y),
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(255, 255, 255, 0.14) 18%,
+      rgba(255, 255, 255, 0) 42%
+    );
+    mix-blend-mode: soft-light;
+    transition: opacity 240ms ease;
   }
   .product-art-card:hover {
     transform: translateY(-6px);
@@ -399,6 +419,19 @@ import { DIG } from "../config/brand";
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: translate3d(var(--gradient-x), var(--gradient-y), 0) scale(1);
+    transition: transform 180ms ease-out;
+    will-change: transform;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .product-art-card:hover::after,
+    .product-art-card.is-pointer-active::after {
+      opacity: 0.88;
+    }
+    .product-art-card:hover .product-art-background,
+    .product-art-card.is-pointer-active .product-art-background {
+      transform: translate3d(var(--gradient-x), var(--gradient-y), 0) scale(1.08);
+    }
   }
   .product-art-dots {
     position: absolute;
@@ -406,6 +439,7 @@ import { DIG } from "../config/brand";
     display: block;
     width: 90.4%;
     height: 90.4%;
+    z-index: 2;
   }
   .product-art-content {
     position: absolute;
@@ -414,11 +448,12 @@ import { DIG } from "../config/brand";
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    z-index: 3;
   }
   .product-art-logo {
     display: block;
     width: auto;
-    height: 32px;
+    height: 36px;
   }
   .product-art-content h3 {
     margin-top: 40px;
@@ -621,7 +656,26 @@ import { DIG } from "../config/brand";
     transition: border-color 180ms ease, transform 240ms ease;
   }
   .journey-card:hover { transform: translateY(-6px); border-color: var(--accent-hue); }
-  .journey-card > span { color: var(--accent-hue); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .journey-card > span {
+    color: var(--accent-hue);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .journey-card > span {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+    }
+    .journey-card:hover > span,
+    .journey-card:focus-within > span {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+  }
   .journey-card h3 { min-height: 3em; margin-top: 42px; font-size: clamp(2rem, 3vw, 3rem); font-weight: 480; line-height: 1; letter-spacing: -0.02em; }
   .journey-card p { margin-top: 24px; color: #9c9c95; line-height: 1.55; }
   .journey-card a {
@@ -687,9 +741,16 @@ import { DIG } from "../config/brand";
   @media (prefers-reduced-motion: reduce) {
     .landing-hero h1 { animation: none; }
     .product-art-card,
+    .product-art-background,
     .product-panel,
     .journey-card,
+    .journey-card > span,
     .site-button { transition: none; }
+    .product-art-card:hover,
+    .product-art-card:hover .product-art-background,
+    .product-art-card.is-pointer-active .product-art-background,
+    .journey-card:hover { transform: none; }
+    .product-art-card::after { display: none; }
   }
 </style>
 
@@ -771,6 +832,57 @@ import { DIG } from "../config/brand";
   const motionReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (!motionReduced) {
+    const pointerFine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (pointerFine) {
+      const artCards = [...document.querySelectorAll<HTMLElement>(".product-art-card")];
+      const resetPointerCard = (card: HTMLElement) => {
+        card.classList.remove("is-pointer-active");
+        card.style.setProperty("--gradient-x", "0px");
+        card.style.setProperty("--gradient-y", "0px");
+        card.style.setProperty("--pointer-x", "50%");
+        card.style.setProperty("--pointer-y", "50%");
+      };
+
+      for (const card of artCards) {
+        let pointerFrame = 0;
+        let pointerClientX = 0;
+        let pointerClientY = 0;
+
+        const renderPointer = () => {
+          pointerFrame = 0;
+          const rect = card.getBoundingClientRect();
+          const x = Math.max(0, Math.min(1, (pointerClientX - rect.left) / rect.width));
+          const y = Math.max(0, Math.min(1, (pointerClientY - rect.top) / rect.height));
+          const shiftX = (x - 0.5) * 36;
+          const shiftY = (y - 0.5) * 36;
+
+          card.style.setProperty("--gradient-x", `${shiftX.toFixed(2)}px`);
+          card.style.setProperty("--gradient-y", `${shiftY.toFixed(2)}px`);
+          card.style.setProperty("--pointer-x", `${(x * 100).toFixed(2)}%`);
+          card.style.setProperty("--pointer-y", `${(y * 100).toFixed(2)}%`);
+        };
+
+        card.addEventListener("pointermove", (event) => {
+          if (!card.classList.contains("is-pointer-active")) {
+            for (const otherCard of artCards) {
+              if (otherCard !== card) resetPointerCard(otherCard);
+            }
+          }
+          card.classList.add("is-pointer-active");
+          pointerClientX = event.clientX;
+          pointerClientY = event.clientY;
+          if (!pointerFrame) pointerFrame = requestAnimationFrame(renderPointer);
+        }, { passive: true });
+
+        card.addEventListener("pointerleave", () => {
+          if (pointerFrame) cancelAnimationFrame(pointerFrame);
+          pointerFrame = 0;
+          resetPointerCard(card);
+        }, { passive: true });
+      }
+    }
+
     const panels = document.querySelectorAll<HTMLElement>("[data-parallax]");
     let ticking = false;
     const updatePanels = () => {

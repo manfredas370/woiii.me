@@ -2,11 +2,10 @@
 
 ## Direction & feel
 
-Black vinyl, lime strobe. Bending Spoons-dark (black canvas, one vibrant
-accent, big grotesque headlines with italic-serif accent words) with the
-record-shop soul kept: run-out grooves, deadwax catalog stamps, label-pastel
-cards re-pressed for a dark room. Evidence-first tone, no growth-hack
-loudness.
+Black vinyl, lime strobe: a black canvas with one vibrant accent, big
+grotesque headlines, and italic-serif accent words. The record-shop soul is
+kept through run-out grooves, deadwax catalog stamps, and label-pastel cards
+re-pressed for a dark room. Evidence-first tone, no growth-hack loudness.
 
 ## Signature (domain: crate digging / deadwax / label centers)
 
@@ -17,7 +16,7 @@ loudness.
 - **Product artifacts** — informative fake-UI windows (`.window`: title bar,
   dots, MCP `tool-chip`, ranked verdicts with evidence footers) on deep
   label-hue mats; floating status chips (`.float-chip`) around the hero demo.
-- **Wrapped product ring** — Bending Spoons cylinder geometry (R=480, 10
+- **Wrapped product ring** — cylindrical album-cover geometry (R=480, 10
   cards, rotateY(−θ), 8°/s rAF rotation) in the products section.
 
 ## Tokens (src/styles/global.css)
@@ -36,8 +35,8 @@ loudness.
 
 ## Type
 
-- Headlines: **Instrument Sans** variable (the Bending Spoons grotesque),
-  weight 600–640, tracking −0.025 to −0.032em.
+- Headlines: **Instrument Sans** variable, weight 600–640, tracking −0.025
+  to −0.032em.
 - Accent words: **Instrument Serif italic** in lime (`.accent`), 1–2 per
   headline; also stat numerals.
 - Body/UI: **Geist** (cohesion with the DIG extension).

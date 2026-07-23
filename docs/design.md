@@ -189,6 +189,7 @@ variant. Mobile stacks the lower footer and removes desktop-only top alignment.
 Motion patterns currently used or available in the shared layer include:
 
 - slow ambient product-ring movement;
+- pointer-reactive gradient movement and highlight on product preview cards;
 - scroll-triggered reveal and stagger;
 - per-letter headline treatment;
 - count-up metrics;
