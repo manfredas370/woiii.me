@@ -11,6 +11,9 @@ interface Props {
 
 const { title, description, bodyClass, headerVariant = "standard" } = Astro.props;
 const path = Astro.url.pathname;
+const canonicalUrl = new URL(path, Astro.site ?? Astro.url.origin);
+const socialImageUrl = new URL("/social/woiii-social-card.png", Astro.site ?? Astro.url.origin);
+const socialImageAlt = "Which pressing is actually worth buying? Shown above a row of album covers.";
 ---
 
 <!doctype html>
@@ -20,6 +23,7 @@ const path = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
     <link
       rel="preload"
@@ -31,6 +35,20 @@ const path = Astro.url.pathname;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={BRAND.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:secure_url" content={socialImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1260" />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
   </head>
   <body class={bodyClass}>
     <a class="skip-link" href="#main">Skip to content</a>
