@@ -421,6 +421,22 @@ const socialImageAlt = "Which pressing is actually worth buying? Shown above a r
         .footer-meta { padding-top: 0; }
         .site-footer-light .footer-inner::before { top: -48px; }
       }
+      @media (max-width: 600px) {
+        .site-header .wrap { padding-inline: 22px; }
+        .site-header .header-row { flex-wrap: nowrap; gap: 16px; }
+        .site-header .header-row nav {
+          flex-wrap: nowrap;
+          gap: 0;
+          margin-left: auto;
+        }
+        .site-header .header-row nav a:not(.header-connect-button) { display: none; }
+        .site-header .header-row nav a.header-connect-button {
+          min-height: 44px;
+          padding-inline: 16px !important;
+          font-size: 0.875rem;
+          white-space: nowrap;
+        }
+      }
       @media (max-width: 480px) {
         .footer-links { grid-template-columns: 1fr; gap: 32px; }
         .footer-tagline { margin-top: 52px; }
