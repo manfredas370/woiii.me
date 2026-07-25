@@ -1,0 +1,124 @@
+---
+import Base from "../layouts/Base.astro";
+import { DIG, SUPPORT } from "../config/brand";
+---
+
+<Base
+  title="Support — DIG for Discogs"
+  description="Get help with DIG for Discogs connections, authentication, results, privacy, and security."
+  bodyClass="privacy-page"
+  headerVariant="overlay"
+>
+  <section class="section privacy-section" data-header-tone="dark">
+    <div class="wrap policy">
+      <h1>DIG <span class="accent">support</span></h1>
+      <p class="lede">
+        Get help with connecting DIG, Discogs authentication, unexpected
+        results, privacy questions, or responsible security reports.
+      </p>
+      <p class="updated">Last updated: 25 July 2026 · DIG for Discogs is provided by WOIII.me.</p>
+
+      <h2>Contact</h2>
+      <p>
+        Email <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>. Include a
+        short description, the client you used, and the steps that produced the
+        problem. You can also use <a href={DIG.issuesUrl}>GitHub Issues</a>{" "}for
+        reproducible public bugs or <a href={DIG.discussionsUrl}>Discussions</a>{" "}
+        for questions and ideas.
+      </p>
+
+      <h2>Do not send secrets</h2>
+      <p>
+        Never send a password, Discogs personal access token, OAuth token,
+        client secret, API key, MFA or one-time code, private collection export,
+        or another person's personal data. Redact usernames, release notes, and
+        screenshots when they are not necessary to diagnose the issue.
+      </p>
+
+      <h2>Connection and sign-in help</h2>
+      <ol>
+        <li>Confirm that your client is using the MCP URL shown in the <a href="/connect">connect guide</a>.</li>
+        <li>Retry the connection and complete the Discogs authorization page in the same browser session.</li>
+        <li>Check that the Discogs account can access the collection or wantlist involved.</li>
+        <li>Remove the existing connector and reconnect if the authorization has expired or was revoked.</li>
+      </ol>
+
+      <h2>Results and limitations</h2>
+      <p>
+        DIG is read-only. It cannot buy records, contact sellers, change a
+        collection or wantlist, or submit ratings. Pressing scores are derived
+        from available Discogs catalogue, community, marketplace, and mastering
+        evidence; they are not laboratory measurements of audio quality.
+        Catalogue and marketplace information can be incomplete, user-supplied,
+        delayed, or changed after a result is returned.
+      </p>
+
+      <h2>Privacy requests</h2>
+      <p>
+        For access, correction, deletion, restriction, or another applicable
+        privacy request, email <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>{" "}
+        with “Privacy request” in the subject. Review the <a href="/privacy">Privacy policy</a>{" "}
+        for the data categories, recipients, retention, and available controls.
+      </p>
+
+      <h2>Security reports</h2>
+      <p>
+        Report a suspected credential exposure, authorization bypass, or private
+        data disclosure privately by email before opening a public issue. Do not
+        exploit the issue beyond what is necessary to demonstrate it, access
+        another user's account, or include live credentials in the report.
+      </p>
+
+      <h2>Response expectations</h2>
+      <p>
+        WOIII.me is an independent open-source project, not a staffed emergency
+        service. We will review messages as availability permits. For an urgent
+        account-security concern, revoke DIG under Discogs <em>Applications</em>
+        {" "}and remove the connector from your AI client immediately.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .privacy-section {
+    --accent-hue: #c8ff9f;
+    background: #000;
+    padding-block: 170px 104px;
+  }
+  .privacy-section > .policy {
+    --text-width: 62rem;
+    width: min(100%, 1440px);
+    max-width: 1440px;
+    padding-inline: clamp(24px, 3.35vw, 48px);
+  }
+  .policy h2 {
+    font-size: 1.35rem;
+    margin-top: calc(var(--space) * 7);
+    margin-bottom: calc(var(--space) * 2.5);
+    padding-top: calc(var(--space) * 4);
+    max-width: var(--text-width);
+  }
+  .policy ol {
+    padding-left: 1.25em;
+    display: grid;
+    gap: calc(var(--space) * 1.5);
+    max-width: var(--text-width);
+  }
+  .policy li::marker {
+    color: var(--ink-faint);
+  }
+  .policy p {
+    margin-bottom: calc(var(--space) * 2);
+  }
+  .updated {
+    font-size: 0.875rem;
+    color: var(--ink-tertiary);
+    margin-top: calc(var(--space) * 3);
+  }
+  @media (max-width: 640px) {
+    .privacy-section {
+      padding-block: 125px 64px;
+    }
+  }
+</style>
