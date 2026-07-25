@@ -20,17 +20,20 @@ are in progress and will gain dedicated experiences as they develop.
 
 ## Version
 
-This repository contains **woiii.me 1.0**, the first complete public release of
-the product-family landing page. The release also includes the first detailed
-product experience: the DIG connection guide.
+This repository contains **woiii.me 1.1**, which rebuilds the hero album-cover
+cylinder so that twelve sleeves wrap across the fold, and moves album art onto
+an optimized image pipeline. Version 1.0 was the first complete public release
+of the product-family landing page, including the DIG connection guide.
 
 ## Highlights
 
 - A unified landing page for the woiii.me product family.
 - Product storytelling for DIG, plus early previews of MIX and RIG.
-- Motion-led, responsive presentation with an animated album-cover orbit.
+- Motion-led, responsive presentation built around a wrapped album-cover
+  cylinder of twelve sleeves.
 - Expandable DIG setup guides for Claude, ChatGPT, Codex and Chrome.
 - Shared navigation, typography and light/dark page treatments.
+- Album art served as AVIF and WebP through Astro's image pipeline.
 - Privacy-first by design: no analytics, cookies or trackers.
 - Static Astro output ready for Vercel.
 
@@ -41,13 +44,17 @@ product experience: the DIG connection guide.
 | `/` | woiii.me product-family landing page, current DIG story and previews of products in progress |
 | `/connect` | Client-specific setup instructions for DIG for Discogs |
 | `/privacy` | Privacy policy covering the website and current DIG services |
+| `/terms` | Terms of use for the website and DIG services |
+| `/support` | Support contact and help information |
 
 ## Technology
 
 - [Astro 7](https://astro.build) with static output
 - Self-hosted GT Standard and Instrument Serif typography
+- `astro:assets` for album art, emitting AVIF and WebP with a JPEG fallback
 - Semantic HTML, responsive CSS and lightweight progressive enhancement
-- Reduced-motion support for animated interactions
+- Reduced-motion support for animated interactions, plus a `?qa=1` deterministic
+  mode that freezes nonessential motion for visual review
 
 ## Local development
 
@@ -83,7 +90,8 @@ No environment variables are required for the static website.
 
 ```text
 docs/               Implementation and design-system documentation
-public/             Static images, icons, fonts and product artwork
+public/             Icons, fonts, product artwork and social card
+src/assets/         Album art processed by the Astro image pipeline
 src/components/     Reusable Astro components
 src/config/         Shared brand and product content
 src/layouts/        Page shell, navigation and footer

@@ -282,7 +282,13 @@ import { DIG } from "../config/brand";
   .hero-ring {
     position: absolute;
     z-index: 1;
-    inset: auto 0 -74px;
+    /*
+     * Bottom-anchored, then lifted. The gap under the CTAs is driven by fold
+     * height (copy is anchored to the top, the band to the bottom), so the lift
+     * is svh-proportional — a vw term under-corrects badly on tall screens.
+     * Tuned to roughly halve that gap from ~720px to ~1080px of fold.
+     */
+    inset: auto 0 calc(36svh - 292px);
   }
 
   .impact {
@@ -700,6 +706,8 @@ import { DIG } from "../config/brand";
   }
   @media (max-width: 900px) {
     .landing-hero { min-height: 960px; }
+    /* Fixed hero height here, so the svh-proportional lift doesn't apply. */
+    .hero-ring { bottom: 144px; }
     .impact-grid { grid-template-columns: 1fr; }
     .impact-grid > div { padding-block: 55px; }
     .manifesto { min-height: auto; }

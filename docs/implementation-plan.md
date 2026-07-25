@@ -1,7 +1,7 @@
 # woiii.me implementation plan and status
 
-Last updated: 23 July 2026
-Current release: 1.0
+Last updated: 25 July 2026
+Current release: 1.1
 
 ## Purpose
 
