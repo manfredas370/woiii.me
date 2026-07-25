@@ -1,7 +1,7 @@
 # woiii.me design system
 
-Last updated: 23 July 2026
-Status: design foundation for the 1.0 product-family website
+Last updated: 25 July 2026
+Status: design foundation for the 1.1 product-family website
 
 ## Design intent
 
@@ -177,7 +177,19 @@ variant. Mobile stacks the lower footer and removes desktop-only top alignment.
 
 ### Product and narrative components
 
-- `ProductRing.astro` provides the animated record/album orbit.
+- `ProductRing.astro` provides the wrapped album-cover cylinder in the landing
+  hero. Twelve sleeves sit edge-to-edge on a rotating cylinder, and every
+  dimension derives from one authored value, `--card-w`: the radius is
+  `card / (2·sin(π/N))` so covers meet with a hairline seam, and the perspective
+  is `1.5625 · R`. That ratio places the cylinder's silhouette at about one
+  viewport width, which is what brings the full ~230° arc on screen so the
+  geometry reads as a wrap rather than a shallow curve. Sizing the card away
+  from ~20.7vw enlarges the radius and crops the arc, flattening the effect.
+  Covers are culled by `backface-visibility` where the surface turns away from
+  the camera, and dimmed as a function of |θ| so the headline stays in front.
+  The server-rendered frame expresses its offsets in `calc()` against the same
+  radius variable the script reads, so the wrap is correct without JavaScript
+  and nothing shifts on hydration.
 - Product-art cards introduce MIX and RIG with artwork-led color fields.
 - Journey cards explain before/during/after use cases.
 - Expandable connection rails use native `<details>` elements.
@@ -188,7 +200,7 @@ variant. Mobile stacks the lower footer and removes desktop-only top alignment.
 
 Motion patterns currently used or available in the shared layer include:
 
-- slow ambient product-ring movement;
+- slow ambient rotation of the hero album-cover cylinder (5.5°/s);
 - pointer-reactive gradient movement and highlight on product preview cards;
 - scroll-triggered reveal and stagger;
 - per-letter headline treatment;
@@ -237,8 +249,12 @@ values (`clamp`, percentages and grid) before adding a new breakpoint.
 ## Asset guidance
 
 - Store production assets under `public/` in the relevant product or purpose folder.
+- Store photographic art that should be optimized under `src/assets/` instead, so
+  `astro:assets` can emit AVIF and WebP at the sizes actually rendered. Album art
+  lives in `src/assets/albums`.
 - Prefer SVG for logos, badges, icons and simple UI art.
-- Use optimized raster formats for album art and textured backgrounds.
+- Supply album art as square sources of at least 600px, ideally 1200px so the
+  largest hero card can be served at 2×.
 - Keep fonts self-hosted and update preload declarations when the primary face changes.
 - Do not add third-party image or font requests without a privacy and performance review.
 

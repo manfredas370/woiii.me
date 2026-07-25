@@ -1,63 +1,122 @@
 ---
 /**
- * Wrapped album-cover ring — cylindrical hero geometry:
- * N square covers on a cylinder of radius R viewed from inside
- * (translate3d(R·sinθ, 0, −R·cosθ) rotateY(−θ), 800px perspective),
- * plus slow continuous rotation. Server-renders the initial positions
- * so the wrap is intact without JS; the script only animates.
+ * Wrapped album-cover ring — cylindrical hero geometry.
+ *
+ * N covers sit edge-to-edge on a cylinder of radius R, seen through a
+ * perspective camera: translate3d(R·sinθ, 0, −R·cosθ) rotateY(−θ).
+ *
+ * Every dimension derives from one authored value, `--card-w`:
+ *
+ *   R = card · 1/(2·sin(π/N)) / RING_FILL   covers meet with a hairline seam
+ *   P = R · 1.5625                          cylinder silhouette ≈ viewport
+ *
+ * The second ratio is what makes this read as a wrap rather than a gentle
+ * curve. At P/R = 1.5625 the cylinder's silhouette is 1.30·R wide, so sizing
+ * the card to ~20.7vw puts the *whole* visible arc (≈230°) inside the
+ * viewport: ~7.7 covers land across the fold and the outer ones turn past 90°
+ * into slivers. A larger radius crops the arc and flattens the effect.
+ *
+ * Covers are culled by backface-visibility where the surface turns away from
+ * the camera (θ ≈ 130°, exactly the silhouette) instead of being faded out
+ * early, and are dimmed as a function of |θ| so the headline keeps the
+ * foreground.
+ *
+ * The server-rendered frame expresses its offsets in calc() against the same
+ * `--ring-r` the script reads, so the wrap is correct at any viewport with no
+ * JS, and nothing shifts when the script takes over.
  */
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+import cover01 from "../assets/albums/01.png";
+import cover02 from "../assets/albums/02.png";
+import cover03 from "../assets/albums/03.png";
+import cover04 from "../assets/albums/04.png";
+import cover05 from "../assets/albums/05.png";
+import cover06 from "../assets/albums/06.png";
+import cover07 from "../assets/albums/07.png";
+import cover08 from "../assets/albums/08.jpg";
+import cover09 from "../assets/albums/09.jpg";
+import cover10 from "../assets/albums/10.png";
+import cover11 from "../assets/albums/11.png";
+import cover12 from "../assets/albums/12.png";
 
 interface AlbumCover {
-  src: string;
+  img: ImageMetadata;
   alt: string;
 }
 
-const unique: AlbumCover[] = [
-  { src: "/images/albums/01.png", alt: "Antonio Carlos Jobim — Wave album cover" },
-  { src: "/images/albums/02.png", alt: "Steely Dan — Can't Buy a Thrill album cover" },
-  { src: "/images/albums/03.png", alt: "Pescado Rabioso — Artaud album cover" },
-  { src: "/images/albums/04.png", alt: "Jungle album cover" },
-  { src: "/images/albums/05.png", alt: "Selected album cover with two figures against abstract artwork" },
-  { src: "/images/albums/06.png", alt: "Saracho — En Medio album cover" },
-  { src: "/images/albums/07.png", alt: "The Famous Sound of Three Blind Mice, volume one album cover" },
+/**
+ * Ordered so neighbours contrast: the cool, pale additions break up the warm
+ * originals rather than clustering. 13–15 (Three Tenors, Satie, Sinatra) are
+ * kept in src/assets/albums as swap-ins and are intentionally unreferenced.
+ */
+const covers: AlbumCover[] = [
+  { img: cover01, alt: "Antonio Carlos Jobim — Wave album cover" },
+  { img: cover08, alt: "Duke Ellington and Johnny Hodges — Back to Back: Play the Blues album cover" },
+  { img: cover02, alt: "Steely Dan — Can't Buy a Thrill album cover" },
+  { img: cover12, alt: "Steve Reich — Music for 18 Musicians album cover" },
+  { img: cover03, alt: "Pescado Rabioso — Artaud album cover" },
+  { img: cover09, alt: "Don Cherry — Brown Rice album cover" },
+  { img: cover04, alt: "Jungle album cover" },
+  { img: cover10, alt: "Steely Dan — Gaucho album cover" },
+  { img: cover05, alt: "Selected album cover with two figures against abstract artwork" },
+  { img: cover11, alt: "Kamasi Washington — Heaven and Earth album cover" },
+  { img: cover06, alt: "Saracho — En Medio album cover" },
+  { img: cover07, alt: "The Famous Sound of Three Blind Mice, volume one album cover" },
 ];
-const covers: AlbumCover[] = [...unique, ...unique];
 
 const N = covers.length;
 const STEP = 360 / N;
-const R = 1240;
 
-/** Same math the client script uses — initial frame for no-JS/reduced-motion. */
+/** card → radius multiplier; RING_FILL < 1 leaves a hairline seam between covers. */
+const RING_FILL = 0.985;
+const CARD_TO_RADIUS = 1 / (2 * Math.sin(Math.PI / N) * RING_FILL);
+/** Puts the cylinder silhouette at ~1.30·R, i.e. roughly one viewport wide. */
+const PERSPECTIVE_RATIO = 1.5625;
+
+/** Covers recede as they turn away, so the headline stays in front. */
+const DIM_MAX = 0.62;
+const DIM_START = 25;
+const DIM_END = 100;
+
+const dimFor = (a: number) =>
+  Math.min(1, Math.max(0, (a - DIM_START) / (DIM_END - DIM_START))) * DIM_MAX;
+
+/** Same math the script uses, in calc() so it holds at any viewport without JS. */
 function pose(i: number) {
-  let th = ((i * STEP + 180) % 360) - 180;
+  const th = ((i * STEP + 180) % 360) - 180;
   const rad = (th * Math.PI) / 180;
-  const x = R * Math.sin(rad);
-  const z = -R * Math.cos(rad);
-  const a = Math.abs(th);
-  const opacity = a < 80 ? 1 : a > 105 ? 0 : 1 - (a - 80) / 25;
   return {
-    transform: `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, 0, ${z.toFixed(1)}px) rotateY(${-th}deg)`,
-    opacity: String(Math.round(opacity * 100) / 100),
+    transform:
+      `translate(-50%, -50%) translate3d(` +
+      `calc(var(--ring-r) * ${Math.sin(rad).toFixed(5)}), 0, ` +
+      `calc(var(--ring-r) * ${(-Math.cos(rad)).toFixed(5)})) ` +
+      `rotateY(${(-th).toFixed(2)}deg)`,
+    dim: dimFor(Math.abs(th)).toFixed(3),
   };
 }
 ---
 
-<div class="ring-stage" data-radius={R}>
+<div
+  class="ring-stage"
+  style={`--card-to-radius: ${CARD_TO_RADIUS.toFixed(5)}; --perspective-ratio: ${PERSPECTIVE_RATIO}`}
+  data-fill={CARD_TO_RADIUS.toFixed(5)}
+  data-dim={`${DIM_MAX} ${DIM_START} ${DIM_END}`}
+>
   <div class="ring">
     {
       covers.map((cover, i) => {
         const p = pose(i);
         return (
-          <div
-            class="ring-card"
-            style={`transform: ${p.transform}; opacity: ${p.opacity}`}
-            aria-hidden={i >= unique.length ? "true" : undefined}
-          >
-            <img
-              src={cover.src}
-              alt={i < unique.length ? cover.alt : ""}
-              width="600"
-              height="600"
+          <div class="ring-card" style={`transform: ${p.transform}; --dim: ${p.dim}`}>
+            <Picture
+              src={cover.img}
+              formats={["avif", "webp"]}
+              fallbackFormat="jpeg"
+              widths={[300, 450, 600]}
+              sizes="(max-width: 830px) 172px, (min-width: 1836px) 380px, 20.7vw"
+              alt={cover.alt}
               loading="eager"
               decoding="async"
             />
@@ -70,21 +129,38 @@ function pose(i: number) {
 
 <style>
   .ring-stage {
+    /*
+     * The only authored dimension. 20.7vw is what puts the whole arc on screen;
+     * the floor takes over below ~947px, where a proportional card would be too
+     * small to read as a sleeve, trading covers-across for legibility.
+     */
+    --card-w: clamp(196px, 20.7vw, 380px);
+    --ring-r: calc(var(--card-w) * var(--card-to-radius));
+
     position: relative;
     width: 100vw;
-    height: 700px;
+    /*
+     * Taller than the covers need, so the top fade lands clear of the centre
+     * sleeves and only eats into the towering outer ones.
+     */
+    height: clamp(340px, 29vw, 460px);
     margin-left: calc(50% - 50vw);
-    perspective: clamp(1760px, 144vw, 2200px);
-    overflow: clip;
-    /* Keep the cylinder full-bleed while gently dissolving only its clipped edges. */
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent,
-      #000 1.5%,
-      #000 98.5%,
-      transparent
-    );
-    mask-image: linear-gradient(to right, transparent, #000 1.5%, #000 98.5%, transparent);
+    perspective: calc(var(--ring-r) * var(--perspective-ratio));
+    /* Clip the arc horizontally, but let the outer covers tower past the band. */
+    overflow-x: clip;
+    overflow-y: visible;
+    /*
+     * Two masks intersected: dissolve the clipped left/right edges, and fade
+     * the top so covers rising out of the band never crowd the headline.
+     */
+    -webkit-mask-image:
+      linear-gradient(to right, transparent, #000 13%, #000 87%, transparent),
+      linear-gradient(to bottom, transparent, #000 22%);
+    mask-image:
+      linear-gradient(to right, transparent, #000 13%, #000 87%, transparent),
+      linear-gradient(to bottom, transparent, #000 22%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
   }
   .ring {
     position: absolute;
@@ -95,18 +171,32 @@ function pose(i: number) {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: clamp(480px, 39.3vw, 540px);
+    width: var(--card-w);
     aspect-ratio: 1;
-    border-radius: clamp(10px, 1.4vw, 20px);
-    border: 0;
+    border-radius: clamp(10px, 1.1vw, 18px);
     overflow: hidden;
     isolation: isolate;
-    will-change: transform, opacity;
+    will-change: transform;
     backface-visibility: hidden;
     background: #111;
-    box-shadow: 0 30px 72px rgba(0, 0, 0, 0.36);
+    /* Unblurred hairline: separates adjacent sleeves without a costly shadow. */
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
   }
-  .ring-card img {
+  .ring-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #000;
+    opacity: var(--dim, 0);
+    pointer-events: none;
+  }
+  .ring-card :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .ring-card :global(img) {
     display: block;
     width: 100%;
     height: 100%;
@@ -115,18 +205,18 @@ function pose(i: number) {
 
   @media (max-width: 600px) {
     .ring-stage {
-      width: 100vw;
-      height: 400px;
-      perspective: 1020px;
-      -webkit-mask-image: linear-gradient(to right, transparent, #000 1%, #000 99%, transparent);
-      mask-image: linear-gradient(to right, transparent, #000 1%, #000 99%, transparent);
+      height: 290px;
+      -webkit-mask-image:
+        linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+        linear-gradient(to bottom, transparent, #000 19%);
+      mask-image:
+        linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+        linear-gradient(to bottom, transparent, #000 19%);
     }
     .ring-card {
-      width: 276px;
       border-radius: 10px;
     }
   }
-
 </style>
 
 <script>
@@ -136,7 +226,10 @@ function pose(i: number) {
     const cards = [...ring.children] as HTMLElement[];
     const N = cards.length;
     const STEP = 360 / N;
-    const baseRadius = Number(stage.dataset.radius);
+    const FILL = Number(stage.dataset.fill);
+    const [DIM_MAX, DIM_START, DIM_END] = (stage.dataset.dim ?? "0.62 25 100")
+      .split(" ")
+      .map(Number);
     const qa = new URLSearchParams(location.search).has("qa");
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches || qa;
     if (qa) stage.dataset.qa = "true";
@@ -145,29 +238,33 @@ function pose(i: number) {
     let last = 0;
     let running = false;
     let raf = 0;
+    let radius = 0;
 
-    const radius = () => {
-      const cardWidth = cards[0]?.offsetWidth || (innerWidth < 600 ? 276 : 540);
-      const gap = 12;
-      return (cardWidth + gap) / (2 * Math.sin(Math.PI / N)) || baseRadius;
+    /** Measured on resize only — never inside the frame loop. */
+    const measure = () => {
+      radius = (cards[0]?.offsetWidth || 0) * FILL;
     };
 
     const render = () => {
+      if (!radius) return;
       for (let i = 0; i < N; i++) {
         let th = ((angle + i * STEP + 180) % 360) - 180;
         if (th < -180) th += 360;
         const rad = (th * Math.PI) / 180;
-        const a = Math.abs(th);
         const el = cards[i];
-        const R = radius();
-        el.style.transform = `translate(-50%, -50%) translate3d(${R * Math.sin(rad)}px, 0, ${-R * Math.cos(rad)}px) rotateY(${-th}deg)`;
-        el.style.opacity = a < 80 ? "1" : a > 105 ? "0" : String(1 - (a - 80) / 25);
-        el.style.visibility = a > 110 ? "hidden" : "visible";
+        el.style.transform =
+          `translate(-50%, -50%) translate3d(${(radius * Math.sin(rad)).toFixed(2)}px, 0, ` +
+          `${(-radius * Math.cos(rad)).toFixed(2)}px) rotateY(${-th}deg)`;
+        const reveal = Math.min(
+          1,
+          Math.max(0, (Math.abs(th) - DIM_START) / (DIM_END - DIM_START))
+        );
+        el.style.setProperty("--dim", (reveal * DIM_MAX).toFixed(3));
       }
     };
 
     const tick = (ts: number) => {
-      if (last) angle = (angle + (ts - last) * 0.008) % 360; // 8°/s ≈ 45 s per lap
+      if (last) angle = (angle + (ts - last) * 0.0055) % 360; // 5.5°/s ≈ 65 s per lap
       last = ts;
       render();
       if (running) raf = requestAnimationFrame(tick);
@@ -183,15 +280,22 @@ function pose(i: number) {
       cancelAnimationFrame(raf);
     };
 
+    measure();
     render();
+
     if (!reduced && "IntersectionObserver" in window) {
       new IntersectionObserver(
         (es) => es.forEach((e) => (e.isIntersecting ? start() : stop())),
         { threshold: 0.15 }
       ).observe(stage);
-      stage.addEventListener("pointerenter", stop);
-      stage.addEventListener("pointerleave", start);
-      addEventListener("resize", render, { passive: true });
     }
+    addEventListener(
+      "resize",
+      () => {
+        measure();
+        render();
+      },
+      { passive: true }
+    );
   }
 </script>
