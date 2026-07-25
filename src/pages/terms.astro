@@ -1,0 +1,167 @@
+---
+import Base from "../layouts/Base.astro";
+import { DIG, SUPPORT } from "../config/brand";
+---
+
+<Base
+  title="Terms of Service — DIG for Discogs"
+  description="Terms governing use of DIG for Discogs, an independent read-only service provided by WOIII.me."
+  bodyClass="privacy-page"
+  headerVariant="overlay"
+>
+  <section class="section privacy-section" data-header-tone="dark">
+    <div class="wrap policy">
+      <h1>Terms of <span class="accent">Service</span></h1>
+      <p class="lede">
+        These terms govern your use of DIG for Discogs, including its MCP
+        server, REST API, browser extension, and supported AI-assistant
+        integrations. DIG is provided by WOIII.me.
+      </p>
+      <p class="updated">Effective and last updated: 25 July 2026</p>
+
+      <h2>Accepting these terms</h2>
+      <p>
+        By connecting to or using DIG, you agree to these terms and the{" "}
+        <a href="/privacy">Privacy policy</a>. If you do not agree, do not use
+        DIG and revoke or remove any existing connection. You must be legally
+        able to accept these terms and meet the age requirements of Discogs,
+        your AI provider, and other services you use with DIG.
+      </p>
+
+      <h2>What DIG provides</h2>
+      <p>
+        DIG is a read-only tool for searching and analyzing Discogs catalogue,
+        collection, wantlist, community, and related permitted data. It can
+        compare pressings, summarize a collection, and produce evidence-based
+        recommendations. Features may change, be limited, or become unavailable.
+      </p>
+
+      <h2>Your accounts and authorization</h2>
+      <p>
+        You are responsible for the accounts and clients you connect, for
+        keeping credentials secure, and for activity authorized through your
+        connection. Do not share tokens or attempt to connect an account you do
+        not control. You can revoke DIG from Discogs and remove it from your AI
+        client at any time.
+      </p>
+
+      <h2>Acceptable use</h2>
+      <p>You may not use DIG to:</p>
+      <ul>
+        <li>access private or restricted data without authorization;</li>
+        <li>bypass rate limits, access controls, or technical safeguards;</li>
+        <li>scrape, bulk-export, resell, or build an unauthorized database from returned data;</li>
+        <li>send malware, probe other users, interfere with the service, or expose credentials;</li>
+        <li>violate applicable law or the terms and policies of Discogs, OpenAI, another AI provider, or another connected service.</li>
+      </ul>
+
+      <h2>Third-party services and content</h2>
+      <p>
+        DIG depends on Discogs, Cloudflare, your selected AI provider, and other
+        software or network services. Their terms and privacy practices apply
+        separately. Discogs data can be incomplete, user-contributed, delayed,
+        or inaccurate. Marketplace values and availability can change at any
+        time. Links and references do not imply an endorsement.
+      </p>
+
+      <h2>No purchases or professional advice</h2>
+      <p>
+        DIG does not buy or sell records, contact sellers, execute payments, or
+        guarantee condition, authenticity, value, investment performance, or
+        sound quality. Rankings and recommendations are informational estimates
+        based on available evidence, not financial, appraisal, legal, or other
+        professional advice. Verify important information before acting.
+      </p>
+
+      <h2>Open-source software</h2>
+      <p>
+        Source code made available through <a href={DIG.repoUrl}>the DIG repository</a>{" "}
+        is licensed under the license stated in that repository. That software
+        license does not replace these terms for the hosted service or grant
+        rights in third-party data, names, or trademarks.
+      </p>
+
+      <h2>Availability and changes</h2>
+      <p>
+        DIG is provided on an “as available” basis. We may update, suspend,
+        restrict, or discontinue features to protect users, comply with
+        third-party requirements, maintain security, or operate the service.
+        We may update these terms by publishing a revised version and date.
+      </p>
+
+      <h2>Disclaimers and liability</h2>
+      <p>
+        To the extent permitted by applicable law, DIG is provided without
+        warranties of uninterrupted availability, accuracy, fitness for a
+        particular purpose, or non-infringement. WOIII.me is not responsible for
+        decisions, purchases, losses, or third-party actions based on DIG output.
+        Nothing in these terms excludes rights or liability that cannot legally
+        be excluded.
+      </p>
+
+      <h2>Suspension and termination</h2>
+      <p>
+        We may restrict or terminate access when reasonably necessary for
+        security, abuse prevention, legal compliance, third-party requirements,
+        or a material violation of these terms. You may stop using DIG at any
+        time by revoking and removing its connections.
+      </p>
+
+      <h2>Discogs relationship</h2>
+      <p>
+        DIG for Discogs is an independent WOIII.me project. This application
+        uses Discogs' API but is not affiliated with, sponsored or endorsed by
+        Discogs. “Discogs” is a trademark of Zink Media, LLC.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about these terms: <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>.{" "}
+        For product help, see <a href="/support">Support</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .privacy-section {
+    --accent-hue: #c8ff9f;
+    background: #000;
+    padding-block: 170px 104px;
+  }
+  .privacy-section > .policy {
+    --text-width: 62rem;
+    width: min(100%, 1440px);
+    max-width: 1440px;
+    padding-inline: clamp(24px, 3.35vw, 48px);
+  }
+  .policy h2 {
+    font-size: 1.35rem;
+    margin-top: calc(var(--space) * 7);
+    margin-bottom: calc(var(--space) * 2.5);
+    padding-top: calc(var(--space) * 4);
+    max-width: var(--text-width);
+  }
+  .policy ul {
+    padding-left: 1.1em;
+    display: grid;
+    gap: calc(var(--space) * 1.5);
+    max-width: var(--text-width);
+  }
+  .policy li::marker {
+    color: var(--ink-faint);
+  }
+  .policy p {
+    margin-bottom: calc(var(--space) * 2);
+  }
+  .updated {
+    font-size: 0.875rem;
+    color: var(--ink-tertiary);
+    margin-top: calc(var(--space) * 3);
+  }
+  @media (max-width: 640px) {
+    .privacy-section {
+      padding-block: 125px 64px;
+    }
+  }
+</style>

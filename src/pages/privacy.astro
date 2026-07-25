@@ -5,7 +5,7 @@ import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
 
 <Base
   title="Privacy policy — WOIII.me"
-  description="The privacy policy for DIG for Discogs and the WOIII.me site: per-user OAuth, no analytics, no data collection, no sale or sharing of data."
+  description="How DIG for Discogs and WOIII.me process account, collection, request, and service data."
   bodyClass="privacy-page"
   headerVariant="overlay"
 >
@@ -13,63 +13,116 @@ import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
     <div class="wrap policy">
       <h1>Privacy <span class="accent">policy</span></h1>
       <p class="lede">
-        The short version: DIG reads Discogs data on your behalf, keeps as
-        little as technically necessary, and collects nothing about you. This
-        site has no analytics, no cookies, and no trackers.
+        The short version: DIG processes the Discogs account and music-library
+        data needed to answer your requests. It is read-only, does not sell
+        personal data, and does not use advertising or behavioral analytics.
       </p>
-      <p class="updated">Last updated: 15 July 2026 · Applies to DIG for Discogs (the MCP server and REST API at <code>discogs-mcp.woiii.workers.dev</code>, and the Chrome side panel extension) and to this website.</p>
+      <p class="updated">Last updated: 25 July 2026 · Applies to DIG for Discogs (the MCP server and REST API at <code>discogs-mcp.woiii.workers.dev</code>, the Chrome side panel extension, and supported AI-assistant integrations) and to this website.</p>
 
-      <h2>What DIG stores</h2>
+      <h2>Data DIG processes</h2>
       <ul>
         <li>
-          <strong>Your OAuth grant.</strong> When you sign in, Discogs issues
-          DIG a per-user access token. It is encrypted server-side inside the
-          OAuth grant and used only to make read requests to the Discogs API as
-          you. DIG never sees or stores your Discogs password.
+          <strong>Account and authorization data.</strong> DIG processes your
+          Discogs username, numeric Discogs user ID, OAuth access token, and
+          related authorization metadata to connect requests to your account.
+          OAuth credentials are protected server-side and used only for
+          authorized Discogs API requests. DIG does not receive your Discogs
+          password.
         </li>
         <li>
-          <strong>Cached Discogs responses.</strong> To stay inside Discogs'
-          rate limits and keep answers fast, API responses are cached
-          server-side with short lifetimes: releases and masters for {CACHE_TTLS.releasesAndMasters},
-          version lists for {CACHE_TTLS.versions}, searches for {CACHE_TTLS.search},
-          and collections and wantlists for {CACHE_TTLS.collectionsAndWantlists}.
-          Cached entries expire on their own.
+          <strong>Collection and wantlist data.</strong> Depending on the tool
+          you request, DIG processes release identifiers, artists, titles,
+          formats, labels, genres, styles, personal ratings, wantlist entries,
+          and dates added. It also computes collection summaries, taste
+          profiles, ownership signals, comparisons, and recommendations.
+        </li>
+        <li>
+          <strong>Catalogue and marketplace data.</strong> DIG processes
+          Discogs catalogue metadata, community ratings and counts,
+          user-contributed release information, and—where available and
+          permitted—dynamic marketplace fields needed for pressing analysis.
+        </li>
+        <li>
+          <strong>Tool requests and responses.</strong> DIG receives the
+          task-specific arguments sent by your browser extension, MCP client,
+          or AI assistant and returns the corresponding result. It does not ask
+          for a complete chat transcript.
         </li>
       </ul>
-      <p>That's the whole list. There are no user profiles, no behavioral logs tied to you, and no data warehouse.</p>
 
-      <h2>What DIG doesn't do</h2>
+      <h2>Why this data is used</h2>
       <ul>
-        <li><strong>No analytics or tracking</strong> — not in the server, not in the extension, not on this site.</li>
-        <li><strong>No selling or sharing of data.</strong> Your data goes between you, DIG, and Discogs — nowhere else.</li>
-        <li><strong>No writes.</strong> DIG is read-only. It cannot change your collection, wantlist, or anything else on your Discogs account.</li>
-        <li><strong>No ads, no monetization.</strong> DIG is free and open source (<a href={DIG.repoUrl} target="_blank" rel="noopener noreferrer">source code</a>).</li>
+        <li>Authenticate you and maintain the connection you requested.</li>
+        <li>Search, filter, compare, summarize, and recommend music.</li>
+        <li>Respect Discogs rate limits, prevent abuse, and keep the service reliable.</li>
+        <li>Respond to support, privacy, and security requests.</li>
       </ul>
 
-      <h2>The Chrome extension</h2>
+      <h2>Who receives or processes data</h2>
+      <ul>
+        <li>
+          <strong>Discogs.</strong> DIG sends the API requests needed to
+          retrieve the catalogue or account data you asked for. Discogs handles
+          that activity under its own terms and privacy practices.
+        </li>
+        <li>
+          <strong>Cloudflare.</strong> The MCP server, OAuth service, cache, and
+          related infrastructure run on Cloudflare. Cloudflare processes
+          service traffic and stored values as an infrastructure provider.
+        </li>
+        <li>
+          <strong>Your selected AI provider.</strong> When you use DIG through
+          ChatGPT, Claude, Codex, or another supported client, that provider
+          processes your conversation, tool request, and returned result under
+          its own privacy policy. For ChatGPT and Codex, that provider is
+          OpenAI.
+        </li>
+        <li>
+          <strong>Support services you choose.</strong> Information you place
+          in an email or public GitHub issue is processed by the corresponding
+          email or GitHub service. Do not include passwords, access tokens,
+          private collection exports, or other secrets in support messages.
+        </li>
+      </ul>
+      <p>DIG does not sell personal data or share it for targeted advertising.</p>
+
+      <h2>Storage and retention</h2>
+      <ul>
+        <li>
+          <strong>OAuth grants</strong> are retained while the connection is
+          active or until they expire, are revoked, or are deleted as part of a
+          valid account or privacy request.
+        </li>
+        <li>
+          <strong>Cached Discogs responses</strong> expire automatically:
+          releases and masters after {CACHE_TTLS.releasesAndMasters}, version
+          lists after {CACHE_TTLS.versions}, searches after {CACHE_TTLS.search},
+          and collections and wantlists after {CACHE_TTLS.collectionsAndWantlists}.
+          These are current operational limits and may be shortened where
+          required by Discogs or the final integration contract.
+        </li>
+        <li>
+          <strong>Support correspondence</strong> is retained only as long as
+          reasonably needed to resolve the request, maintain security records,
+          or meet applicable legal obligations.
+        </li>
+      </ul>
+
+      <h2>Chrome extension and website</h2>
       <p>
         The side panel runs locally in your browser and talks only to the DIG
         server described above. It stores your sign-in session in your
         browser's extension storage, on your machine. It does not read your
         browsing history and has no access to pages outside discogs.com.
       </p>
-
-      <h2>This website</h2>
       <p>
-        Static pages, self-hosted fonts, no cookies, no analytics, no consent
-        banner needed — there is nothing to consent to.
+        This website uses static pages and self-hosted fonts. WOIII.me does not
+        add analytics, advertising trackers, or marketing cookies to the site.
+        Hosting providers may still process ordinary network and security data
+        such as IP addresses and request timestamps to deliver and protect it.
       </p>
 
-      <h2>Your AI assistant</h2>
-      <p>
-        When you use DIG through Claude, ChatGPT, or another assistant, your
-        conversation is handled by that assistant's provider under its own
-        privacy policy. DIG only receives the specific tool requests the
-        assistant makes (for example, "search for this album") and returns
-        Discogs data in response.
-      </p>
-
-      <h2>Revoking access</h2>
+      <h2>Your choices and controls</h2>
       <ul>
         <li>
           Revoke DIG's access to your Discogs account at any time from your
@@ -78,7 +131,25 @@ import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
         </li>
         <li>Sign out from the extension to end its session on your machine.</li>
         <li>Remove the connector from your AI client to stop it from calling DIG.</li>
+        <li>
+          Contact us to ask about access, correction, deletion, restriction, or
+          another privacy right that applies where you live. We may need enough
+          information to verify the request and locate the relevant account.
+        </li>
       </ul>
+
+      <h2>Data we do not request</h2>
+      <p>
+        Do not send payment-card information, health information, government
+        identifiers, passwords, API keys, OAuth tokens, MFA codes, or other
+        authentication secrets through DIG inputs or support channels.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        We may update this policy when DIG's functionality, providers, or legal
+        obligations change. The date above identifies the current version.
+      </p>
 
       <h2>Contact</h2>
       <p>
