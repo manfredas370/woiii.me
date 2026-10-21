@@ -4,9 +4,10 @@ The public home of **woiii.me** — a growing family of AI-powered tools for mus
 discovery, collecting and listening. This repository contains the shared brand
 website, product introductions, connection guides and privacy information.
 
-**DIG for Discogs** is currently the most developed product in the family, so
-it has the deepest coverage on the site today. **woiii.MIX** and **woiii.RIG**
-are in progress and will gain dedicated experiences as they develop.
+**WOIII.me for Discogs** (formerly DIG for Discogs) is currently the most
+developed product in the family, so it has the deepest coverage on the site
+today. **woiii.MIX** and **woiii.RIG** are in progress and will gain dedicated
+experiences as they develop.
 
 [Visit woiii.me](https://woiii.me) · [Open the connection guide](https://woiii.me/connect)
 
@@ -14,24 +15,24 @@ are in progress and will gain dedicated experiences as they develop.
 
 | Product | Status | Purpose |
 | --- | --- | --- |
-| **woiii.DIG** | Available | Evidence-led pressing research, collection tools and Discogs intelligence for AI assistants and the browser |
+| **WOIII.me for Discogs** | Beta | Finds the best pressing of a record on Discogs, for sound or for collectors, in the Chrome side panel and in ChatGPT or Claude |
 | **woiii.MIX** | In development | A playlist concierge that turns a listener profile into a private mixtape with song-by-song commentary |
 | **woiii.RIG** | Coming soon | A hi-fi gear finder built around listening goals, live listings and price history |
 
 ## Version
 
-This repository contains **woiii.me 1.1**, which rebuilds the hero album-cover
-cylinder so that twelve sleeves wrap across the fold, and moves album art onto
-an optimized image pipeline. Version 1.0 was the first complete public release
-of the product-family landing page, including the DIG connection guide.
+This repository contains **woiii.me 1.2**, which renames the pressing guide
+from DIG for Discogs to WOIII.me and rewrites the connect guide and the legal
+pages for it. Version 1.1 rebuilt the hero album-cover cylinder; version 1.0
+was the first complete public release of the product-family landing page.
 
 ## Highlights
 
 - A unified landing page for the woiii.me product family.
-- Product storytelling for DIG, plus early previews of MIX and RIG.
+- Product storytelling for WOIII.me for Discogs, plus early previews of MIX and RIG.
 - Motion-led, responsive presentation built around a wrapped album-cover
   cylinder of twelve sleeves.
-- Expandable DIG setup guides for Claude, ChatGPT, Codex and Chrome.
+- Expandable setup guides for Claude, ChatGPT, Codex and Chrome.
 - Shared navigation, typography and light/dark page treatments.
 - Album art served as AVIF and WebP through Astro's image pipeline.
 - Privacy-first by design: no analytics, cookies or trackers.
@@ -41,10 +42,10 @@ of the product-family landing page, including the DIG connection guide.
 
 | Route | Purpose |
 | --- | --- |
-| `/` | woiii.me product-family landing page, current DIG story and previews of products in progress |
-| `/connect` | Client-specific setup instructions for DIG for Discogs |
-| `/privacy` | Privacy policy covering the website and current DIG services |
-| `/terms` | Terms of use for the website and DIG services |
+| `/` | woiii.me product-family landing page, the WOIII.me for Discogs story and previews of products in progress |
+| `/connect` | Client-specific setup instructions for WOIII.me |
+| `/privacy` | Privacy policy for WOIII.me, the earlier DIG for Discogs service and the website |
+| `/terms` | Terms of use for WOIII.me and the earlier DIG for Discogs service |
 | `/support` | Support contact and help information |
 
 ## Technology

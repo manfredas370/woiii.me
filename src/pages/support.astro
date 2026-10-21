@@ -1,80 +1,104 @@
 ---
 import Base from "../layouts/Base.astro";
-import { DIG, SUPPORT } from "../config/brand";
+import { DIG, SUPPORT, SERVICE } from "../config/brand";
 ---
 
 <Base
-  title="Support — DIG for Discogs"
-  description="Get help with DIG for Discogs connections, authentication, results, privacy, and security."
+  title="Support — WOIII.me"
+  description="Help with the WOIII.me Chrome extension, the ChatGPT and Claude plugins, Discogs sign-in, results, privacy requests and security reports."
   bodyClass="privacy-page"
   headerVariant="overlay"
 >
   <section class="section privacy-section" data-header-tone="dark">
     <div class="wrap policy">
-      <h1>DIG <span class="accent">support</span></h1>
+      <h1>{SERVICE.name} <span class="accent">support</span></h1>
       <p class="lede">
-        Get help with connecting DIG, Discogs authentication, unexpected
-        results, privacy questions, or responsible security reports.
+        Help with the Chrome extension, the ChatGPT and Claude plugins, Discogs
+        sign-in, unexpected results, privacy requests and security reports.
       </p>
-      <p class="updated">Last updated: 25 July 2026 · DIG for Discogs is provided by WOIII.me.</p>
+      <p class="updated">Last updated: 21 October 2026 · {SERVICE.name} was previously called {SERVICE.formerName}.</p>
 
       <h2>Contact</h2>
       <p>
-        Email <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>. Include a
-        short description, the client you used, and the steps that produced the
-        problem. You can also use <a href={DIG.issuesUrl}>GitHub Issues</a>{" "}for
-        reproducible public bugs or <a href={DIG.discussionsUrl}>Discussions</a>{" "}
-        for questions and ideas.
+        Email <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>. Say whether
+        you use the Chrome extension, ChatGPT or Claude, what you asked or which
+        Discogs page you had open, and what happened. You can also use{" "}
+        <a href={DIG.issuesUrl}>GitHub Issues</a>{" "}for reproducible bugs or{" "}
+        <a href={DIG.discussionsUrl}>Discussions</a>{" "}for questions and ideas.
       </p>
 
       <h2>Do not send secrets</h2>
       <p>
         Never send a password, Discogs personal access token, OAuth token,
         client secret, API key, MFA or one-time code, private collection export,
-        or another person's personal data. Redact usernames, release notes, and
-        screenshots when they are not necessary to diagnose the issue.
+        or another person's personal data. Crop or redact screenshots when the
+        detail is not needed to diagnose the problem.
       </p>
 
-      <h2>Connection and sign-in help</h2>
+      <h2>Chrome extension</h2>
       <ol>
-        <li>Confirm that your client is using the MCP URL shown in the <a href="/connect">connect guide</a>.</li>
-        <li>Retry the connection and complete the Discogs authorization page in the same browser session.</li>
-        <li>Check that the Discogs account can access the collection or wantlist involved.</li>
-        <li>Remove the existing connector and reconnect if the authorization has expired or was revoked.</li>
+        <li>Open a release or master page on discogs.com, then click the {SERVICE.name} icon to open the side panel.</li>
+        <li>Choose <em>Connect with Discogs</em> and approve access on the Discogs page that opens. If nothing opens, allow pop-ups for the extension and try again.</li>
+        <li>"Discogs needs a minute" means the Discogs rate limit, which all users share, is used up for the moment. Wait the time shown and choose <em>Try again</em>.</li>
+        <li>If the panel shows <em>Finish update</em>, click it to reload the extension.</li>
+        <li>Still stuck: sign out on the settings page (the gear), then connect again. Signing out clears the extension's data from your device.</li>
+      </ol>
+
+      <h2>ChatGPT and Claude</h2>
+      <ol>
+        <li>Add {SERVICE.name} from the app directory in ChatGPT or Claude where it is listed, or add a custom connector with the server address <code>https://{SERVICE.serverHost}/mcp</code>.</li>
+        <li>Complete the Discogs sign-in in the same browser session when your assistant asks you to connect.</li>
+        <li>Ask in plain words, for example "What's the best-sounding pressing of Kind of Blue?" or paste a Discogs release link.</li>
+        <li>If your assistant says the connection expired or was revoked, disconnect {SERVICE.name} in your assistant's settings and connect again.</li>
       </ol>
 
       <h2>Results and limitations</h2>
       <p>
-        DIG is read-only. It cannot buy records, contact sellers, change a
-        collection or wantlist, or submit ratings. Pressing scores are derived
-        from available Discogs catalogue, community, marketplace, and mastering
-        evidence; they are not laboratory measurements of audio quality.
-        Catalogue and marketplace information can be incomplete, user-supplied,
-        delayed, or changed after a result is returned.
+        {SERVICE.name} is read-only. It cannot buy records, contact sellers,
+        change your collection or wantlist, or submit ratings, and it shows no
+        prices. Scores are estimates built from Discogs catalogue and community
+        data and published pressing knowledge; they are not measurements of
+        sound quality. Discogs data can be incomplete, user-contributed or
+        changed after a result was shown. If a score looks wrong, send us the
+        Discogs link and what you expected.
       </p>
+
+      <h2>Delete your data</h2>
+      <ul>
+        <li>Revoke {SERVICE.name} in your Discogs settings, under <em>Applications</em>.</li>
+        <li>Sign out of the extension or uninstall it.</li>
+        <li>Disconnect the plugin or connector in ChatGPT or Claude.</li>
+        <li>Ask your assistant to reset your {SERVICE.name} settings.</li>
+        <li>
+          To have your sign-in grant and settings deleted from our server, email{" "}
+          <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a> with "Privacy
+          request" in the subject and your Discogs username.
+        </li>
+      </ul>
 
       <h2>Privacy requests</h2>
       <p>
-        For access, correction, deletion, restriction, or another applicable
-        privacy request, email <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>{" "}
-        with “Privacy request” in the subject. Review the <a href="/privacy">Privacy policy</a>{" "}
-        for the data categories, recipients, retention, and available controls.
+        For access, correction, deletion, restriction, objection or a copy of
+        your data, email <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>{" "}
+        with "Privacy request" in the subject. We answer within one month. The{" "}
+        <a href="/privacy">Privacy Policy</a> lists what we process, where, and
+        for how long.
       </p>
 
       <h2>Security reports</h2>
       <p>
-        Report a suspected credential exposure, authorization bypass, or private
-        data disclosure privately by email before opening a public issue. Do not
-        exploit the issue beyond what is necessary to demonstrate it, access
-        another user's account, or include live credentials in the report.
+        Report a suspected credential exposure, authorisation bypass or data
+        disclosure privately by email before opening a public issue. Do not
+        exploit it beyond what is needed to show it, do not access another
+        user's account, and do not include live credentials in the report.
       </p>
 
       <h2>Response expectations</h2>
       <p>
-        WOIII.me is an independent open-source project, not a staffed emergency
-        service. We will review messages as availability permits. For an urgent
-        account-security concern, revoke DIG under Discogs <em>Applications</em>
-        {" "}and remove the connector from your AI client immediately.
+        {SERVICE.name} is an independent project, not a staffed service desk.
+        We aim to reply within a few working days. For an urgent account
+        concern, revoke {SERVICE.name} under Discogs <em>Applications</em>{" "}
+        straight away; that stops all access to your account.
       </p>
     </div>
   </section>
@@ -99,7 +123,8 @@ import { DIG, SUPPORT } from "../config/brand";
     padding-top: calc(var(--space) * 4);
     max-width: var(--text-width);
   }
-  .policy ol {
+  .policy ol,
+  .policy ul {
     padding-left: 1.25em;
     display: grid;
     gap: calc(var(--space) * 1.5);

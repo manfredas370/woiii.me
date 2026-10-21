@@ -1,11 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
-import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
+import { DIG, SUPPORT, CACHE_TTLS, SERVICE } from "../config/brand";
 ---
 
 <Base
-  title="Privacy policy — WOIII.me"
-  description="How DIG for Discogs and WOIII.me process account, collection, request, and service data."
+  title="Privacy Policy — WOIII.me"
+  description="What WOIII.me's Chrome extension, ChatGPT and Claude plugins, and the earlier DIG for Discogs service process, why, where, and for how long."
   bodyClass="privacy-page"
   headerVariant="overlay"
 >
@@ -13,142 +13,313 @@ import { DIG, SUPPORT, CACHE_TTLS } from "../config/brand";
     <div class="wrap policy">
       <h1>Privacy <span class="accent">Policy</span></h1>
       <p class="lede">
-        The short version: DIG processes the Discogs account and music-library
-        data needed to answer your requests. It is read-only, does not sell
-        personal data, and does not use advertising or behavioral analytics.
+        The short version: {SERVICE.name} reads the Discogs data it needs to
+        answer what you ask. It is read-only, shows no prices or cover images,
+        never receives your conversations, does not sell personal data, and
+        does not use advertising or behavioural tracking.
       </p>
-      <p class="updated">Last updated: 25 July 2026 · Applies to DIG for Discogs (the MCP server and REST API at <code>discogs-mcp.woiii.workers.dev</code>, the Chrome side panel extension, and supported AI-assistant integrations) and to this website.</p>
+      <p class="updated">
+        Last updated: 21 October 2026 · Applies to {SERVICE.name}: the Chrome
+        side panel extension, the {SERVICE.name} plugin and connector for
+        ChatGPT and Claude, and the server they use; to {SERVICE.formerName},
+        the earlier version; and to this website.
+      </p>
 
-      <h2>Data DIG processes</h2>
+      <h2>Who we are</h2>
+      <p>
+        {SERVICE.name} is an independent project. It operates the services
+        above and is responsible for the personal data described here. It is
+        not affiliated with, sponsored or endorsed by Discogs. Contact:{" "}
+        <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a>.
+      </p>
+
+      <h2>Where the service runs</h2>
       <ul>
         <li>
-          <strong>Account and authorization data.</strong> DIG processes your
-          Discogs username, numeric Discogs user ID, OAuth access token, and
-          related authorization metadata to connect requests to your account.
-          OAuth credentials are protected server-side and used only for
-          authorized Discogs API requests. DIG does not receive your Discogs
-          password.
+          <strong>{SERVICE.name} server</strong> at <code>{SERVICE.serverHost}</code>.
+          The Chrome extension from the Chrome Web Store and the ChatGPT and
+          Claude plugins connect here. It will move to <code>{SERVICE.plannedHost}</code>;
+          this policy covers both addresses.
         </li>
         <li>
-          <strong>Collection and wantlist data.</strong> Depending on the tool
-          you request, DIG processes release identifiers, artists, titles,
-          formats, labels, genres, styles, personal ratings, wantlist entries,
-          and dates added. It also computes collection summaries, taste
-          profiles, ownership signals, comparisons, and recommendations.
-        </li>
-        <li>
-          <strong>Catalogue and marketplace data.</strong> DIG processes
-          Discogs catalogue metadata, community ratings and counts,
-          user-contributed release information, and—where available and
-          permitted—dynamic marketplace fields needed for pressing analysis.
-        </li>
-        <li>
-          <strong>Tool requests and responses.</strong> DIG receives the
-          task-specific arguments sent by your browser extension, MCP client,
-          or AI assistant and returns the corresponding result. It does not ask
-          for a complete chat transcript.
+          <strong>{SERVICE.formerName}</strong>, the earlier version, at{" "}
+          <code>{SERVICE.legacyHost}</code>. Where it differs, see{" "}
+          <a href="#earlier-version">The earlier version</a>.
         </li>
       </ul>
 
-      <h2>Why this data is used</h2>
+      <h2>Data we process</h2>
       <ul>
-        <li>Authenticate you and maintain the connection you requested.</li>
-        <li>Search, filter, compare, summarize, and recommend music.</li>
-        <li>Respect Discogs rate limits, prevent abuse, and keep the service reliable.</li>
-        <li>Respond to support, privacy, and security requests.</li>
+        <li>
+          <strong>Discogs sign-in.</strong> When you connect, Discogs asks you
+          to authorise {SERVICE.name}. We then receive an OAuth access token and
+          secret for your Discogs account, your Discogs username and your
+          numeric Discogs user ID. We never see your Discogs password.
+        </li>
+        <li>
+          <strong>Your requests.</strong> The arguments the extension or your
+          AI assistant sends for each task: a Discogs release or master link or
+          ID, an album or artist to search for, pressings to compare, or a
+          settings change. We do not receive your conversation.
+        </li>
+        <li>
+          <strong>Discogs data you ask for.</strong> Catalogue data (releases,
+          masters and their versions, credits, matrix and runout details,
+          labels, formats, community ratings and have/want counts) and, when you
+          ask for it, your own collection and wantlist. We do not request,
+          store or show marketplace prices, listings or images.
+        </li>
+        <li>
+          <strong>Your settings.</strong> Default lens, how many pressings are
+          checked per album, whether CDs and SACDs may be recommended, and
+          whether explanatory notes show.
+        </li>
+        <li>
+          <strong>Technical data.</strong> Our hosting providers see your IP
+          address and ordinary request details in order to deliver the service.
+          We do not write IP addresses into our logs or statistics.
+        </li>
+      </ul>
+
+      <h2>Why we use it</h2>
+      <ul>
+        <li>
+          To provide what you ask for: sign-in, pressing verdicts, surveys and
+          comparisons, and collection and wantlist features. This processing is
+          necessary to provide the service you request.
+        </li>
+        <li>
+          To stay within Discogs' rate limits, keep the service reliable and
+          prevent abuse. This is our legitimate interest in running a stable,
+          compliant service.
+        </li>
+        <li>
+          To see, in aggregate and without any user identifier, which features
+          and albums are used, so we can improve the scoring. This is also our
+          legitimate interest.
+        </li>
+        <li>To answer support, privacy and security requests.</li>
+      </ul>
+      <p>
+        We do not use your data for advertising, sell it, use it to assess
+        creditworthiness, or use it to train AI models.
+      </p>
+
+      <h2>What we store, and for how long</h2>
+      <ul>
+        <li>
+          <strong>Your sign-in grant</strong> is stored on our server
+          (Cloudflare Workers KV). The Discogs token, secret and username are
+          encrypted inside it; the grant also records your numeric Discogs user
+          ID. It is kept while your connection exists. Revoking{" "}
+          {SERVICE.name} on Discogs makes the token unusable at once, and we
+          delete the grant on request.
+        </li>
+        <li>
+          <strong>Discogs catalogue responses</strong> are cached for at most{" "}
+          {CACHE_TTLS.catalogue} after they were fetched, so nothing we show is
+          more than six hours old.
+        </li>
+        <li>
+          <strong>Your collection and wantlist pages, and the account behind a
+          personal access token,</strong> are cached for at most{" "}
+          {CACHE_TTLS.collectionsAndWantlists}. Collection entries are keyed by
+          your Discogs username; a personal access token is stored only as a
+          one-way hash.
+        </li>
+        <li>
+          <strong>Your settings</strong> are stored under a one-way hash of your
+          Discogs user ID and kept for {CACHE_TTLS.settings} after the last
+          change. Ask the assistant to reset your {SERVICE.name} settings to
+          delete them at once.
+        </li>
+        <li>
+          <strong>Sign-in state</strong> (the step between our server and
+          Discogs) expires after {CACHE_TTLS.signInState}.
+        </li>
+        <li>
+          <strong>Usage statistics</strong> (Cloudflare Workers Analytics
+          Engine): one record per action and per Discogs request, holding the
+          action name, outcome, timings, counts, rate-limit readings and the
+          Cloudflare data-centre code. For album surveys it also holds the
+          album's public Discogs master ID. No record holds a username, user ID,
+          token, IP address, search text or URL. Cloudflare keeps them for{" "}
+          {CACHE_TTLS.analytics}.
+        </li>
+        <li>
+          <strong>Error and operations logs</strong> (Cloudflare Workers Logs)
+          use a closed set of fields with no IDs, usernames, tokens, IP
+          addresses, search text or URLs, and are kept for up to{" "}
+          {CACHE_TTLS.logs}.
+        </li>
+        <li>
+          <strong>Support correspondence</strong> is kept only as long as needed
+          to resolve the request, keep security records or meet legal
+          obligations.
+        </li>
       </ul>
 
       <h2>Who receives or processes data</h2>
       <ul>
         <li>
-          <strong>Discogs.</strong> DIG sends the API requests needed to
-          retrieve the catalogue or account data you asked for. Discogs handles
-          that activity under its own terms and privacy practices.
+          <strong>Discogs</strong> receives the API requests needed to answer
+          you; requests for your own collection or wantlist are signed with your
+          token. Discogs handles them under its own terms and privacy policy.
         </li>
         <li>
-          <strong>Cloudflare.</strong> The MCP server, OAuth service, cache, and
-          related infrastructure run on Cloudflare. Cloudflare processes
-          service traffic and stored values as an infrastructure provider.
+          <strong>Cloudflare</strong> hosts our server, its storage, the usage
+          statistics and the logs, as our infrastructure provider.
         </li>
         <li>
-          <strong>Your selected AI provider.</strong> When you use DIG through
-          ChatGPT, Claude, Codex, or another supported client, that provider
-          processes your conversation, tool request, and returned result under
-          its own privacy policy. For ChatGPT and Codex, that provider is
-          OpenAI.
+          <strong>Fly.io</strong> runs a small relay in {SERVICE.relayRegion}
+          that sends our Discogs requests from one fixed address, so we stay
+          within Discogs' rate limit. It passes requests through and logs only
+          each request's status code, timing and remaining rate-limit count.
+          Discogs sees the relay's address, not yours.
         </li>
         <li>
-          <strong>Support services you choose.</strong> Information you place
-          in an email or public GitHub issue is processed by the corresponding
-          email or GitHub service. Do not include passwords, access tokens,
-          private collection exports, or other secrets in support messages.
+          <strong>Your AI provider.</strong> When you use {SERVICE.name} in
+          ChatGPT (OpenAI) or Claude (Anthropic), that provider processes your
+          conversation, the tool request and the result we return, under its own
+          privacy policy. Results can remain in your chat history according to
+          your settings there.
+        </li>
+        <li>
+          <strong>Google</strong> distributes the extension through the Chrome
+          Web Store and gives us only aggregate install statistics.
+        </li>
+        <li>
+          <strong>Vercel</strong> hosts this website.
+        </li>
+        <li>
+          <strong>Services you choose for support.</strong> Email you send us,
+          or a public GitHub issue you open, is processed by that email or
+          GitHub service.
         </li>
       </ul>
-      <p>DIG does not sell personal data or share it for targeted advertising.</p>
-
-      <h2>Storage and retention</h2>
-      <ul>
-        <li>
-          <strong>OAuth grants</strong> are retained while the connection is
-          active or until they expire, are revoked, or are deleted as part of a
-          valid account or privacy request.
-        </li>
-        <li>
-          <strong>Cached Discogs responses</strong> expire automatically:
-          releases and masters after {CACHE_TTLS.releasesAndMasters}, version
-          lists after {CACHE_TTLS.versions}, searches after {CACHE_TTLS.search},
-          and collections and wantlists after {CACHE_TTLS.collectionsAndWantlists}.
-          These are current operational limits and may be shortened where
-          required by Discogs or the final integration contract.
-        </li>
-        <li>
-          <strong>Support correspondence</strong> is retained only as long as
-          reasonably needed to resolve the request, maintain security records,
-          or meet applicable legal obligations.
-        </li>
-      </ul>
-
-      <h2>Chrome extension and website</h2>
       <p>
-        The side panel runs locally in your browser and talks only to the DIG
-        server described above. It stores your sign-in session in your
-        browser's extension storage, on your machine. It does not read your
-        browsing history and has no access to pages outside discogs.com.
-      </p>
-      <p>
-        This website uses static pages and self-hosted fonts. WOIII.me does not
-        add analytics, advertising trackers, or marketing cookies to the site.
-        Hosting providers may still process ordinary network and security data
-        such as IP addresses and request timestamps to deliver and protect it.
+        These providers operate in the European Union and the United States;
+        transfers outside the EU rely on their standard contractual clauses. We
+        disclose data to others only when the law requires it.
       </p>
 
-      <h2>Your choices and controls</h2>
+      <h2>Chrome extension</h2>
       <ul>
         <li>
-          Revoke DIG's access to your Discogs account at any time from your
-          Discogs settings, under <em>Applications</em>. This immediately
-          invalidates DIG's token.
+          The side panel reads the address of the discogs.com tab you are
+          viewing to know which release or master page is open. On a
+          marketplace listing page it reads that page's release link. It has no
+          access to other sites, unless you enter your own server address in
+          its settings; Chrome then asks your permission for that one address.
         </li>
-        <li>Sign out from the extension to end its session on your machine.</li>
-        <li>Remove the connector from your AI client to stop it from calling DIG.</li>
         <li>
-          Contact us to ask about access, correction, deletion, restriction, or
-          another privacy right that applies where you live. We may need enough
-          information to verify the request and locate the relevant account.
+          It sends release and master IDs and your requests only to the{" "}
+          {SERVICE.name} server.
+        </li>
+        <li>
+          It stores on your device: the sign-in session token issued by our
+          server (never your Discogs password or Discogs token), your Discogs
+          username (shown only on its settings page), your settings and accent
+          colour, and your last 10 checked pressings (title, artist and score),
+          which it shows only while that data is under six hours old. Answers
+          are also kept in memory for up to {CACHE_TTLS.extensionMemory}.
+        </li>
+        <li>
+          Signing out removes the session, username, recent list and cached
+          answers from your device. Uninstalling removes everything.
+        </li>
+        <li>
+          It does not collect browsing history, run remote code, show ads or
+          contain analytics.
         </li>
       </ul>
+      <p>
+        {SERVICE.name}'s use of information received through the extension
+        adheres to the{" "}
+        <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq" target="_blank" rel="noopener noreferrer">Chrome Web Store User Data Policy</a>,
+        including the Limited Use requirements. That information is used only
+        to provide the extension's single purpose. It is not sold, not used or
+        transferred for advertising, creditworthiness or lending, and not read
+        by people except with your permission, for security, or as the law
+        requires.
+      </p>
+
+      <h2>ChatGPT and Claude</h2>
+      <ul>
+        <li>
+          Each tool call carries only the arguments your assistant chose for
+          that request. We do not receive or store conversation transcripts.
+        </li>
+        <li>
+          ChatGPT may attach hints such as your locale, user agent or an
+          anonymised user ID to a call. We neither read nor store them.
+        </li>
+        <li>
+          Results contain Discogs-derived data with "Data provided by Discogs"
+          links. The cards shown in the chat load code only from our server and
+          contain no third-party content or trackers.
+        </li>
+      </ul>
+
+      <h2 id="earlier-version">The earlier version ({SERVICE.formerName})</h2>
+      <p>
+        {SERVICE.formerName} is being replaced by {SERVICE.name}. While it runs,
+        it differs in these ways: it may return marketplace price fields where
+        Discogs provides them; it may cache the account behind a personal access
+        token for up to 24 hours; its recently-analysed list can show data up
+        to about 12 hours old; and it may send public Discogs release-notes text
+        (never account data) to TypeSafe AI, which classifies pressing claims in
+        that text.
+      </p>
+
+      <h2>Your choices and rights</h2>
+      <ul>
+        <li>
+          Revoke {SERVICE.name}'s access at any time in your Discogs settings,
+          under <em>Applications</em>. Its Discogs token stops working at once.
+        </li>
+        <li>Sign out of the extension, or uninstall it, to clear it from your device.</li>
+        <li>Disconnect the plugin or connector in ChatGPT or Claude to stop it from calling {SERVICE.name}.</li>
+        <li>Ask your assistant to reset your {SERVICE.name} settings.</li>
+        <li>
+          Email <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a> with
+          "Privacy request" in the subject to ask for access, correction,
+          deletion (including your sign-in grant and settings), restriction,
+          objection or a copy of your data. We answer within one month and may
+          need your Discogs username to find the data.
+        </li>
+        <li>
+          You can also complain to the data protection authority where you
+          live.
+        </li>
+      </ul>
+
+      <h2>Security</h2>
+      <p>
+        Traffic is encrypted in transit. Discogs credentials are encrypted
+        inside the sign-in grant, personal access tokens are stored only as
+        hashes, and the service asks Discogs only for read access. Report a
+        suspected security problem privately; see <a href="/support">Support</a>.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        {SERVICE.name} is not intended for children under 16, and we do not
+        knowingly process their data.
+      </p>
 
       <h2>Data we do not request</h2>
       <p>
         Do not send payment-card information, health information, government
-        identifiers, passwords, API keys, OAuth tokens, MFA codes, or other
-        authentication secrets through DIG inputs or support channels.
+        identifiers, passwords, API keys, OAuth tokens, MFA codes or other
+        secrets through {SERVICE.name} or its support channels.
       </p>
 
       <h2>Changes</h2>
       <p>
-        We may update this policy when DIG's functionality, providers, or legal
-        obligations change. The date above identifies the current version.
+        We update this policy when {SERVICE.name}'s features, providers or
+        legal obligations change. The date above marks the current version;
+        material changes are also noted in the release notes.
       </p>
 
       <h2>Contact</h2>

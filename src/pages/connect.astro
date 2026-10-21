@@ -2,19 +2,19 @@
 import Base from "../layouts/Base.astro";
 import CodeBlock from "../components/CodeBlock.astro";
 import Shot from "../components/Shot.astro";
-import { DIG } from "../config/brand";
+import { BRAND, SERVICE, SUPPORT } from "../config/brand";
 
 const clients = [
-  { id: "claude", label: "Claude", note: "Web or desktop", icon: "/client-icons/claude.svg" },
+  { id: "claude", label: "Claude", note: "Web, desktop or mobile", icon: "/client-icons/claude.svg" },
   { id: "chatgpt", label: "ChatGPT", note: "Developer mode", icon: "/client-icons/chatgpt.svg" },
   { id: "codex", label: "Codex", note: "App or IDE", icon: "/client-icons/codex.svg" },
-  { id: "extension", label: "Chrome extension", note: "Load unpacked", icon: "/client-icons/chrome.svg" },
+  { id: "extension", label: "Chrome extension", note: "Beta", icon: "/client-icons/chrome.svg" },
 ] as const;
 ---
 
 <Base
-  title="Connect DIG for Discogs — WOIII.me"
-  description="Step-by-step guide to connecting DIG for Discogs to Claude, ChatGPT, Codex, or the Chrome side panel."
+  title="Connect WOIII.me"
+  description="Step-by-step guide to using WOIII.me in Claude, ChatGPT, Codex, or the Chrome side panel."
   bodyClass="connect-page"
   headerVariant="overlay"
 >
@@ -24,7 +24,7 @@ const clients = [
       <div class="connect-hero-inner">
         <h1 id="client-picker-title">Two minutes<br />to <span>connect.</span></h1>
         <p class="connect-lede">
-          Choose your client, paste one URL, and sign in with your own<br />
+          Choose where you want to ask, then sign in with your own<br />
           Discogs account. Free, read-only, no invite needed.
         </p>
       </div>
@@ -32,25 +32,25 @@ const clients = [
         <details class="rail-item" id="claude" name="setup">
           <summary class="rail-card">
             <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[0].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">Claude</span><span class="rail-note">Web or desktop</span></span>
+            <span class="rail-copy"><span class="rail-label">{clients[0].label}</span><span class="rail-note">{clients[0].note}</span></span>
           </summary>
           <div class="rail-panel">
-            <p class="rail-req">Requires a Claude plan that allows custom connectors. The same setup works in claude.ai and Claude Desktop.</p>
+            <p class="rail-req">Requires a Claude plan that allows custom connectors. Add it once in claude.ai or Claude Desktop and it works in the Claude mobile apps too.</p>
             <ol class="steps rail-steps">
               <li>
                 <p>Open <strong>Settings → Connectors</strong> in claude.ai or Claude Desktop.</p>
                 <Shot src="/shots/claude-web-1-settings.png" alt="claude.ai settings page with the Connectors section visible" caption="Settings → Connectors on claude.ai" />
               </li>
               <li>
-                <p>Click <strong>Add custom connector</strong>, name it <code>DIG for Discogs</code>, and paste the server URL:</p>
-                <CodeBlock code={DIG.mcpUrl} />
-                <Shot src="/shots/claude-web-2-add-connector.png" alt="Add custom connector dialog with name and URL fields filled in" caption="The add-connector dialog — name and URL are all you need" />
+                <p>Click <strong>Add custom connector</strong>, name it <code>{BRAND.name}</code>, and paste the server URL:</p>
+                <CodeBlock code={SERVICE.mcpUrl} />
+                <Shot src="/shots/claude-web-2-add-connector.png" alt="Add custom connector dialog with name and URL fields filled in" caption="The add-connector dialog: a name and the URL are all you need" />
               </li>
               <li>
-                <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect — your browser opens Discogs, you sign in, and you're done.</p>
-                <Shot src="/shots/claude-web-3-authorize.png" alt="Discogs authorization page asking to allow the DIG application" caption="One-time Discogs sign-in — DIG only ever gets read access" />
+                <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect: your browser opens Discogs, you approve read access, and you're done.</p>
+                <Shot src="/shots/claude-web-3-authorize.png" alt="Discogs authorization page asking to allow WOIII.me" caption="One-time Discogs sign-in: WOIII.me only ever gets read access" />
               </li>
-              <li><p>Try it: <em>“What's the best pressing of OK Computer?”</em></p></li>
+              <li><p>Try it: <em>“What's the best-sounding pressing of OK Computer?”</em> Answers come as cards you can open, compare and switch between sound and collector.</p></li>
             </ol>
           </div>
         </details>
@@ -58,21 +58,21 @@ const clients = [
         <details class="rail-item" id="chatgpt" name="setup">
           <summary class="rail-card">
             <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[1].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">ChatGPT</span><span class="rail-note">Developer mode</span></span>
+            <span class="rail-copy"><span class="rail-label">{clients[1].label}</span><span class="rail-note">{clients[1].note}</span></span>
           </summary>
           <div class="rail-panel">
-            <p class="rail-req">Web only (chatgpt.com), Plus or Pro plan. Developer-mode apps get read tools — which is all DIG has, so nothing is missing.</p>
+            <p class="rail-req">{BRAND.name} is on its way to ChatGPT's plugin directory. Until it's listed, add it in developer mode (Plus or Pro plan). Menu names vary a little between ChatGPT versions.</p>
             <ol class="steps rail-steps">
               <li>
-                <p>Open <strong>Settings → Apps &amp; Connectors → Advanced settings</strong> and switch on <strong>Developer mode</strong>.</p>
-                <Shot src="/shots/chatgpt-1-devmode.png" alt="ChatGPT advanced settings with the developer mode toggle enabled" caption="Developer mode lives under Apps & Connectors → Advanced settings" />
+                <p>In ChatGPT's settings, open the apps section, then <strong>Advanced settings</strong>, and switch on <strong>Developer mode</strong>.</p>
+                <Shot src="/shots/chatgpt-1-devmode.png" alt="ChatGPT advanced settings with the developer mode toggle enabled" caption="Developer mode lives under the apps section's advanced settings" />
               </li>
               <li>
-                <p>Back in <strong>Apps &amp; Connectors</strong>, choose <strong>Create</strong>, name the app <code>DIG for Discogs</code>, set authentication to <strong>OAuth</strong>, and paste the server URL:</p>
-                <CodeBlock code={DIG.mcpUrl} />
-                <Shot src="/shots/chatgpt-2-create-app.png" alt="ChatGPT create app dialog with the MCP server URL field filled in" caption="The create-app dialog in developer mode" />
+                <p>Create a new app or plugin, name it <code>{BRAND.name}</code>, set authentication to <strong>OAuth</strong>, and paste the server URL:</p>
+                <CodeBlock code={SERVICE.mcpUrl} />
+                <Shot src="/shots/chatgpt-2-create-app.png" alt="ChatGPT create app dialog with the MCP server URL field filled in" caption="The create dialog in developer mode" />
               </li>
-              <li><p>Complete the Discogs sign-in when prompted, then mention the app in a chat (type <code>/</code> or pick it from the tools menu).</p></li>
+              <li><p>Complete the Discogs sign-in when prompted, then mention <strong>@{BRAND.name}</strong> in a chat, or open its home page from the sidebar.</p></li>
             </ol>
           </div>
         </details>
@@ -80,13 +80,13 @@ const clients = [
         <details class="rail-item" id="codex" name="setup">
           <summary class="rail-card">
             <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[2].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">Codex</span><span class="rail-note">App or IDE</span></span>
+            <span class="rail-copy"><span class="rail-label">{clients[2].label}</span><span class="rail-note">{clients[2].note}</span></span>
           </summary>
           <div class="rail-panel">
             <p class="rail-req">Codex clients on the same computer share their MCP server configuration.</p>
             <ol class="steps rail-steps">
               <li><p>Open <strong>Settings → MCP servers</strong> in Codex.</p></li>
-              <li><p>Select <strong>Add server</strong>, name it <code>discogs</code>, choose <strong>Streamable HTTP</strong>, and paste the server URL:</p><CodeBlock code={DIG.mcpUrl} /></li>
+              <li><p>Select <strong>Add server</strong>, name it <code>woiii-me</code>, choose <strong>Streamable HTTP</strong>, and paste the server URL:</p><CodeBlock code={SERVICE.mcpUrl} /></li>
               <li><p>Save the server, restart if prompted, then select <strong>Authenticate</strong> to complete the one-time Discogs sign-in.</p></li>
               <li><p>Try it: <em>“Compare the best pressings of this album.”</em></p></li>
             </ol>
@@ -96,26 +96,25 @@ const clients = [
         <details class="rail-item" id="extension" name="setup">
           <summary class="rail-card">
             <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[3].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">Chrome extension</span><span class="rail-note">Load unpacked</span></span>
+            <span class="rail-copy"><span class="rail-label">{clients[3].label}</span><span class="rail-note">{clients[3].note}</span></span>
           </summary>
           <div class="rail-panel">
-            <p class="rail-req">Requires Chrome {DIG.chromeMinVersion}+. Until the Chrome Web Store listing is live, the extension installs from source — it takes about two minutes.</p>
+            <p class="rail-req">Requires Chrome {SERVICE.chromeMinVersion}+ on a computer. {BRAND.name} is on its way to the Chrome Web Store. Until it's listed, the beta installs by hand in about two minutes.</p>
             <ol class="steps rail-steps">
               <li>
-                <p>Download the source from <a href={DIG.repoUrl} target="_blank" rel="noopener noreferrer">GitHub</a> — the green <strong>Code</strong> button → <strong>Download ZIP</strong> — and unzip it.</p>
-                <Shot src="/shots/ext-1-download.png" alt="GitHub repository page with the Code button menu open and Download ZIP highlighted" caption="Grab the ZIP straight from the repository" />
+                <p>Email <a href={`mailto:${SUPPORT.email}?subject=WOIII.me%20beta`}>{SUPPORT.email}</a> for the beta build, a zip file. Unzip it into a folder you'll keep: Chrome runs the extension from there.</p>
               </li>
               <li>
                 <p>Open <code>chrome://extensions</code> and switch on <strong>Developer mode</strong> (top right).</p>
                 <Shot src="/shots/ext-2-devmode.png" alt="Chrome extensions page with the developer mode toggle in the top right corner enabled" caption="Developer mode unlocks the Load unpacked button" />
               </li>
               <li>
-                <p>Click <strong>Load unpacked</strong> and select the <code>extension/</code> folder inside the unzipped download.</p>
-                <Shot src="/shots/ext-3-load-unpacked.png" alt="File picker selecting the extension folder from the unzipped repository" caption="Pick the extension/ folder — not the repository root" />
+                <p>Click <strong>Load unpacked</strong> and select the folder that holds <code>manifest.json</code>.</p>
+                <Shot src="/shots/ext-3-load-unpacked.png" alt="File picker selecting the unzipped extension folder" caption="Pick the folder with manifest.json in it" />
               </li>
               <li>
-                <p>Visit any release on <a href="https://www.discogs.com" target="_blank" rel="noopener noreferrer">discogs.com</a>, open the side panel, and sign in with your Discogs account.</p>
-                <Shot src="/shots/ext-4-sidepanel.png" alt="The DIG side panel open next to a Discogs release page showing a pressing score" caption="The side panel scores the pressing you're looking at" />
+                <p>Visit any release on <a href="https://www.discogs.com" target="_blank" rel="noopener noreferrer">discogs.com</a>, click the {BRAND.name} icon to open the side panel, and choose <strong>Connect with Discogs</strong>.</p>
+                <Shot src="/shots/ext-4-sidepanel.png" alt="The WOIII.me side panel open next to a Discogs release page showing a pressing score" caption="The side panel scores the pressing you're looking at" />
               </li>
             </ol>
           </div>
@@ -130,10 +129,10 @@ const clients = [
       <h2 class="guide-final-title">Good to <span class="accent-serif">know</span></h2>
       <ul class="notes">
         <li class="note-wide">
-          <strong>First analysis is slow — on purpose.</strong> DIG checks every
-          listed version, pressing detail, price signal, and collector note before
-          answering. That broader first pass takes about ten seconds; repeat
-          questions are near-instant because the result is cached.
+          <strong>The first survey of an album takes a few seconds.</strong>{" "}
+          {BRAND.name} checks up to five of its pressings in detail (up to eight
+          if you raise it in settings) before it answers. Repeat questions are
+          quick because results are cached for a few hours.
         </li>
         <li>
           <strong>Use slash commands.</strong> Try
@@ -141,14 +140,12 @@ const clients = [
           {" "}<code>/rank-my-wantlist</code> in clients that support MCP shortcuts.
         </li>
         <li>
-          <strong>Older client?</strong> SSE-only clients can use the legacy
-          endpoint: <code>{DIG.sseUrl}</code>.
+          <strong>Busy moments.</strong> Everyone shares one Discogs rate limit,
+          so at busy times you may be asked to try again in a few seconds.
         </li>
         <li>
-          <strong>Stuck?</strong> Ask in{" "}
-          <a href={DIG.discussionsUrl} target="_blank" rel="noopener noreferrer">GitHub Discussions</a>{" "}or open an{" "}
-          <a href={DIG.issuesUrl} target="_blank" rel="noopener noreferrer">issue</a>. Include your client and the step where
-          setup stopped.
+          <strong>Stuck?</strong> See <a href="/support">Support</a> or email{" "}
+          <a href={`mailto:${SUPPORT.email}`}>{SUPPORT.email}</a> with your client and the step where setup stopped.
         </li>
       </ul>
     </div>
