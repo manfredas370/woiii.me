@@ -1,11 +1,11 @@
 {
   "name": "woiii-me",
-  "description": "Motion-led Astro website and connection guide for woiii.me/DIG",
+  "description": "Motion-led Astro website and connection guide for WOIII.me",
   "author": "WOIII.me",
   "license": "MIT",
   "private": true,
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "homepage": "https://woiii.me",
   "repository": {
     "type": "git",

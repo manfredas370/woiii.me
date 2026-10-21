@@ -2,6 +2,22 @@
 
 All notable changes to the woiii.me website are documented here.
 
+## [1.2.0] - 2026-10-21
+
+### Changed
+
+- Renamed the pressing guide from DIG for Discogs to WOIII.me across the
+  navigation, footer, home page and connect guide.
+- The connect guide now points Claude, ChatGPT and Codex at the WOIII.me server
+  and explains the Chrome extension beta (on request until the Chrome Web Store
+  listing is live). The legacy SSE note is gone; WOIII.me serves `/mcp` only.
+- The home page figures describe WOIII.me (places to ask, scoring lenses, no
+  trackers, ads or prices) instead of v1's tool and prompt counts.
+- Rewrote the Privacy Policy, Terms of Service and Support pages for WOIII.me:
+  what the extension and the ChatGPT and Claude plugins process, storage
+  lifetimes, providers (Cloudflare, Fly.io, Google, AI providers), Chrome Web
+  Store Limited Use, data deletion, and the earlier DIG for Discogs service.
+
 ## [1.1.0] - 2026-07-25
 
 ### Changed

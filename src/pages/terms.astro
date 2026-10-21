@@ -1,11 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
-import { DIG, SUPPORT } from "../config/brand";
+import { DIG, SUPPORT, SERVICE } from "../config/brand";
 ---
 
 <Base
-  title="Terms of Service — DIG for Discogs"
-  description="Terms governing use of DIG for Discogs, an independent read-only service provided by WOIII.me."
+  title="Terms of Service — WOIII.me"
+  description="Terms for using WOIII.me, an independent read-only pressing guide for Discogs, and the earlier DIG for Discogs service."
   bodyClass="privacy-page"
   headerVariant="overlay"
 >
@@ -13,105 +13,137 @@ import { DIG, SUPPORT } from "../config/brand";
     <div class="wrap policy">
       <h1>Terms of <span class="accent">Service</span></h1>
       <p class="lede">
-        These terms govern your use of DIG for Discogs, including its MCP
-        server, REST API, browser extension, and supported AI-assistant
-        integrations. DIG is provided by WOIII.me.
+        These terms govern your use of {SERVICE.name}: its Chrome side panel
+        extension, its plugin and connector for ChatGPT and Claude, and the
+        server and API behind them. They also cover {SERVICE.formerName}, the
+        earlier version.
       </p>
-      <p class="updated">Effective and last updated: 25 July 2026</p>
+      <p class="updated">Effective and last updated: 21 October 2026</p>
 
       <h2>Accepting these terms</h2>
       <p>
-        By connecting to or using DIG, you agree to these terms and the{" "}
-        <a href="/privacy">Privacy policy</a>. If you do not agree, do not use
-        DIG and revoke or remove any existing connection. You must be legally
-        able to accept these terms and meet the age requirements of Discogs,
-        your AI provider, and other services you use with DIG.
+        By installing, connecting to or using {SERVICE.name}, you agree to these
+        terms and the <a href="/privacy">Privacy Policy</a>. If you do not
+        agree, do not use it, and revoke or remove any existing connection. You
+        must be legally able to accept these terms and meet the age
+        requirements of Discogs, your AI provider and the other services you
+        use with {SERVICE.name}.
       </p>
 
-      <h2>What DIG provides</h2>
+      <h2>What {SERVICE.name} provides</h2>
       <p>
-        DIG is a read-only tool for searching and analyzing Discogs catalogue,
-        collection, wantlist, community, and related permitted data. It can
-        compare pressings, summarize a collection, and produce evidence-based
-        recommendations. Features may change, be limited, or become unavailable.
+        {SERVICE.name} is a free, read-only guide to vinyl pressings on Discogs.
+        It scores and compares an album's pressings for sound or for
+        collectors, explains the evidence behind each score, and can summarise
+        your own collection and rank your wantlist. It never changes anything on
+        your Discogs account, and it shows no marketplace prices, listings or
+        cover images. Features may change, be limited or become unavailable.
       </p>
 
-      <h2>Your accounts and authorization</h2>
+      <h2>Beta service</h2>
+      <p>
+        {SERVICE.name} is in beta. Its server address may change, the service
+        may be slow or unavailable at busy times (all users share one Discogs
+        rate limit), and features may be added, changed or removed without
+        notice.
+      </p>
+
+      <h2>Your accounts and authorisation</h2>
       <p>
         You are responsible for the accounts and clients you connect, for
-        keeping credentials secure, and for activity authorized through your
-        connection. Do not share tokens or attempt to connect an account you do
-        not control. You can revoke DIG from Discogs and remove it from your AI
-        client at any time.
+        keeping your credentials secure, and for activity authorised through
+        your connection. Do not share tokens or connect an account you do not
+        control. You can revoke {SERVICE.name} on Discogs and remove it from
+        your browser or AI client at any time.
       </p>
 
       <h2>Acceptable use</h2>
-      <p>You may not use DIG to:</p>
+      <p>You may not use {SERVICE.name} to:</p>
       <ul>
-        <li>access private or restricted data without authorization;</li>
-        <li>bypass rate limits, access controls, or technical safeguards;</li>
-        <li>scrape, bulk-export, resell, or build an unauthorized database from returned data;</li>
-        <li>send malware, probe other users, interfere with the service, or expose credentials;</li>
-        <li>violate applicable law or the terms and policies of Discogs, OpenAI, another AI provider, or another connected service.</li>
+        <li>access private or restricted data without authorisation;</li>
+        <li>bypass rate limits, access controls or technical safeguards, including by automating requests;</li>
+        <li>scrape, bulk-export, resell or build a database from returned data;</li>
+        <li>send malware, probe other users, interfere with the service or expose credentials;</li>
+        <li>break applicable law or the terms and policies of Discogs, Google, OpenAI, Anthropic or another connected service.</li>
       </ul>
 
-      <h2>Third-party services and content</h2>
+      <h2>Discogs data</h2>
       <p>
-        DIG depends on Discogs, Cloudflare, your selected AI provider, and other
-        software or network services. Their terms and privacy practices apply
-        separately. Discogs data can be incomplete, user-contributed, delayed,
-        or inaccurate. Marketplace values and availability can change at any
-        time. Links and references do not imply an endorsement.
+        Data shown by {SERVICE.name} is provided by Discogs and is attributed
+        with a "Data provided by Discogs" link to its source page. It is never
+        more than six hours old when shown. Discogs data can be incomplete,
+        user-contributed, delayed or wrong, and Discogs' own terms apply to it.
       </p>
 
-      <h2>No purchases or professional advice</h2>
+      <h2>Scores are estimates, not advice</h2>
       <p>
-        DIG does not buy or sell records, contact sellers, execute payments, or
-        guarantee condition, authenticity, value, investment performance, or
-        sound quality. Rankings and recommendations are informational estimates
-        based on available evidence, not financial, appraisal, legal, or other
-        professional advice. Verify important information before acting.
+        Scores, verdicts and rankings are estimates built from Discogs data and
+        published pressing knowledge. They do not measure sound, condition,
+        authenticity or value. {SERVICE.name} does not buy or sell records,
+        contact sellers or handle payments. Nothing it shows is financial,
+        appraisal, legal or other professional advice. Check important
+        information before you act on it.
+      </p>
+
+      <h2>AI assistants</h2>
+      <p>
+        In ChatGPT or Claude, your AI provider writes the replies you see and
+        decides when to call {SERVICE.name}. We are responsible for the data our
+        tools return, not for the text your assistant writes around it. Your
+        provider's terms apply to your use of its assistant.
+      </p>
+
+      <h2>Third-party services</h2>
+      <p>
+        {SERVICE.name} depends on Discogs, Cloudflare, Fly.io, Google, your AI
+        provider and other software and network services. Their terms and
+        privacy practices apply separately. Links and references do not imply
+        endorsement.
       </p>
 
       <h2>Open-source software</h2>
       <p>
-        Source code made available through <a href={DIG.repoUrl}>the DIG repository</a>{" "}
-        is licensed under the license stated in that repository. That software
-        license does not replace these terms for the hosted service or grant
-        rights in third-party data, names, or trademarks.
+        Source code we publish in <a href={DIG.repoUrl}>the public repository</a>{" "}
+        is licensed under the licence stated there. That licence does not
+        replace these terms for the hosted service or grant rights in
+        third-party data, names or trademarks.
       </p>
 
       <h2>Availability and changes</h2>
       <p>
-        DIG is provided on an “as available” basis. We may update, suspend,
-        restrict, or discontinue features to protect users, comply with
-        third-party requirements, maintain security, or operate the service.
-        We may update these terms by publishing a revised version and date.
+        {SERVICE.name} is provided free of charge on an "as available" basis.
+        We may update, suspend, restrict or discontinue features to protect
+        users, comply with third-party requirements, maintain security or run
+        the service. We may update these terms by publishing a revised version
+        with a new date; continuing to use {SERVICE.name} after that means you
+        accept the revised terms.
       </p>
 
       <h2>Disclaimers and liability</h2>
       <p>
-        To the extent permitted by applicable law, DIG is provided without
-        warranties of uninterrupted availability, accuracy, fitness for a
-        particular purpose, or non-infringement. WOIII.me is not responsible for
-        decisions, purchases, losses, or third-party actions based on DIG output.
-        Nothing in these terms excludes rights or liability that cannot legally
-        be excluded.
+        To the extent the law allows, {SERVICE.name} is provided without
+        warranties of availability, accuracy, fitness for a particular purpose
+        or non-infringement, and {SERVICE.name} is not responsible for
+        decisions, purchases, losses or third-party actions based on its
+        output. Nothing in these terms excludes rights or liability that cannot
+        legally be excluded.
       </p>
 
       <h2>Suspension and termination</h2>
       <p>
-        We may restrict or terminate access when reasonably necessary for
-        security, abuse prevention, legal compliance, third-party requirements,
-        or a material violation of these terms. You may stop using DIG at any
-        time by revoking and removing its connections.
+        We may restrict or end access when reasonably necessary for security,
+        abuse prevention, legal compliance, third-party requirements or a
+        material breach of these terms. You may stop at any time by revoking
+        {SERVICE.name} on Discogs, uninstalling the extension and removing the
+        plugin or connector.
       </p>
 
       <h2>Discogs relationship</h2>
       <p>
-        DIG for Discogs is an independent WOIII.me project. This application
-        uses Discogs' API but is not affiliated with, sponsored or endorsed by
-        Discogs. “Discogs” is a trademark of Zink Media, LLC.
+        {SERVICE.name} (formerly {SERVICE.formerName}) is an independent
+        project. This application uses Discogs' API but is not affiliated with,
+        sponsored or endorsed by Discogs. "Discogs" is a trademark of Zink
+        Media, LLC.
       </p>
 
       <h2>Contact</h2>
