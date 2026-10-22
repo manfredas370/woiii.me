@@ -2,6 +2,17 @@
 
 All notable changes to the woiii.me website are documented here.
 
+## [1.2.1] - 2026-10-22
+
+### Changed
+
+- The connect guide's Chrome extension section installs from the Chrome Web
+  Store listing (Add to Chrome, updates on their own) instead of a zip loaded
+  by hand, with a note to remove a hand-installed beta first.
+- Claude, ChatGPT and Codex now connect to `https://mcp.woiii.me/mcp`, the
+  server's address since 2026-10-21; the old workers.dev `/mcp` no longer
+  signs in. The support page shows the same address.
+
 ## [1.2.0] - 2026-10-21
 
 ### Changed

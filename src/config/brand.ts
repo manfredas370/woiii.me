@@ -65,9 +65,11 @@ export const SERVICE = {
   legacyHost: "discogs-mcp.woiii.workers.dev",
   /** Where the egress relay (Fly.io) runs. */
   relayRegion: "Frankfurt, Germany",
-  /** The address to paste into ChatGPT, Claude or Codex. */
-  mcpUrl: "https://discogs-mcp-staging.woiii.workers.dev/mcp",
+  /** The address to paste into ChatGPT, Claude or Codex (live since 2026-10-21; the workers.dev /mcp no longer signs in). */
+  mcpUrl: "https://mcp.woiii.me/mcp",
   chromeMinVersion: "114",
+  /** The extension's Chrome Web Store listing (unlisted: reachable by link, not by search). */
+  chromeStoreUrl: "https://chromewebstore.google.com/detail/cppjgfnpdcalnpdlalhcadgbjaeginck",
   /** Places to ask: the Chrome side panel, ChatGPT, Claude. */
   surfaceCount: 3,
   /** Scoring lenses: best sound, most collectible. */

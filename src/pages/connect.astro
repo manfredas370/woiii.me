@@ -8,7 +8,7 @@ const clients = [
   { id: "claude", label: "Claude", note: "Web, desktop or mobile", icon: "/client-icons/claude.svg" },
   { id: "chatgpt", label: "ChatGPT", note: "Developer mode", icon: "/client-icons/chatgpt.svg" },
   { id: "codex", label: "Codex", note: "App or IDE", icon: "/client-icons/codex.svg" },
-  { id: "extension", label: "Chrome extension", note: "Beta", icon: "/client-icons/chrome.svg" },
+  { id: "extension", label: "Chrome extension", note: "Chrome Web Store", icon: "/client-icons/chrome.svg" },
 ] as const;
 ---
 
@@ -99,24 +99,21 @@ const clients = [
             <span class="rail-copy"><span class="rail-label">{clients[3].label}</span><span class="rail-note">{clients[3].note}</span></span>
           </summary>
           <div class="rail-panel">
-            <p class="rail-req">Requires Chrome {SERVICE.chromeMinVersion}+ on a computer. {BRAND.name} is on its way to the Chrome Web Store. Until it's listed, the beta installs by hand in about two minutes.</p>
+            <p class="rail-req">Free on the Chrome Web Store. Requires Chrome {SERVICE.chromeMinVersion}+ on a computer, and a Discogs account to sign in with.</p>
             <ol class="steps rail-steps">
               <li>
-                <p>Email <a href={`mailto:${SUPPORT.email}?subject=WOIII.me%20beta`}>{SUPPORT.email}</a> for the beta build, a zip file. Unzip it into a folder you'll keep: Chrome runs the extension from there.</p>
+                <p>Open {BRAND.name} in the Chrome Web Store and click <strong>Add to Chrome</strong>, then <strong>Add extension</strong>. Updates install on their own.</p>
+                <a class="store-button" href={SERVICE.chromeStoreUrl} target="_blank" rel="noopener noreferrer">Get it on the Chrome Web Store</a>
               </li>
               <li>
-                <p>Open <code>chrome://extensions</code> and switch on <strong>Developer mode</strong> (top right).</p>
-                <Shot src="/shots/ext-2-devmode.png" alt="Chrome extensions page with the developer mode toggle in the top right corner enabled" caption="Developer mode unlocks the Load unpacked button" />
-              </li>
-              <li>
-                <p>Click <strong>Load unpacked</strong> and select the folder that holds <code>manifest.json</code>.</p>
-                <Shot src="/shots/ext-3-load-unpacked.png" alt="File picker selecting the unzipped extension folder" caption="Pick the folder with manifest.json in it" />
+                <p>Optional: pin it. Click the puzzle-piece icon in Chrome's toolbar, then the pin next to {BRAND.name}.</p>
               </li>
               <li>
                 <p>Visit any release on <a href="https://www.discogs.com" target="_blank" rel="noopener noreferrer">discogs.com</a>, click the {BRAND.name} icon to open the side panel, and choose <strong>Connect with Discogs</strong>.</p>
                 <Shot src="/shots/ext-4-sidepanel.png" alt="The WOIII.me side panel open next to a Discogs release page showing a pressing score" caption="The side panel scores the pressing you're looking at" />
               </li>
             </ol>
+            <p class="rail-req rail-after">Installed the beta by hand from a zip? Remove that copy in <code>chrome://extensions</code> first, so you don't end up with two.</p>
           </div>
         </details>
       </div>
@@ -297,6 +294,29 @@ const clients = [
     font-size: 0.95rem;
     line-height: 1.5;
   }
+  .rail-after { margin-top: 28px; }
+  /* the home page's primary button, for the store link */
+  .store-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    margin-top: 18px;
+    padding: 0 22px;
+    border-radius: 999px;
+    color: #fff;
+    background: #8b94f2;
+    font-family: "GT Standard", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 180ms ease;
+  }
+  .store-button:hover { background: #9aa2f5; }
+  .store-button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .guide {
     padding-block: 130px;
     scroll-margin-top: 80px;
