@@ -46,7 +46,7 @@ import { DIG, SUPPORT, SERVICE } from "../config/brand";
 
       <h2>ChatGPT and Claude</h2>
       <ol>
-        <li>Add {SERVICE.name} from the app directory in ChatGPT or Claude where it is listed, or add a custom connector with the server address <code>https://{SERVICE.serverHost}/mcp</code>.</li>
+        <li>Add {SERVICE.name} from the app directory in ChatGPT or Claude where it is listed, or add a custom connector with the server address <code>{SERVICE.mcpUrl}</code>.</li>
         <li>Complete the Discogs sign-in in the same browser session when your assistant asks you to connect.</li>
         <li>Ask in plain words, for example "What's the best-sounding pressing of Kind of Blue?" or paste a Discogs release link.</li>
         <li>If your assistant says the connection expired or was revoked, disconnect {SERVICE.name} in your assistant's settings and connect again.</li>
