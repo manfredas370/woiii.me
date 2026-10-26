@@ -2,6 +2,18 @@
 
 All notable changes to the woiii.me website are documented here.
 
+## [1.2.2] - 2026-10-26
+
+### Changed
+
+- The connect guide no longer references screenshots: the six figures were never
+  published, so the steps rendered without them. The facts their captions carried
+  (read-only Discogs access, the panel scoring the open pressing) are in the step
+  text now.
+- The ChatGPT section says WOIII.me is submitted to the app directory and in review,
+  and the developer-mode step names the current menu (Create, formerly Add custom
+  MCP server). Claude and Codex set-up texts are unchanged.
+
 ## [1.2.1] - 2026-10-22
 
 ### Changed
