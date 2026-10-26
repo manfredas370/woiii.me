@@ -1,7 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
 import CodeBlock from "../components/CodeBlock.astro";
-import Shot from "../components/Shot.astro";
 import { BRAND, SERVICE, SUPPORT } from "../config/brand";
 
 const clients = [
@@ -39,16 +38,13 @@ const clients = [
             <ol class="steps rail-steps">
               <li>
                 <p>Open <strong>Settings → Connectors</strong> in claude.ai or Claude Desktop.</p>
-                <Shot src="/shots/claude-web-1-settings.png" alt="claude.ai settings page with the Connectors section visible" caption="Settings → Connectors on claude.ai" />
               </li>
               <li>
                 <p>Click <strong>Add custom connector</strong>, name it <code>{BRAND.name}</code>, and paste the server URL:</p>
                 <CodeBlock code={SERVICE.mcpUrl} />
-                <Shot src="/shots/claude-web-2-add-connector.png" alt="Add custom connector dialog with name and URL fields filled in" caption="The add-connector dialog: a name and the URL are all you need" />
               </li>
               <li>
-                <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect: your browser opens Discogs, you approve read access, and you're done.</p>
-                <Shot src="/shots/claude-web-3-authorize.png" alt="Discogs authorization page asking to allow WOIII.me" caption="One-time Discogs sign-in: WOIII.me only ever gets read access" />
+                <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect: your browser opens discogs.com, you approve read access (WOIII.me never gets more), and you're done.</p>
               </li>
               <li><p>Try it: <em>“What's the best-sounding pressing of OK Computer?”</em> Answers come as cards you can open, compare and switch between sound and collector.</p></li>
             </ol>
@@ -61,16 +57,14 @@ const clients = [
             <span class="rail-copy"><span class="rail-label">{clients[1].label}</span><span class="rail-note">{clients[1].note}</span></span>
           </summary>
           <div class="rail-panel">
-            <p class="rail-req">{BRAND.name} is on its way to ChatGPT's plugin directory. Until it's listed, add it in developer mode (Plus or Pro plan). Menu names vary a little between ChatGPT versions.</p>
+            <p class="rail-req">{BRAND.name} has been submitted to ChatGPT's app directory and is in review. Until it's listed there, add it yourself in developer mode (Plus or Pro plan). Menu names vary a little between ChatGPT versions.</p>
             <ol class="steps rail-steps">
               <li>
                 <p>In ChatGPT's settings, open the apps section, then <strong>Advanced settings</strong>, and switch on <strong>Developer mode</strong>.</p>
-                <Shot src="/shots/chatgpt-1-devmode.png" alt="ChatGPT advanced settings with the developer mode toggle enabled" caption="Developer mode lives under the apps section's advanced settings" />
               </li>
               <li>
-                <p>Create a new app or plugin, name it <code>{BRAND.name}</code>, set authentication to <strong>OAuth</strong>, and paste the server URL:</p>
+                <p>Back in the apps section choose <strong>Create</strong> (older versions say <strong>Add custom MCP server</strong>), name it <code>{BRAND.name}</code>, set authentication to <strong>OAuth</strong>, and paste the server URL:</p>
                 <CodeBlock code={SERVICE.mcpUrl} />
-                <Shot src="/shots/chatgpt-2-create-app.png" alt="ChatGPT create app dialog with the MCP server URL field filled in" caption="The create dialog in developer mode" />
               </li>
               <li><p>Complete the Discogs sign-in when prompted, then mention <strong>@{BRAND.name}</strong> in a chat, or open its home page from the sidebar.</p></li>
             </ol>
@@ -109,8 +103,7 @@ const clients = [
                 <p>Optional: pin it. Click the puzzle-piece icon in Chrome's toolbar, then the pin next to {BRAND.name}.</p>
               </li>
               <li>
-                <p>Visit any release on <a href="https://www.discogs.com" target="_blank" rel="noopener noreferrer">discogs.com</a>, click the {BRAND.name} icon to open the side panel, and choose <strong>Connect with Discogs</strong>.</p>
-                <Shot src="/shots/ext-4-sidepanel.png" alt="The WOIII.me side panel open next to a Discogs release page showing a pressing score" caption="The side panel scores the pressing you're looking at" />
+                <p>Visit any release on <a href="https://www.discogs.com" target="_blank" rel="noopener noreferrer">discogs.com</a>, click the {BRAND.name} icon to open the side panel, and choose <strong>Connect with Discogs</strong>. From then on the panel scores whichever pressing you're looking at.</p>
               </li>
             </ol>
           </div>
