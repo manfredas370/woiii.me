@@ -12,8 +12,9 @@ export const BRAND = {
 } as const;
 
 /**
- * DIG for Discogs, the earlier version (v1). Its public repository still
- * hosts the open-source code, issues and discussions the site links to.
+ * DIG for Discogs, the earlier version (v1), no longer developed. Its public
+ * repository keeps the v1 code under MIT and hosts the issues and discussions
+ * the site links to. WOIII.me itself (v2) is closed source.
  */
 export const DIG = {
   name: "DIG for Discogs",
