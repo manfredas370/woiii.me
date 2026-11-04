@@ -58,6 +58,15 @@ const clients = [
           </summary>
           <div class="rail-panel">
             <p class="rail-req">{BRAND.name} is listed in ChatGPT's plugin directory, so there is nothing to configure. Menu names vary a little between ChatGPT versions.</p>
+            <figure class="rail-clip">
+              <video controls preload="none" playsinline width="1280" height="720" poster="/videos/chatgpt-plugin.jpg">
+                <source src="/videos/chatgpt-plugin.mp4" type="video/mp4" />
+              </video>
+              <figcaption>
+                Thirty seconds in ChatGPT: ask which Kind of Blue to buy, get five editions ranked for sound or for collectors, then your collection and your next buy.
+                {SERVICE.chatgptVideoUrl && (<> <a href={SERVICE.chatgptVideoUrl} target="_blank" rel="noopener noreferrer">Also on YouTube</a>.</>)}
+              </figcaption>
+            </figure>
             <ol class="steps rail-steps">
               <li>
                 <p>Open {BRAND.name} in ChatGPT's plugin directory and choose <strong>Install plugin</strong>. (Or, in ChatGPT's sidebar, open <strong>Plugins</strong> and search for <code>{BRAND.name}</code>.)</p>
@@ -94,6 +103,15 @@ const clients = [
           </summary>
           <div class="rail-panel">
             <p class="rail-req">Free on the Chrome Web Store. Requires Chrome {SERVICE.chromeMinVersion}+ on a computer, and a Discogs account to sign in with.</p>
+            <figure class="rail-clip">
+              <video controls preload="none" playsinline width="1280" height="720" poster="/videos/chrome-extension.jpg">
+                <source src="/videos/chrome-extension.mp4" type="video/mp4" />
+              </video>
+              <figcaption>
+                Thirty seconds in the side panel: a release page scored, five editions compared for sound or for collectors, then your shelf and your wantlist.
+                {SERVICE.chromeVideoUrl && (<> <a href={SERVICE.chromeVideoUrl} target="_blank" rel="noopener noreferrer">Also on YouTube</a>.</>)}
+              </figcaption>
+            </figure>
             <ol class="steps rail-steps">
               <li>
                 <p>Open {BRAND.name} in the Chrome Web Store and click <strong>Add to Chrome</strong>, then <strong>Add extension</strong>. Updates install on their own.</p>
@@ -286,6 +304,28 @@ const clients = [
     font-size: 0.95rem;
     line-height: 1.5;
   }
+  /* the 30-second clip: nothing loads until it is played (preload="none") */
+  .rail-clip {
+    max-width: 760px;
+    margin: 22px 0 6px;
+  }
+  .rail-clip video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #000;
+  }
+  .rail-clip figcaption {
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .rail-clip figcaption a { color: rgba(255, 255, 255, 0.78); }
+  .rail-clip figcaption a:hover { color: #fff; }
   /* the home page's primary button, for the store link */
   .store-button {
     display: inline-flex;
@@ -502,6 +542,8 @@ const clients = [
     .rail-card { min-height: 112px; border-radius: 28px; padding: 22px 24px; }
     .rail-card::after { width: 38px; height: 38px; }
     .rail-panel { padding: 0 24px 28px; }
+    .rail-clip { margin-top: 18px; }
+    .rail-clip video { border-radius: 16px; }
     .guide { padding-block: 84px; }
     .guide h2 { font-size: 3.35rem; }
     .steps { margin-top: 40px; }
