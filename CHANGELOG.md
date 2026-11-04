@@ -7,7 +7,7 @@ All notable changes to the woiii.me website are documented here.
 ### Added
 
 - The connect guide's ChatGPT and Chrome extension sections open with the 30-second
-  launch video of each (`public/videos`, 720p, served by the site itself so the page
+  launch video of each, full width of the section (`public/videos`, 720p, served by the site itself so the page
   still loads nothing from third parties; nothing downloads until Play). The Chrome
   clip links to its YouTube copy; the ChatGPT link appears once `chatgptVideoUrl` is set.
 
