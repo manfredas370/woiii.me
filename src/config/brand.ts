@@ -73,9 +73,8 @@ export const SERVICE = {
   chromeStoreUrl: "https://chromewebstore.google.com/detail/cppjgfnpdcalnpdlalhcadgbjaeginck",
   /** The plugin's page in ChatGPT's directory (published 2026-11-03). */
   chatgptPluginUrl: "https://chatgpt.com/plugins/plugin_asdk_app_6ad88fe37bd08191abfba06cf6371989",
-  /** The 30-second launch videos, also on YouTube; the site serves its own copies (public/videos). */
+  /** The Chrome launch video on YouTube (not embedded; the site serves its own copies in public/videos). */
   chromeVideoUrl: "https://www.youtube.com/watch?v=Ceg06MsRHvo",
-  chatgptVideoUrl: "",
   /** Places to ask: the Chrome side panel, ChatGPT, Claude. */
   surfaceCount: 3,
   /** Scoring lenses: best sound, most collectible. */
