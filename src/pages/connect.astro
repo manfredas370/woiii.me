@@ -4,10 +4,10 @@ import CodeBlock from "../components/CodeBlock.astro";
 import { BRAND, SERVICE, SUPPORT } from "../config/brand";
 
 const clients = [
-  { id: "claude", label: "Claude", note: "Web, desktop or mobile", icon: "/client-icons/claude.svg" },
   { id: "chatgpt", label: "ChatGPT", note: "Plugin directory", icon: "/client-icons/chatgpt.svg" },
-  { id: "codex", label: "Codex", note: "App or IDE", icon: "/client-icons/codex.svg" },
   { id: "extension", label: "Chrome extension", note: "Chrome Web Store", icon: "/client-icons/chrome.svg" },
+  { id: "claude", label: "Claude", note: "Web, desktop or mobile", icon: "/client-icons/claude.svg" },
+  { id: "codex", label: "Codex", note: "App or IDE", icon: "/client-icons/codex.svg" },
 ] as const;
 ---
 
@@ -28,33 +28,10 @@ const clients = [
         </p>
       </div>
       <div class="rail">
-        <details class="rail-item" id="claude" name="setup">
+        <details class="rail-item" id="chatgpt" name="setup">
           <summary class="rail-card">
             <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[0].icon} alt="" /></span>
             <span class="rail-copy"><span class="rail-label">{clients[0].label}</span><span class="rail-note">{clients[0].note}</span></span>
-          </summary>
-          <div class="rail-panel">
-            <p class="rail-req">Requires a Claude plan that allows custom connectors. Add it once in claude.ai or Claude Desktop and it works in the Claude mobile apps too.</p>
-            <ol class="steps rail-steps">
-              <li>
-                <p>Open <strong>Settings → Connectors</strong> in claude.ai or Claude Desktop.</p>
-              </li>
-              <li>
-                <p>Click <strong>Add custom connector</strong>, name it <code>{BRAND.name}</code>, and paste the server URL:</p>
-                <CodeBlock code={SERVICE.mcpUrl} />
-              </li>
-              <li>
-                <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect: your browser opens discogs.com, you approve read access (WOIII.me never gets more), and you're done.</p>
-              </li>
-              <li><p>Try it: <em>“What's the best-sounding pressing of OK Computer?”</em> Answers come as cards you can open, compare and switch between sound and collector.</p></li>
-            </ol>
-          </div>
-        </details>
-
-        <details class="rail-item" id="chatgpt" name="setup">
-          <summary class="rail-card">
-            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[1].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">{clients[1].label}</span><span class="rail-note">{clients[1].note}</span></span>
           </summary>
           <div class="rail-panel">
             <p class="rail-req">{BRAND.name} is listed in ChatGPT's plugin directory, so there is nothing to configure. Menu names vary a little between ChatGPT versions.</p>
@@ -75,27 +52,10 @@ const clients = [
             </figure>
           </div>
         </details>
-
-        <details class="rail-item" id="codex" name="setup">
-          <summary class="rail-card">
-            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[2].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">{clients[2].label}</span><span class="rail-note">{clients[2].note}</span></span>
-          </summary>
-          <div class="rail-panel">
-            <p class="rail-req">Codex clients on the same computer share their MCP server configuration.</p>
-            <ol class="steps rail-steps">
-              <li><p>Open <strong>Settings → MCP servers</strong> in Codex.</p></li>
-              <li><p>Select <strong>Add server</strong>, name it <code>woiii-me</code>, choose <strong>Streamable HTTP</strong>, and paste the server URL:</p><CodeBlock code={SERVICE.mcpUrl} /></li>
-              <li><p>Save the server, restart if prompted, then select <strong>Authenticate</strong> to complete the one-time Discogs sign-in.</p></li>
-              <li><p>Try it: <em>“Compare the best pressings of this album.”</em></p></li>
-            </ol>
-          </div>
-        </details>
-
         <details class="rail-item" id="extension" name="setup">
           <summary class="rail-card">
-            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[3].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">{clients[3].label}</span><span class="rail-note">{clients[3].note}</span></span>
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[1].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">{clients[1].label}</span><span class="rail-note">{clients[1].note}</span></span>
           </summary>
           <div class="rail-panel">
             <p class="rail-req">Free on the Chrome Web Store. Requires Chrome {SERVICE.chromeMinVersion}+ on a computer, and a Discogs account to sign in with.</p>
@@ -116,6 +76,43 @@ const clients = [
                 <source src="/videos/chrome-extension.mp4" type="video/mp4" />
               </video>
             </figure>
+          </div>
+        </details>
+        <details class="rail-item" id="claude" name="setup">
+          <summary class="rail-card">
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[2].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">{clients[2].label}</span><span class="rail-note">{clients[2].note}</span></span>
+          </summary>
+          <div class="rail-panel">
+            <p class="rail-req">Requires a Claude plan that allows custom connectors. Add it once in claude.ai or Claude Desktop and it works in the Claude mobile apps too.</p>
+            <ol class="steps rail-steps">
+              <li>
+                <p>Open <strong>Settings → Connectors</strong> in claude.ai or Claude Desktop.</p>
+              </li>
+              <li>
+                <p>Click <strong>Add custom connector</strong>, name it <code>{BRAND.name}</code>, and paste the server URL:</p>
+                <CodeBlock code={SERVICE.mcpUrl} />
+              </li>
+              <li>
+                <p>Start a new chat, open the tools menu, and enable the connector. On first use Claude asks you to connect: your browser opens discogs.com, you approve read access (WOIII.me never gets more), and you're done.</p>
+              </li>
+              <li><p>Try it: <em>“What's the best-sounding pressing of OK Computer?”</em> Answers come as cards you can open, compare and switch between sound and collector.</p></li>
+            </ol>
+          </div>
+        </details>
+        <details class="rail-item" id="codex" name="setup">
+          <summary class="rail-card">
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[3].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">{clients[3].label}</span><span class="rail-note">{clients[3].note}</span></span>
+          </summary>
+          <div class="rail-panel">
+            <p class="rail-req">Codex clients on the same computer share their MCP server configuration.</p>
+            <ol class="steps rail-steps">
+              <li><p>Open <strong>Settings → MCP servers</strong> in Codex.</p></li>
+              <li><p>Select <strong>Add server</strong>, name it <code>woiii-me</code>, choose <strong>Streamable HTTP</strong>, and paste the server URL:</p><CodeBlock code={SERVICE.mcpUrl} /></li>
+              <li><p>Save the server, restart if prompted, then select <strong>Authenticate</strong> to complete the one-time Discogs sign-in.</p></li>
+              <li><p>Try it: <em>“Compare the best pressings of this album.”</em></p></li>
+            </ol>
           </div>
         </details>
       </div>
