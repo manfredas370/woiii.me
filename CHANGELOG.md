@@ -2,6 +2,18 @@
 
 All notable changes to the woiii.me website are documented here.
 
+## [1.2.5] - 2026-11-04
+
+### Changed
+
+- The connect guide lists ChatGPT, the Chrome extension, Claude, then Codex.
+
+### Added
+
+- The connect guide's ChatGPT and Chrome extension sections end with the 30-second
+  launch video of each, below the steps, full width of the section (`public/videos`, 720p, served by the site itself so the page
+  still loads nothing from third parties; nothing downloads until Play), without a caption.
+
 ## [1.2.4] - 2026-11-04
 
 ### Changed

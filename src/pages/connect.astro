@@ -4,10 +4,10 @@ import CodeBlock from "../components/CodeBlock.astro";
 import { BRAND, SERVICE, SUPPORT } from "../config/brand";
 
 const clients = [
-  { id: "claude", label: "Claude", note: "Web, desktop or mobile", icon: "/client-icons/claude.svg" },
   { id: "chatgpt", label: "ChatGPT", note: "Plugin directory", icon: "/client-icons/chatgpt.svg" },
-  { id: "codex", label: "Codex", note: "App or IDE", icon: "/client-icons/codex.svg" },
   { id: "extension", label: "Chrome extension", note: "Chrome Web Store", icon: "/client-icons/chrome.svg" },
+  { id: "claude", label: "Claude", note: "Web, desktop or mobile", icon: "/client-icons/claude.svg" },
+  { id: "codex", label: "Codex", note: "App or IDE", icon: "/client-icons/codex.svg" },
 ] as const;
 ---
 
@@ -28,10 +28,60 @@ const clients = [
         </p>
       </div>
       <div class="rail">
-        <details class="rail-item" id="claude" name="setup">
+        <details class="rail-item" id="chatgpt" name="setup">
           <summary class="rail-card">
             <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[0].icon} alt="" /></span>
             <span class="rail-copy"><span class="rail-label">{clients[0].label}</span><span class="rail-note">{clients[0].note}</span></span>
+          </summary>
+          <div class="rail-panel">
+            <p class="rail-req">{BRAND.name} is listed in ChatGPT's plugin directory, so there is nothing to configure. Menu names vary a little between ChatGPT versions.</p>
+            <ol class="steps rail-steps">
+              <li>
+                <p>Open {BRAND.name} in ChatGPT's plugin directory and choose <strong>Install plugin</strong>. (Or, in ChatGPT's sidebar, open <strong>Plugins</strong> and search for <code>{BRAND.name}</code>.)</p>
+                <a class="store-button" href={SERVICE.chatgptPluginUrl} target="_blank" rel="noopener noreferrer">Open {BRAND.name} in ChatGPT</a>
+              </li>
+              <li>
+                <p>Choose <strong>Connect {BRAND.name}</strong>: your browser opens discogs.com, you approve read access ({BRAND.name} never gets more), and you're done.</p>
+              </li>
+              <li><p>Use one of the starter prompts, mention <strong>@{BRAND.name}</strong> in a chat, or open its home page from the sidebar. If you prefer a custom server over the directory plugin, the address is:</p><CodeBlock code={SERVICE.mcpUrl} /></li>
+            </ol>
+            <figure class="rail-clip">
+              <video controls preload="none" playsinline width="1280" height="720" poster="/videos/chatgpt-plugin.jpg" aria-label={`${BRAND.name} in ChatGPT, a 30-second clip`}>
+                <source src="/videos/chatgpt-plugin.mp4" type="video/mp4" />
+              </video>
+            </figure>
+          </div>
+        </details>
+        <details class="rail-item" id="extension" name="setup">
+          <summary class="rail-card">
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[1].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">{clients[1].label}</span><span class="rail-note">{clients[1].note}</span></span>
+          </summary>
+          <div class="rail-panel">
+            <p class="rail-req">Free on the Chrome Web Store. Requires Chrome {SERVICE.chromeMinVersion}+ on a computer, and a Discogs account to sign in with.</p>
+            <ol class="steps rail-steps">
+              <li>
+                <p>Open {BRAND.name} in the Chrome Web Store and click <strong>Add to Chrome</strong>, then <strong>Add extension</strong>. Updates install on their own.</p>
+                <a class="store-button" href={SERVICE.chromeStoreUrl} target="_blank" rel="noopener noreferrer">Get it on the Chrome Web Store</a>
+              </li>
+              <li>
+                <p>Optional: pin it. Click the puzzle-piece icon in Chrome's toolbar, then the pin next to {BRAND.name}.</p>
+              </li>
+              <li>
+                <p>Visit any release on <a href="https://www.discogs.com" target="_blank" rel="noopener noreferrer">discogs.com</a>, click the {BRAND.name} icon to open the side panel, and choose <strong>Connect with Discogs</strong>. From then on the panel scores whichever pressing you're looking at.</p>
+              </li>
+            </ol>
+            <figure class="rail-clip">
+              <video controls preload="none" playsinline width="1280" height="720" poster="/videos/chrome-extension.jpg" aria-label={`${BRAND.name} side panel in Chrome, a 30-second clip`}>
+                <source src="/videos/chrome-extension.mp4" type="video/mp4" />
+              </video>
+            </figure>
+          </div>
+        </details>
+        <details class="rail-item" id="claude" name="setup">
+          <summary class="rail-card">
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[2].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">{clients[2].label}</span><span class="rail-note">{clients[2].note}</span></span>
           </summary>
           <div class="rail-panel">
             <p class="rail-req">Requires a Claude plan that allows custom connectors. Add it once in claude.ai or Claude Desktop and it works in the Claude mobile apps too.</p>
@@ -50,31 +100,10 @@ const clients = [
             </ol>
           </div>
         </details>
-
-        <details class="rail-item" id="chatgpt" name="setup">
-          <summary class="rail-card">
-            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[1].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">{clients[1].label}</span><span class="rail-note">{clients[1].note}</span></span>
-          </summary>
-          <div class="rail-panel">
-            <p class="rail-req">{BRAND.name} is listed in ChatGPT's plugin directory, so there is nothing to configure. Menu names vary a little between ChatGPT versions.</p>
-            <ol class="steps rail-steps">
-              <li>
-                <p>Open {BRAND.name} in ChatGPT's plugin directory and choose <strong>Install plugin</strong>. (Or, in ChatGPT's sidebar, open <strong>Plugins</strong> and search for <code>{BRAND.name}</code>.)</p>
-                <a class="store-button" href={SERVICE.chatgptPluginUrl} target="_blank" rel="noopener noreferrer">Open {BRAND.name} in ChatGPT</a>
-              </li>
-              <li>
-                <p>Choose <strong>Connect {BRAND.name}</strong>: your browser opens discogs.com, you approve read access ({BRAND.name} never gets more), and you're done.</p>
-              </li>
-              <li><p>Use one of the starter prompts, mention <strong>@{BRAND.name}</strong> in a chat, or open its home page from the sidebar. If you prefer a custom server over the directory plugin, the address is:</p><CodeBlock code={SERVICE.mcpUrl} /></li>
-            </ol>
-          </div>
-        </details>
-
         <details class="rail-item" id="codex" name="setup">
           <summary class="rail-card">
-            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[2].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">{clients[2].label}</span><span class="rail-note">{clients[2].note}</span></span>
+            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[3].icon} alt="" /></span>
+            <span class="rail-copy"><span class="rail-label">{clients[3].label}</span><span class="rail-note">{clients[3].note}</span></span>
           </summary>
           <div class="rail-panel">
             <p class="rail-req">Codex clients on the same computer share their MCP server configuration.</p>
@@ -83,28 +112,6 @@ const clients = [
               <li><p>Select <strong>Add server</strong>, name it <code>woiii-me</code>, choose <strong>Streamable HTTP</strong>, and paste the server URL:</p><CodeBlock code={SERVICE.mcpUrl} /></li>
               <li><p>Save the server, restart if prompted, then select <strong>Authenticate</strong> to complete the one-time Discogs sign-in.</p></li>
               <li><p>Try it: <em>“Compare the best pressings of this album.”</em></p></li>
-            </ol>
-          </div>
-        </details>
-
-        <details class="rail-item" id="extension" name="setup">
-          <summary class="rail-card">
-            <span class="rail-logo-shell" aria-hidden="true"><img class="rail-logo" src={clients[3].icon} alt="" /></span>
-            <span class="rail-copy"><span class="rail-label">{clients[3].label}</span><span class="rail-note">{clients[3].note}</span></span>
-          </summary>
-          <div class="rail-panel">
-            <p class="rail-req">Free on the Chrome Web Store. Requires Chrome {SERVICE.chromeMinVersion}+ on a computer, and a Discogs account to sign in with.</p>
-            <ol class="steps rail-steps">
-              <li>
-                <p>Open {BRAND.name} in the Chrome Web Store and click <strong>Add to Chrome</strong>, then <strong>Add extension</strong>. Updates install on their own.</p>
-                <a class="store-button" href={SERVICE.chromeStoreUrl} target="_blank" rel="noopener noreferrer">Get it on the Chrome Web Store</a>
-              </li>
-              <li>
-                <p>Optional: pin it. Click the puzzle-piece icon in Chrome's toolbar, then the pin next to {BRAND.name}.</p>
-              </li>
-              <li>
-                <p>Visit any release on <a href="https://www.discogs.com" target="_blank" rel="noopener noreferrer">discogs.com</a>, click the {BRAND.name} icon to open the side panel, and choose <strong>Connect with Discogs</strong>. From then on the panel scores whichever pressing you're looking at.</p>
-              </li>
             </ol>
           </div>
         </details>
@@ -285,6 +292,21 @@ const clients = [
     color: rgba(255, 255, 255, 0.52);
     font-size: 0.95rem;
     line-height: 1.5;
+  }
+  /* the 30-second clip: nothing loads until it is played (preload="none") */
+  /* the panel is inset 116px on the left (text aligns with the title) and 28px on the
+     right; the clip takes the same inset on both sides, so it sits centred in the card */
+  .rail-clip {
+    margin: 24px 88px 0 0;
+  }
+  .rail-clip video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #000;
   }
   /* the home page's primary button, for the store link */
   .store-button {
@@ -502,6 +524,8 @@ const clients = [
     .rail-card { min-height: 112px; border-radius: 28px; padding: 22px 24px; }
     .rail-card::after { width: 38px; height: 38px; }
     .rail-panel { padding: 0 24px 28px; }
+    .rail-clip { margin: 20px 0 0; }
+    .rail-clip video { border-radius: 16px; }
     .guide { padding-block: 84px; }
     .guide h2 { font-size: 3.35rem; }
     .steps { margin-top: 40px; }
