@@ -60,7 +60,8 @@ const clients = [
             <p class="rail-req">{BRAND.name} is listed in ChatGPT's plugin directory, so there is nothing to configure. Menu names vary a little between ChatGPT versions.</p>
             <ol class="steps rail-steps">
               <li>
-                <p>In ChatGPT's sidebar open <strong>Plugins</strong>, search for <code>{BRAND.name}</code> and choose <strong>Install plugin</strong>.</p>
+                <p>Open {BRAND.name} in ChatGPT's plugin directory and choose <strong>Install plugin</strong>. (Or, in ChatGPT's sidebar, open <strong>Plugins</strong> and search for <code>{BRAND.name}</code>.)</p>
+                <a class="store-button" href={SERVICE.chatgptPluginUrl} target="_blank" rel="noopener noreferrer">Open {BRAND.name} in ChatGPT</a>
               </li>
               <li>
                 <p>Choose <strong>Connect {BRAND.name}</strong>: your browser opens discogs.com, you approve read access ({BRAND.name} never gets more), and you're done.</p>

@@ -2,6 +2,26 @@
 
 All notable changes to the woiii.me website are documented here.
 
+## [1.2.4] - 2026-11-04
+
+### Changed
+
+- The connect guide's ChatGPT section links straight to WOIII.me's page in ChatGPT's
+  plugin directory ("Open WOIII.me in ChatGPT"), with the sidebar search kept as the
+  alternative.
+- Footer: the earlier version's link reads "WOIII.me v1 · no longer developed".
+
+## [1.2.3] - 2026-11-03
+
+### Changed
+
+- Terms: the "Open-source software" section became "Licence". WOIII.me, the Chrome
+  extension and the ChatGPT and Claude plugins are proprietary, licensed for personal,
+  non-commercial use; the earlier version stays MIT in its public repository.
+- Footer: "Source code · MIT · DIG, v1" became "DIG v1 source · MIT · no longer developed".
+- The connect guide's ChatGPT section described the published directory plugin
+  (Plugins → Install plugin → Connect) instead of developer mode.
+
 ## [1.2.2] - 2026-10-26
 
 ### Changed

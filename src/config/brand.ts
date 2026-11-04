@@ -71,6 +71,8 @@ export const SERVICE = {
   chromeMinVersion: "114",
   /** The extension's Chrome Web Store listing (unlisted: reachable by link, not by search). */
   chromeStoreUrl: "https://chromewebstore.google.com/detail/cppjgfnpdcalnpdlalhcadgbjaeginck",
+  /** The plugin's page in ChatGPT's directory (published 2026-11-03). */
+  chatgptPluginUrl: "https://chatgpt.com/plugins/plugin_asdk_app_6ad88fe37bd08191abfba06cf6371989",
   /** Places to ask: the Chrome side panel, ChatGPT, Claude. */
   surfaceCount: 3,
   /** Scoring lenses: best sound, most collectible. */
